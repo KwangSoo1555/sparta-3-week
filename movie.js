@@ -8,7 +8,7 @@ const options = {
     }
 };
 
-const movieData = [];
+movieData = [];
 
 async function getdata() {
     const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
@@ -42,8 +42,8 @@ function makeCard(item, count) {
     const movieDiv = `
     <div class="col" id="movieCard${count}">
         <div class="card h-100">
-            <div onclick="alert('영화 id: ${item.movie_id}')">
-                <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
+            <div>
+                 <a href="./movie_card.html?id=${item.movie_id}"><img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중"></a>
             </div>
             <div class="card-body">
                 <h5 class="card-title" id="movieTitle${count}">${item.title}</h5>
@@ -55,8 +55,10 @@ function makeCard(item, count) {
         </div>
     </div>
     `;
-    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
+
+    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
 }
+
 
 // 검색 구현
 function movieSearch() {
@@ -109,10 +111,10 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-    
-    document.getElementById("searchbtn").addEventListener("click", movieSearch);
-    document.getElementById("search").focus();
-    document.getElementById("search").addEventListener('keydown', event => {
+
+    document.getElementById("searchbtn")?.addEventListener("click", movieSearch);
+    document.getElementById("search")?.focus();
+    document.getElementById("search")?.addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
