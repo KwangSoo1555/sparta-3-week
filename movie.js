@@ -1,4 +1,3 @@
-
 // api 가져오기
 const options = {
     method: 'GET',
@@ -118,3 +117,13 @@ const print = async () => {
 }
 
 print();
+
+// detail page
+
+function cardClickEvent() {
+const clickCard = document.querySelector(`#movieCard${count}`);
+clickCard.addEventListener('click', () => {
+
+    location.replace()
+})
+}
