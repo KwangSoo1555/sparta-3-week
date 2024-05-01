@@ -21,11 +21,11 @@ function make_movie() {
     const movieDiv = `
     <div class="card h-100">
         <div>
-            <img src="https://image.tmdb.org/t/p/w500${movie_info['poster_path']}" class="card-img-top" alt="이미지 준비중">
+            <img src="https://image.tmdb.org/t/p/w500${movie_info['poster_path']}" class="movie-img-top" alt="이미지 준비중">
         </div>
         <div class="card-body">
-            <h5 class="card-title">${movie_info['title']}</h5>
-            <p class="card-text">${movie_info['overview']}</p>
+            <h5 class="movie-title">${movie_info['title']}</h5>
+            <p class="movie-text">${movie_info['overview']}</p>
         </div>
         <div class="card-footer">
             <small class="text-body-secondary">★ ${movie_info['vote_average']}</small>
