@@ -40,10 +40,10 @@ function makeCard(item, count) {
     // }
 
     const movieDiv = `
-    <div class="col" id="movieCard${count}">
+    <div class="col" id="movieCard${count}" onclick="subPageOpen(${item.movie_id})">
         <div class="card h-100">
             <div>
-                 <a href="./movie_page.html?id=${item.movie_id}"><img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중"></a>
+                <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
             <div class="card-body">
                 <h5 class="card-title" id="movieTitle${count}">${item.title}</h5>
@@ -117,6 +117,13 @@ const print = async () => {
     document.getElementById("search")?.addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
+}
+
+// 서브 페이지 열기
+function subPageOpen(clickMovieId) {
+    const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
+    localStorage.setItem("movie-info", JSON.stringify(clickedData));
+    window.location.href = `movie_page.html`;
 }
 
 print();

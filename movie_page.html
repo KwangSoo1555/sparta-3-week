@@ -7,60 +7,55 @@
     <title>Document</title>
     <style>
         @import "movie_page.css";
+        @import "(reset).css";
     </style>
-    <script src="./movie.js"></script>
-    <script src="./movie_page.js"></script>
 </head>
 
 <body>
     <div class="head">
         <a href="./index.html">돌아가기</a>
     </div>
-    <div id="movie_page">
-    </div>
-    <div class="content">
-        <img src="https://image.tmdb.org/t/p/w500/I1fkNd5CeJGv56mhrTDoOeMc2r.jpg" class="movie_img">
-        <h1 class="movie_title">영화 제목입니당</h1>
-        <p class="movie_info">영화 설명이자 영화 줄거리 주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절</p>
-        <p class="movie_actor">주연 배우: 김땡땡, 최별별, 이퐁퐁</p>
-    </div>
 
-    <!-- <button onclick="open_review()">리뷰 보기</button> -->
+    <div class="subpagecard" id="subpagecard">
 
-    <div class="review">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">이름</label>
-            <input type="text" class="form-control" id="review_name">
+        <button onclick="open_review()">리뷰 보기</button>
+
+        <div class="review">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">이름</label>
+                <input type="text" class="form-control" id="review_name">
+            </div>
+            <div class="mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                <select class="form-select" id="review_star">
+                    <option selected>별점을 골라주세요</option>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="5">★★★★★</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
+                <textarea class="form-control" id="review_content" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
+                <input type="text" class="form-control" id="review_pw">
+            </div>
+            <button onclick="review_save()">저장하기</button>
         </div>
-        <div class="mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">별점</label>
-            <select class="form-select" id="review_star">
-                <option selected>별점을 골라주세요</option>
-                <option value="1">★</option>
-                <option value="2">★★</option>
-                <option value="3">★★★</option>
-                <option value="4">★★★★</option>
-                <option value="5">★★★★★</option>
-            </select>
+        <div class="review_card" style="width: 18rem;" id="review_card">
+            <div class="card-body">
+                <h4 class="card-title">이름</h4>
+                <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
+                <p class="card-text">리뷰 내용</p>
+                <a href="#" class="card-link">수정</a>
+                <a href="#" class="card-link">삭제</a>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
-            <textarea class="form-control" id="review_content" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
-            <input type="text" class="form-control" id="review_pw">
-        </div>
-        <button onclick="review_save()">저장하기</button>
-    </div>
-    <div class="review_card" style="width: 18rem;" id="review_card">
-        <div class="card-body">
-            <h4 class="card-title">이름</h4>
-            <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
-            <p class="card-text">리뷰 내용</p>
-            <a href="#" class="card-link">수정</a>
-            <a href="#" class="card-link">삭제</a>
-        </div>
+        <script src="./movie_page.js" defer></script>
     </div>
 </body>
 
