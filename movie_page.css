@@ -1,0 +1,56 @@
+
+
+.content {
+    display: grid;
+    background-color: green;
+    margin: 30px;
+}
+
+.movie_img {
+    width: 500px;
+    grid-area: 1/1 / 5/1;
+    place-items: center;
+    align-items: center;
+}
+
+.movie_title {
+    grid-area: 1/2 / 1/2;
+}
+
+.movie_info {
+    background-color: blue;
+    width: 500px;
+    grid-area: 2/2 / 4/2;
+}
+
+.movie_actor {
+    grid-area: 5/2 / 5/2;
+}
+
+
+.review {
+    background-color: purple;
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
+}
+
+.mb-3 {
+    scale: 150%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mb-3>label {
+    margin-right: 10px;
+}
+
+.review_card {
+    background-color: aqua;
+}
