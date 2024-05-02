@@ -59,6 +59,7 @@ function makeCard(item, count) {
     document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
 }
 
+
 // 검색 구현
 function movieSearch() {
     // 검색한 값
