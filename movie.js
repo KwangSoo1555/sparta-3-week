@@ -8,7 +8,7 @@ const options = {
     }
 };
 
-movieData = [];
+const movieData = [];
 
 async function getdata() {
     const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
