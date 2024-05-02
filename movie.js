@@ -40,9 +40,9 @@ function makeCard(item, count) {
     // }
 
     const movieDiv = `
-    <div class="col" id="movieCard${count}">
+    <div class="col" id="movieCard${count}" onclick="subPageOpen(${item.movie_id})">
         <div class="card h-100">
-            <div onclick="alert('영화 id: ${item.movie_id}'),window.location.href='file:///C:/Users/User/Desktop/JS/%EC%97%B0%EC%8A%B5%ED%8F%B4%EB%8D%94/newprac.html'">
+            <div>
                 <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
             <div class="card-body">
@@ -55,7 +55,8 @@ function makeCard(item, count) {
         </div>
     </div>
     `;
-    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
+
+    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
 }
 
 // 검색 구현
@@ -109,13 +110,19 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-    
-    document.getElementById("searchbtn").addEventListener("click", movieSearch);
-    document.getElementById("search").focus();
-    document.getElementById("search").addEventListener('keydown', event => {
+
+    document.getElementById("searchbtn")?.addEventListener("click", movieSearch);
+    document.getElementById("search")?.focus();
+    document.getElementById("search")?.addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
- 
- 
+
+// 서브 페이지 열기
+function subPageOpen(clickMovieId) {
+    const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
+    localStorage.setItem("movie-info", JSON.stringify(clickedData));
+    window.location.href = `movie_page.html`;
+}
+
 print();
