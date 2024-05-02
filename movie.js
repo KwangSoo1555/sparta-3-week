@@ -33,9 +33,9 @@ async function getdata() {
 function makeCard(item, count) {
 
     const movieDiv = `
-    <div class="col" id="movieCard${count}">
+    <div class="col" id="movieCard${count}" onclick="subPageOpen(${item.movie_id})">
         <div class="card h-100">
-            <div onclick="alert('영화 id: ${item.movie_id}')">
+            <div>
                 <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
             <div class="card-body">
@@ -48,13 +48,8 @@ function makeCard(item, count) {
         </div>
     </div>
     `;
-    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
 
-    const clickCard = document.querySelector(`#movieCard${count}`);
-    clickCard.addEventListener('click', () => {
-        history.pushState({}, '', 'details.html');
-    });
-
+    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
 }
 
 // 검색 구현
@@ -108,7 +103,7 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-
+    
     document.getElementById("searchbtn").addEventListener("click", movieSearch);
     document.getElementById("search").focus();
     document.getElementById("search").addEventListener('keydown', event => {
@@ -117,16 +112,3 @@ const print = async () => {
 }
 
 print();
-
-// detail page
-
-// function cardClickEvent(count) {
-// const clickCard = document.querySelector(`#movieCard${count}`);
-// console.log(clickCard)
-
-// clickCard.addEventListener('click', () => {
-//     console.log('true')
-//     document.querySelector(`#movieCard${count}`).setAttribute("style", "display: none;");
-
-// })
-// }
