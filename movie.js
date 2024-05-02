@@ -42,7 +42,7 @@ function makeCard(item, count) {
     const movieDiv = `
     <div class="col" id="movieCard${count}">
         <div class="card h-100">
-            <div onclick="alert('영화 id: ${item.movie_id}')">
+            <div onclick="alert('영화 id: ${item.movie_id}'),window.location.href='file:///C:/Users/User/Desktop/JS/%EC%97%B0%EC%8A%B5%ED%8F%B4%EB%8D%94/newprac.html'">
                 <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
             <div class="card-body">
@@ -116,5 +116,6 @@ const print = async () => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
-
+ 
+ 
 print();
