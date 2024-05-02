@@ -5,9 +5,8 @@ async function getdata() {
 
     return movieData;
 }
-console.log(getdata())
 
-function createSubPageCard(movieData, subPageCard) {
+function createSubPageCard(movieData) {
     // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
@@ -25,14 +24,13 @@ function createSubPageCard(movieData, subPageCard) {
                 </div>
             </div>
             `;
-    subPageCard.insertAdjacentHTML('beforebegin', subPageMovieDiv);
+
+    document.querySelector("#subpagecard").insertAdjacentHTML('beforeend', subPageMovieDiv);
 }
 
 const print = async () => {
     const data = await getdata();
-    const subPageCard = document.querySelector("#subpagecard");
-    
-    createSubPageCard(data, subPageCard);
+    createSubPageCard(data);
 }
 
 print();
