@@ -1,7 +1,7 @@
 async function getdata() {
     // localStorage에서 데이터 가져오기
     const movieInfo = sessionStorage.getItem('movie-info');
-    movieData = await JSON.parse(movieInfo);
+    const movieData = await JSON.parse(movieInfo);
 
     return movieData;
 }
@@ -33,7 +33,6 @@ const print = async () => {
     const data = await getdata();
 
     createSubPageCard(data);
-    sessionStorage.clear();
 }
 
 print();
