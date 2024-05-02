@@ -25,7 +25,7 @@ function createSubPageCard(movieData, subPageCard) {
                 </div>
             </div>
             `;
-    subPageCard.insertAdjacentHTML('beforeend', subPageMovieDiv);
+    subPageCard.insertAdjacentHTML('beforebegin', subPageMovieDiv);
 }
 
 const print = async () => {
@@ -36,3 +36,25 @@ const print = async () => {
 }
 
 print();
+
+function review_save() {
+    console.log("잘 됨");
+    console.log(document.querySelector("#review_name").value);
+
+    localStorage.setItem("review_name", document.querySelector("#review_name").value);
+    make_review_card();
+    window.location.reload();
+}
+
+function make_review_card() {
+    const review_div = `
+    <div class="card-body">
+        <h4 class="card-title">이름</h4>
+        <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
+        <p class="card-text">리뷰 내용</p>
+        <a href="#" class="card-link">수정</a>
+        <a href="#" class="card-link">삭제</a>
+    </div>
+    `;
+    document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
+}
