@@ -12,8 +12,7 @@ const movieData = [];
 async function getdata() {
     const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
     const data = await response.json();
-
-
+    console.log(data)
     // api key 뽑기
     for (item of data['results']) {
         const movie = {};
@@ -30,13 +29,8 @@ async function getdata() {
 };
 
 // 카드 만들기
+
 function makeCard(item, count) {
-    // 오리지널 타이틀을 넣으려 했던 흔적 (실패함)
-    // function checkOriginalTitle() {
-    //     if (item.title !== item.original_title) {
-    //         return "(" + item.original_title + ")";
-    //     };
-    // }
 
     const movieDiv = `
     <div class="col" id="movieCard${count}">
@@ -55,6 +49,12 @@ function makeCard(item, count) {
     </div>
     `;
     document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
+
+    const clickCard = document.querySelector(`#movieCard${count}`);
+    clickCard.addEventListener('click', () => {
+        history.pushState({}, '', 'details.html');
+    });
+
 }
 
 // 검색 구현
@@ -108,7 +108,7 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-    
+
     document.getElementById("searchbtn").addEventListener("click", movieSearch);
     document.getElementById("search").focus();
     document.getElementById("search").addEventListener('keydown', event => {
@@ -120,10 +120,13 @@ print();
 
 // detail page
 
-function cardClickEvent() {
-const clickCard = document.querySelector(`#movieCard${count}`);
-clickCard.addEventListener('click', () => {
+// function cardClickEvent(count) {
+// const clickCard = document.querySelector(`#movieCard${count}`);
+// console.log(clickCard)
 
-    location.replace()
-})
-}
+// clickCard.addEventListener('click', () => {
+//     console.log('true')
+//     document.querySelector(`#movieCard${count}`).setAttribute("style", "display: none;");
+
+// })
+// }
