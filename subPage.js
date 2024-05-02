@@ -1,12 +1,12 @@
 async function getdata() {
     // localStorage에서 데이터 가져오기
-    const movieInfo = localStorage.getItem('movie-info');
+    const movieInfo = sessionStorage.getItem('movie-info');
     movieData = await JSON.parse(movieInfo);
 
     return movieData;
 }
 
-function createSubPageCard(movieData, subPageCard) {
+function createSubPageCard(movieData) {
     // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
@@ -24,14 +24,16 @@ function createSubPageCard(movieData, subPageCard) {
                 </div>
             </div>
             `;
-    subPageCard.insertAdjacentHTML('beforeend', subPageMovieDiv);
+    document
+        .querySelector("#subpagecard")
+        .insertAdjacentHTML('beforeend', subPageMovieDiv);
 }
 
 const print = async () => {
     const data = await getdata();
-    const subPageCard = document.querySelector("#subpagecard");
-    
-    createSubPageCard(data, subPageCard);
+
+    createSubPageCard(data);
+    sessionStorage.clear();
 }
 
 print();

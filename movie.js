@@ -120,7 +120,7 @@ const print = async () => {
 // 서브 페이지 열기
 function subPageOpen(clickMovieId) {
     const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
-    localStorage.setItem("movie-info", JSON.stringify(clickedData));
+    sessionStorage.setItem("movie-info", JSON.stringify(clickedData));
     window.location.href = `subPage.html`;
 }
 
