@@ -6,13 +6,11 @@ const movie_info = {};
 async function info_of_id() {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=ko`, options);
     const data = await response.json();
-    console.log(response);
 
     movie_info['title'] = data['title'];
     movie_info['overview'] = data['overview'];
     movie_info['poster_path'] = data['poster_path'];
     movie_info['vote_average'] = data['vote_average'];
-    console.log(movie_info);
 
     return movie_info;
 }
@@ -34,7 +32,7 @@ function make_movie() {
         
     `;
 
-    document.querySelector("#test")?.insertAdjacentHTML('beforeend', movieDiv);
+    document.querySelector("#movie_page")?.insertAdjacentHTML('beforeend', movieDiv);
 
 }
 

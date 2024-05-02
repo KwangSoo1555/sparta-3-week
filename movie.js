@@ -43,7 +43,7 @@ function makeCard(item, count) {
     <div class="col" id="movieCard${count}">
         <div class="card h-100">
             <div>
-                 <a href="./movie_card.html?id=${item.movie_id}"><img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중"></a>
+                 <a href="./movie_page.html?id=${item.movie_id}"><img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중"></a>
             </div>
             <div class="card-body">
                 <h5 class="card-title" id="movieTitle${count}">${item.title}</h5>
