@@ -38,7 +38,7 @@ function make_movie() {
 
 async function movie_print() {
     await info_of_id();
-    make_movie();
+    // make_movie();
 }
 
 movie_print();
