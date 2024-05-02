@@ -18,11 +18,11 @@ async function getdata() {
     // api key 뽑기
     for (item of data['results']) {
         const movie = {};
+        movie['movie_id'] = item['id'];
         movie['title'] = item['title'];
         movie['overview'] = item['overview'];
         movie['poster_path'] = item['poster_path'];
         movie['vote_average'] = item['vote_average'];
-        movie['movie_id'] = item['id'];
         movie['original_title'] = item['original_title'];
 
         movieData.push(movie);
@@ -42,7 +42,7 @@ function makeCard(item, count) {
     const movieDiv = `
     <div class="col" id="movieCard${count}">
         <div class="card h-100">
-            <div onclick="alert('영화 id: ${item.movie_id}')">
+            <div onclick="subPageOpen(${item.movie_id})">
                 <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
             <div class="card-body">
@@ -109,12 +109,21 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-    
+
     document.getElementById("searchbtn").addEventListener("click", movieSearch);
     document.getElementById("search").focus();
     document.getElementById("search").addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
+}
+
+// 서브 페이지 열기
+function subPageOpen(clickMovieId) {
+    console.log(clickMovieId);
+    const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
+    console.log(clickedData);
+    localStorage.setItem("movie-info", JSON.stringify(clickedData));
+    window.location.href = `subPage.html`;
 }
 
 print();
