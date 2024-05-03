@@ -3,10 +3,6 @@
     scale: 50%;
 }
 
-.subpagecard {
-
-}
-
 .content {
     display: grid;
     background-color: green;
@@ -66,8 +62,4 @@
 .review_card_body {
     background-color: aqua;
     height: 300px;
-}
-
-#review_adj_modal {
-    /* position: fixed; */
 }
