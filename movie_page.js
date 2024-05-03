@@ -65,7 +65,6 @@ class Review {
 }
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
-
 const targetButtonPop = document.getElementById('button-pop');
 const targetButtonPopClose = document.getElementById('close-pop');
 const firstReviewPop = document.getElementById('review-pop-info-1');
