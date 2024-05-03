@@ -52,5 +52,11 @@
 }
 
 .review_card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.review_card_body {
     background-color: aqua;
+    height: 200px;
 }
