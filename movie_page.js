@@ -1,6 +1,21 @@
 // localStorage에서 데이터 가져오기
+let Movie_id = 0;
+let num = 0;
+let reviewArr = [];
+
 async function getdata() {
     const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
+
+    Movie_id = await movieData.movie_id
+
+    const ReviewData = await JSON.parse(localStorage.getItem(Movie_id));
+
+    if (ReviewData !== null) {
+        reviewArr = ReviewData;
+        console.log(reviewArr);
+        num = reviewArr.length;
+    }
+
     return movieData;
 }
 
@@ -29,9 +44,25 @@ function createSubPageCard(movieData) {
 const print = async () => {
     const data = await getdata();
     createSubPageCard(data);
+    reviewPrint();
 }
 
-print();
+function reviewPrint() {
+    remove_cards();
+    reviewArr.forEach(data => {
+        make_review_card(data);
+    });
+}
+
+class Review {
+    constructor(num, name, star, comment, passward) {
+        this._num = num;
+        this._name = name;
+        this._star = star;
+        this._comment = comment;
+        this._passward = passward;
+    }
+}
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
 
@@ -149,3 +180,41 @@ const registReview = async () => {
 }
 
 registReview();
+
+
+// function make_review_card(review) {
+//     const review_div = `
+//     <div class="card-body">
+//         <h4 class="card-title">${review._name}</h4>
+//         <h6 class="card-subtitle mb-2 text-body-secondary">${review._star}</h6>
+//         <p class="card-text">${review._comment}</p>
+//         <a href="#" class="card-link">수정</a>
+//         <a href="#" class="card-link">삭제</a>
+//     </div>
+//     `;
+//     document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
+// }
+
+// async function save_btn() {
+
+//     const newReview = new Review(num,
+//         document.querySelector("#review_name").value,
+//         document.querySelector("#review_star").value,
+//         document.querySelector("#review_content").value,
+//         document.querySelector("#review_pw").value);
+//     num++;
+//     reviewArr.push(newReview);
+
+//     reviewPrint();
+
+//     localStorage.removeItem(Movie_id);
+//     localStorage.setItem(Movie_id, JSON.stringify(reviewArr));
+// }
+
+// function remove_cards() {
+//     const cardlist = document.getElementById('review_card');
+
+//     cardlist.innerHTML = "";
+// }
+
+// print();
