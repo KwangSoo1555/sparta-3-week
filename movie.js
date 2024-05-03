@@ -18,11 +18,11 @@ async function getdata() {
     // api key 뽑기
     for (item of data['results']) {
         const movie = {};
+        movie['movie_id'] = item['id'];
         movie['title'] = item['title'];
         movie['overview'] = item['overview'];
         movie['poster_path'] = item['poster_path'];
         movie['vote_average'] = item['vote_average'];
-        movie['movie_id'] = item['id'];
         movie['original_title'] = item['original_title'];
 
         movieData.push(movie);
@@ -112,9 +112,9 @@ const print = async () => {
         count++;
     });
 
-    document.getElementById("searchbtn")?.addEventListener("click", movieSearch);
-    document.getElementById("search")?.focus();
-    document.getElementById("search")?.addEventListener('keydown', event => {
+    document.getElementById("searchbtn").addEventListener("click", movieSearch);
+    document.getElementById("search").focus();
+    document.getElementById("search").addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
@@ -122,8 +122,8 @@ const print = async () => {
 // 서브 페이지 열기
 function subPageOpen(clickMovieId) {
     const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
-    localStorage.setItem("movie-info", JSON.stringify(clickedData));
-    window.location.href = `movie_page.html`;
+    sessionStorage.setItem("movie-info", JSON.stringify(clickedData));
+    window.location.href = `movie_page.html?id=${clickMovieId}`;
 }
 
 print();
