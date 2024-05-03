@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import "movie_page.css";
         @import "(reset).css";
@@ -19,12 +17,40 @@
     </div>
 
     <div class="subpagecard" id="subpagecard">
-        <!-- <div id="movie_page">
+
+        <button onclick="open_review()">리뷰 보기</button>
+
+        <div class="review">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">이름</label>
+                <input type="text" class="form-control" id="review_name">
+            </div>
+            <div class="mb-3">
+                <label class="input-group-text" for="inputGroupSelect01" >별점</label>
+                <select class="form-select" id="review_star">
+                    <option selected>별점을 골라주세요</option>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="5">★★★★★</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
+                <textarea class="form-control" id="review_content" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
+                <input type="text" class="form-control" id="review_pw">
+            </div>
+            <button onclick="save_btn()">저장하기</button>
+        </div>
+        <div class="review_card" style="width: 18rem;" id="review_card">
+            
+        </div>
+        <script src="./movie_page.js" defer></script>
     </div>
-    <div class="content">
-       // <img src="https://image.tmdb.org/t/p/w500/I1fkNd5CeJGv56mhrTDoOeMc2r.jpg" class="movie_img">
-        <h1 class="movie_title">영화 제목입니당</h1>
-        <p class="movie_info">영화 설명이자 영화 줄거리 주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절</p>
-        <p class="movie_actor">주연 배우: 김땡땡, 최별별, 이퐁퐁</p>
-    </div> -->
-   
+</body>
+
+</html>

@@ -18,12 +18,15 @@ async function getdata() {
     // api key 뽑기
     for (item of data['results']) {
         const movie = {};
+        movie['movie_id'] = item['id'];
         movie['title'] = item['title'];
         movie['overview'] = item['overview'];
         movie['poster_path'] = item['poster_path'];
         movie['vote_average'] = item['vote_average'];
-        movie['movie_id'] = item['id'];
         movie['original_title'] = item['original_title'];
+        movie['popularity'] = item['popularity']; //인기순.
+        movie['release_date'] = item['release_date']; //개봉날짜
+
 
         movieData.push(movie);
     };
@@ -58,6 +61,7 @@ function makeCard(item, count) {
 
     document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
 }
+
 
 // 검색 구현
 function movieSearch() {
@@ -111,9 +115,9 @@ const print = async () => {
         count++;
     });
 
-    document.getElementById("searchbtn")?.addEventListener("click", movieSearch);
-    document.getElementById("search")?.focus();
-    document.getElementById("search")?.addEventListener('keydown', event => {
+    document.getElementById("searchbtn").addEventListener("click", movieSearch);
+    document.getElementById("search").focus();
+    document.getElementById("search").addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
@@ -121,8 +125,60 @@ const print = async () => {
 // 서브 페이지 열기
 function subPageOpen(clickMovieId) {
     const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
-    localStorage.setItem("movie-info", JSON.stringify(clickedData));
-    window.location.href = `movie_page.html`;
+    sessionStorage.setItem("movie-info", JSON.stringify(clickedData));
+    window.location.href = `movie_page.html?id=${clickMovieId}`;
 }
 
 print();
+
+
+//드랍다운 하는중
+//메인페이지 드랍다운 하는중
+document.addEventListener("DOMContentLoaded", function() {
+    var dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            
+            if (item.textContent === "인기순") {
+                // 인기순으로 카드가 붙어야함. data에서 popularity 이게 높은순
+                // alert('인기순')
+                const sortedData = movieData.sort((a, b) => b.popularity - a.popularity);
+                console.log(sortedData)
+                resetCard();
+                sortedData.forEach((item) => {
+                    makeCard(item);
+                });
+
+            } else if (item.textContent === "평점순"){
+                // alert('평점순')
+                const sortedData = movieData.sort((a, b) => b.vote_average - a.vote_average);
+                resetCard();
+                console.log(sortedData) //데이터
+                sortedData.forEach((item) => {
+                    makeCard(item);
+                });
+            } else if (item.textContent === "최신순"){
+                // alert('최신순')
+                const sortedData = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+                console.log(sortedData)
+                resetCard();
+                sortedData.forEach((item) => {
+                    makeCard(item);
+                });
+
+            } else {
+                // alert('제목순')
+                const sortedData = movieData.sort((a, b) => a.title .localeCompare(b.title)); //.localeCompare
+                resetCard();
+                sortedData.forEach((item) => {
+                    makeCard(item);
+                });
+            }
+        });
+    });
+});
+// 카드 초기화
+function resetCard() {
+    document.querySelector("#moviecard").innerHTML = ""; // 모든 카드 삭제
+    document.querySelector("#searchbar").value = ""; // 검색창 초기화
+}

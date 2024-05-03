@@ -130,3 +130,17 @@ body {
     font-size: large;
 }
 
+/* 추가중 */
+
+.drop {
+    margin-left: 1200px;
+}
+
+.dropdown-menu{
+    background-color: black;
+  
+}
+
+.dropdown-menu .dropdown-item {
+    color: white; 
+}
