@@ -1,4 +1,40 @@
+/* review popup modal */
+.review-pop {
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
+}
 
+.pop-info-1 {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: 50vh;
+}
+
+.pop-info-2 {
+    width: 30vw;
+    height: 30vh;
+}
+
+.go-to-toggle {
+    cursor: pointer;
+}
+
+.modal-cancel {
+    cursor: pointer;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 1vw;
+    right: 1vw;
+}
+
+.pop
 
 .content {
     display: grid;
@@ -29,16 +65,16 @@
 
 
 .review {
-    background-color: purple;
-    height: 200px;
-
     display: flex;
     flex-direction: column;
-    align-items: right;
-    justify-content: right;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background-color: purple;
 }
 
-.mb-3 {
+/* .mb-3 {
     scale: 150%;
     margin: auto;
 
@@ -49,7 +85,7 @@
 
 .mb-3>label {
     margin-right: 10px;
-}
+} */
 
 .review_card {
     background-color: aqua;

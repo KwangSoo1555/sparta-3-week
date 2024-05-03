@@ -1,13 +1,11 @@
+// localStorage에서 데이터 가져오기
 async function getdata() {
-    // localStorage에서 데이터 가져오기
-    const movieInfo = localStorage.getItem('movie-info');
-    const movieData = await JSON.parse(movieInfo);
-
+    const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
     return movieData;
 }
 
+// 서브 페이지 카드 만들기
 function createSubPageCard(movieData) {
-    // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
                 <div class="card h-100">
@@ -35,19 +33,109 @@ const print = async () => {
 
 print();
 
-function review_save() {
-    console.log("잘 됨");
-    console.log(document.querySelector("#review_name").value);
+// 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
 
-    localStorage.setItem("review_name", document.querySelector("#review_name").value);
-    make_review_card();
-    window.location.reload();
+const targetButtonPop = document.getElementById('button-pop');
+const targetButtonPopClose = document.getElementById('close-pop');
+const firstReviewPop = document.getElementById('review-pop-info-1');
+const secondReviewPop = document.getElementById('review-pop-info-2');
+const toggleToFirstButton = document.getElementById('go-to-first-pop');
+const toggleToSecondButton = document.getElementById('go-to-second-pop');
+
+const checkReviewName = document.getElementById('review-name');
+const checkReviewContext = document.getElementById('review-context');
+const checkReviewPW = document.getElementById('review-pw');
+
+
+// 1-1. 팝업 핸들링 및 유효성 검사
+let isPopUpOpen = false;
+let isSaveClientInfo = false;
+
+function openFirstPopUp(event) {
+    event.stopPropagation();
+    firstReviewPop.style.display = 'block';
+    secondReviewPop.style.display = 'none';
+    firstReviewPop.style.position = 'absolute';
+
+    isPopUpOpen = true;
 }
 
-function make_review_card() {
+function openSecondPopUp(event) {
+    event.stopPropagation();
+
+    if (checkReviewName.value.length < 3 ||
+        checkReviewName.value.split('').includes(' ') ||
+        checkReviewContext.value.length < 5 ||
+        checkReviewPW.value.length < 4) {
+        // 리뷰 작성 유효성 추가 검사 필요 시 조건 추가 가능
+
+        secondReviewPop.style.display = 'block';
+        firstReviewPop.style.display = 'none';
+        secondReviewPop.style.position = 'absolute';
+    } else {
+        alert('정보가 저장되었습니다.');
+
+        reviewSave();
+
+        firstReviewPop.style.display = 'none';
+        secondReviewPop.style.display = 'none';
+    }
+    isPopUpOpen = true;
+}
+
+function closePopUp() {
+    firstReviewPop.style.display = 'none';
+    secondReviewPop.style.display = 'none';
+    isPopUpOpen = false;
+}
+
+toggleToSecondButton.addEventListener('click', openSecondPopUp);
+toggleToFirstButton.addEventListener('click', openFirstPopUp);
+
+targetButtonPop.addEventListener('click', openFirstPopUp);
+targetButtonPopClose.addEventListener('click', closePopUp);
+
+document.addEventListener('click', function (event) {
+    if (!firstReviewPop.contains(event.target) &&
+        !targetButtonPop.contains(event.target) &&
+        !secondReviewPop.contains(event.target)) {
+        closePopUp();
+    }
+});
+
+// 1-3. 팝업 취소 버튼
+const cancelPopUpButton = document.getElementsByClassName('modal-cancel-button');
+
+for (const button of cancelPopUpButton) {
+    button.addEventListener('click', () => {
+        closePopUp();
+        checkReviewName.value = '';
+        checkReviewContext.value = '';
+        checkReviewPW.value = '';
+    });
+}
+
+// 1-4. 유효성 검사가 통과된 각 value들을 local storage에 순차로 저장
+const reviewDataArr = [];
+
+function reviewSave() {
+    const reviewData = {
+        client_name: checkReviewName.value,
+        client_review_context: checkReviewContext.value,
+        review_password: checkReviewPW.value
+    };
+
+    const reviewStorageData = localStorage.setItem("review_data" + reviewDataArr.length, JSON.stringify(reviewData));
+    reviewDataArr.push(reviewData);
+    return reviewDataArr;
+}
+console.log(reviewDataArr);
+
+// 2. 작성된 리뷰는 local storage에 저장된 값으로만 수정, 삭제 기능 구현
+function registReview() {
     const review_div = `
     <div class="card-body">
-        <h4 class="card-title">이름</h4>
+        <h4 class="card-title">이름: </h4>
         <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
         <p class="card-text">리뷰 내용</p>
         <a href="#" class="card-link">수정</a>
