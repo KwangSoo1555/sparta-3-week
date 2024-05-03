@@ -29,17 +29,36 @@
 
 
 .review {
-    background-color: purple;
-    height: 200px;
-
+    background-color: rgb(243, 241, 241);
+    height: 260px;
+    width: 70%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+
+    flex-direction: row;
     align-items: right;
-    justify-content: right;
+    /* justify-content: right; */
+    max-width: 50%;   
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #c4ccc3;
+    border-radius: 10px;
+    border-style: double;
+    
+}
+.inner1{
+    height: 260px;
+    margin: 90px;
+    font-size: 150%;
+}
+.inner2 {
+    height: 260px;
+    margin-right: 100px;
+    margin-top: 15px;
 }
 
 .mb-3 {
-    scale: 150%;
+    scale: 130%;
     margin: auto;
 
     display: flex;
@@ -53,4 +72,19 @@
 
 .review_card {
     background-color: aqua;
+
+        width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+
+}
+.ptimg {
+    width: 500px;
+    height: 715px;
+}
+.reviewtitle{
+    width: 200px;
+    height: 200px;
 }

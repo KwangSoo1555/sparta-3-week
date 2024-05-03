@@ -9,7 +9,7 @@
         @import "movie_page.css";
         @import "(reset).css";
     </style>
-    <button onclick="history.back();" >뒤로가기</button>
+    
 </head>
 
 <body>
@@ -18,34 +18,38 @@
     </div>
 
     <div class="subpagecard" id="subpagecard">
-
+<button onclick="history.back();" >뒤로가기</button>
         <button onclick="open_review()">리뷰 보기</button>
 
         <div class="review">
-            <div class="mb-3">
+            <div class = inner1>리뷰한잔해&#127864;</div>
+            <div class = inner2>
+                <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">이름</label>
                 <input type="text" class="form-control" id="review_name" placeholder="이름을 적어주세요">
-            </div>
-            <div class="mb-3">
+                </div><br>
+                <div class="mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
                 <select class="form-select" id="review_star">
                     <option selected>별점을 골라주세요</option>
-                    <option value="1">★</option>
-                    <option value="2">★★</option>
-                    <option value="3">★★★</option>
-                    <option value="4">★★★★</option>
-                    <option value="5">★★★★★</option>
+                    <option value="⭐">⭐</option>
+                    <option value="⭐⭐">⭐⭐</option>
+                    <option value="⭐⭐⭐">⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
                 </select>
-            </div>
-            <div class="mb-3">
+                </div><br>
+                <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
                 <textarea class="form-control" id="review_content" rows="3"></textarea>
-            </div>
+              </div><br>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
                 <input type="text" class="form-control" id="review_pw">
             </div>
-            <button onclick="makeReviewData ()">저장하기</button>
+            <button type="button" class="btn btn-outline-dark" onclick="makeReviewData ()">저장하기</button>
+            </div>
+                       
         </div>
         <div class="review_card" style="width: 18rem;" id="review_card">
             <!-- <div class="card-body">

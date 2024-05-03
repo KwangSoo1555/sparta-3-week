@@ -12,13 +12,13 @@ function createSubPageCard(movieData, subPageCard) {
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
                 <div class="card h-100">
-                    <div>
+                    <div class = ptimg>
                         <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title" id="movieTitle">${movieData.title}</h5>
                         <p class="card-text">${movieData.overview}</p>
-                    </div>
+                    
                     <div class="card-footer">
                         <small class="text-body-secondary">★ ${movieData.vote_average}</small>
                     </div>
@@ -45,10 +45,9 @@ function make_review_card(reviewDate,reviewCard) {
     
     const review_div = `
     <div class="card-body">    
-    <h4 class="card-title">${reviewDate.name}</h4>
-        <h6 class="card-subtitle mb-2 text-body-secondary">${reviewDate.star}</h6>
-        <p class="card-text">${reviewDate.review}</p>
-        
+    <p class="card-title">${reviewDate.name}</p>
+        <p class="card-subtitle mb-2 text-body-secondary">${reviewDate.star}</p>
+        <p class="card-text">${reviewDate.review}</p>       
         <a href="#" class="card-link">수정</a>
         <a href="#" class="card-link">삭제</a>
     </div>
@@ -72,8 +71,9 @@ function makeReviewData () {
         pw: document.getElementById('review_pw').value,
     };
     localStorage.setItem('reviewData',JSON.stringify(saveReview));
+    window.location.reload()
 }
 
-
+1
 // console.log(reviewCard);
   
