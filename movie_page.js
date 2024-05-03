@@ -6,6 +6,8 @@ async function getdata() {
     return movieData;
 }
 
+const id = JSON.parse(localStorage.getItem("movie-info")).movie_id;
+
 function createSubPageCard(movieData, subPageCard) {
     // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
@@ -29,16 +31,16 @@ function createSubPageCard(movieData, subPageCard) {
 
 // 리뷰 카드 생성
 function make_review_card() {
-    for (let i = 1; i <= localStorage.length; i++) {
+    for (let i = 1; i < localStorage.length; i++) {
         const review = JSON.parse(localStorage.getItem(`review${i}`));
-
+        
         const review_div = `
         <div class="review_card_body">
             <h4 class="card-title">${review.review_name}</h4>
             <h6 class="card-subtitle mb-2 text-body-secondary">${review.review_star}</h6>
             <p class="card-text">${review.review_content}</p>
-            <a href="#" class="card-link">수정</a>
-            <a href="#" class="card-link">삭제</a>
+            <a class="card-link" onclick="test(review${i})">수정</a>
+            <a class="card-link" onclick="remove_review(review${i})">삭제</a>
         </div>
         `;
 
@@ -60,19 +62,60 @@ print();
 
 // 리뷰 값 저장
 function review_save() {
-    console.log(document.querySelector("#review_name").value);
-    
     const review = {};
+
     review.review_name = document.querySelector("#review_name").value;
     review.review_star = document.querySelector("#review_star").value;
     review.review_content = document.querySelector("#review_content").value;
     review.review_pw = document.querySelector("#review_pw").value;
     
+    if (review.review_name === "") {
+        alert("이름이 입력되지 않았습니다!");
+    } else if (review.review_star === "") {
+        alert("별점을 선택하지 않았습니다!");
+    } else if (review.review_content === "") {
+        alert("리뷰가 입력되지 않았습니다!");
+    } else if (review.review_pw.length < 4) {
+        alert("비밀번호는 4글자 이상이어야합니다!");
+    } else {
+        alert("리뷰가 작성되었습니다!");
+        localStorage.setItem(`review${localStorage.length}`, JSON.stringify(review));
+        window.location.reload();
+    }
 
-    console.log(review);
+}
 
-    localStorage.setItem(`review${localStorage.length}`, JSON.stringify(review));
+// 리뷰 수정
+function test(click_review) {
+    console.log(click_review);
+    console.log(JSON.parse(localStorage.getItem("review1")));
+    console.log(JSON.parse(localStorage.getItem(`${click_review}`)));
+    document.querySelector("#review_adj_modal").setAttribute("style", "display: block;");
 
-    alert("리뷰가 작성되었습니다!");
-    window.location.reload();
+    const adj_review = JSON.parse(localStorage.getItem(click_review));
+
+    adj_review.review_name = document.querySelector("#adj_review_name").value;
+    adj_review.review_star = document.querySelector("#adj_review_star").value;
+    adj_review.review_content = document.querySelector("adj_#review_content").value;
+
+
+    if (review.review_name === "") {
+        alert("이름이 입력되지 않았습니다!");
+    } else if (review.review_star === "") {
+        alert("별점을 선택하지 않았습니다!");
+    } else if (review.review_content === "") {
+        alert("리뷰가 입력되지 않았습니다!");
+    } else if (review.review_pw === document.querySelector("#adj_review_pw").value) {
+        alert("비밀번호가 틀렸습니다!");
+    } else {
+        alert("리뷰가 수정되었습니다!");
+        window.location.reload();
+    }
+}
+
+// 리뷰 삭제
+function remove_review(review) {
+    // const asdf = JSON.parse(localStorage.getItem(review));
+    alert(asdf + "삭제되었습니다!");
+    // localStorage.removeItem();
 }

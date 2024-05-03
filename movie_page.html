@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import "movie_page.css";
         @import "(reset).css";
@@ -21,16 +21,16 @@
     <div class="subpagecard" id="subpagecard">
 
         <button onclick="open_review()">리뷰 보기</button>
-
+        <!-- 리뷰 쓰는 창 시작 -->
         <div class="review">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">이름</label>
+                <label class="input-group-text" for="inputGroupSelect01">이름</label>
                 <input type="text" class="form-control" id="review_name">
             </div>
             <div class="mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
                 <select class="form-select" id="review_star">
-                    <option selected>별점을 골라주세요</option>
+                    <option selected></option>
                     <option value="★">★</option>
                     <option value="★★">★★</option>
                     <option value="★★★">★★★</option>
@@ -39,24 +39,65 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
+                <label class="input-group-text" for="inputGroupSelect01">리뷰 내용</label>
                 <textarea class="form-control" id="review_content" rows="3"></textarea>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
+                <label class="input-group-text" for="inputGroupSelect01">비밀번호</label>
                 <input type="text" class="form-control" id="review_pw">
             </div>
             <button onclick="review_save()">저장하기</button>
         </div>
+        <!-- 리뷰 쓰는 창 끝 -->
+
+        <!-- 저장된 리뷰 카드 시작 -->
         <div class="review_card" id="review_card">
-            <div class="review_card_body">
-                <h4 class="card-title">이름</h4>
-                <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
-                <p class="card-text">리뷰 내용</p>
-                <button type="button" class="btn btn-outline-dark">수정</button>
-                <button type="button" class="btn btn-outline-dark">삭제</button>
+            
+        </div>
+        <!-- 저장된 리뷰 카드 끝 -->
+
+        <!-- 리뷰 수정 모달 시작 -->
+        <div class="modal-dialog modal-dialog-centered" tabindex="-1" id="review_adj_modal" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">리뷰 수정 중입니다</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">이름</label>
+                            <input type="text" class="form-control" id="adj_review_name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                            <select class="form-select" id="adj_review_star">
+                                <option selected></option>
+                                <option value="★">★</option>
+                                <option value="★★">★★</option>
+                                <option value="★★★">★★★</option>
+                                <option value="★★★★">★★★★</option>
+                                <option value="★★★★★">★★★★★</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">내용</label>
+                            <textarea class="form-control" id="adj_review_content" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">비밀번호 확인</label>
+                            <input type="text" class="form-control" id="adj_review_pw">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- 리뷰 수정 모달 끝 -->
+
         <script src="./movie_page.js" defer></script>
     </div>
 </body>
