@@ -82,13 +82,13 @@ function make_review_card(review) {
 }
 
 async function save_btn() {
-    num++;
+
     const newReview = new Review(num,
         document.querySelector("#review_name").value,
         document.querySelector("#review_star").value,
         document.querySelector("#review_content").value,
         document.querySelector("#review_pw").value);
-
+    num++;
     reviewArr.push(newReview);
 
     reviewPrint();
