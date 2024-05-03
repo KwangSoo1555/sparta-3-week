@@ -1,29 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import "movie_page.css";
         @import "(reset).css";
     </style>
 </head>
+
 <body>
     <div class="head">
         <a href="./index.html">돌아가기</a>
     </div>
 
     <div class="subpagecard" id="subpagecard">
-    <!-- <div id="movie_page">
+        <!-- <div id="movie_page">
     </div>
     <div class="content">
-        <img src="https://image.tmdb.org/t/p/w500/I1fkNd5CeJGv56mhrTDoOeMc2r.jpg" class="movie_img">
+       // <img src="https://image.tmdb.org/t/p/w500/I1fkNd5CeJGv56mhrTDoOeMc2r.jpg" class="movie_img">
         <h1 class="movie_title">영화 제목입니당</h1>
         <p class="movie_info">영화 설명이자 영화 줄거리 주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절주절</p>
         <p class="movie_actor">주연 배우: 김땡땡, 최별별, 이퐁퐁</p>
     </div> -->
     </div>
+<div class="postBox">
+ <form class="row g-3">
+        <div class="col-md-6">
+            <label for="inputCity" class="form-label"></label>
+            <input type="text" class="form-control" id="inputCity" placeholder="닉네임">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label"></label>
+            <select id="inputState" class="form-select">
+                <option selected>✮✮✮✮✮</option>
+                <option>⭐️</option>
+                <option>⭐️⭐️</option>
+                <option>⭐️⭐️⭐️</option>
+                <option>⭐️⭐️⭐️⭐️</option>
+                <option>⭐️⭐️⭐️⭐️⭐️</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="inputZip" class="form-label"></label>
+            <input type="text" class="form-control" id="inputZip" placeholder="비번">
+        </div>
+        <!-- 리뷰 -->
+        <div class="row g-2">
+            <div class="col-md-auto">
+                <div class="form-floating">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">리뷰</span>
+                        <input type="text" class="form-control" id="reviewInput" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+            </div>
+            <!-- 리뷰 -->
+
+            <div class="col-12">
+                <button type="submit" id="reviewCheck" class="btn btn-primary">입력</button>
+            </div>
+
+    </form>
+</div>
+   
+
+    <!-- 작성한 리뷰 붙는 자리 -->
+    <div class="reviewList">
+         <div id="list" class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">불곰<span id="star-rating">⭐️⭐️⭐️⭐️</span></h5>
+            </div>
+            <p class="mb-1">최고의 영화 감동의 도가니 보고보고 또 봐도 감동 ㅠㅠ.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary btn-sm" id="updateBtn">수정</button>
+                <button id="deletebutton" type="button" class="btn btn-secondary btn-sm">삭제</button>
+            </div>
+              </a>
+    
+    </div>
+   
+
+
+    <div class="blank">
+       
+    </div>
     <script src="./movie_page.js" defer></script>
 </body>
+
 </html>
