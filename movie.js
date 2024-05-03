@@ -123,7 +123,7 @@ const print = async () => {
 function subPageOpen(clickMovieId) {
     const clickedData = movieData.find((data) => data['movie_id'] === clickMovieId);
     sessionStorage.setItem("movie-info", JSON.stringify(clickedData));
-    window.location.href = `movie_page.html`;
+    window.location.href = `movie_page.html?id=${clickMovieId}`;
 }
 
 print();
