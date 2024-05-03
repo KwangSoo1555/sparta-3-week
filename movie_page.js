@@ -31,30 +31,49 @@ function createSubPageCard(movieData, subPageCard) {
 const print = async () => {
     const data = await getdata();
     const subPageCard = document.querySelector("#subpagecard");
-    
+    const reviewDate = await reviewList ();
+    const reviewCard = document.querySelector("#review_card");
     createSubPageCard(data, subPageCard);
+    make_review_card(reviewDate,reviewCard);
 }
 
 print();
 
-function review_save() {
-    console.log("잘 됨");
-    console.log(document.querySelector("#review_name").value);
 
-    localStorage.setItem("review_name", document.querySelector("#review_name").value);
-    make_review_card();
-    window.location.reload();
-}
 
-function make_review_card() {
+function make_review_card(reviewDate,reviewCard) {
+    
     const review_div = `
-    <div class="card-body">
-        <h4 class="card-title">이름</h4>
-        <h6 class="card-subtitle mb-2 text-body-secondary">별점</h6>
-        <p class="card-text">리뷰 내용</p>
+    <div class="card-body">    
+    <h4 class="card-title">${reviewDate.name}</h4>
+        <h6 class="card-subtitle mb-2 text-body-secondary">${reviewDate.star}</h6>
+        <p class="card-text">${reviewDate.review}</p>
+        
         <a href="#" class="card-link">수정</a>
         <a href="#" class="card-link">삭제</a>
     </div>
     `;
-    document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
+    reviewCard.insertAdjacentHTML('beforeend', review_div);
 }
+
+function reviewList () {
+    const reviewInfo = localStorage.getItem('reviewData');
+    const reviewDate = JSON.parse(reviewInfo);
+    return reviewDate
+};
+console.log(reviewList())
+function makeReviewData () {
+    // const currentPageURL = window.location.href
+    const reviewCard = JSON.parse(localStorage.getItem('reviewData'));
+    const saveReview = {
+        name : document.getElementById('review_name').value,
+        star : document.getElementById('review_star').value,
+        review: document.getElementById('review_content').value,
+        pw: document.getElementById('review_pw').value,
+    };
+    localStorage.setItem('reviewData',JSON.stringify(saveReview));
+}
+
+
+// console.log(reviewCard);
+  
