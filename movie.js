@@ -30,6 +30,7 @@ async function getdata() {
 
         movieData.push(movie);
     };
+    
     return movieData;
 };
 
@@ -132,45 +133,41 @@ function subPageOpen(clickMovieId) {
 print();
 
 
-//드랍다운 하는중
 //메인페이지 드랍다운 하는중
-document.addEventListener("DOMContentLoaded", function() {
-   const dropdownItems = document.querySelectorAll('.dropdown-item');
-    dropdownItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            
+document.addEventListener("DOMContentLoaded", ()=> {
+   const dropdown = document.querySelectorAll('.dropdown-item');
+    dropdown.forEach((item) => {
+        item.addEventListener('click', () => {
+
             if (item.textContent === "인기순") {
                 // 인기순으로 카드가 붙어야함. data에서 popularity 이게 높은순
                 // alert('인기순')
-                const sortedData = movieData.sort((a, b) => b.popularity - a.popularity);
-                console.log(sortedData)
+                const popular = movieData.sort((a, b) => b.popularity - a.popularity);
                 resetCard();
-                sortedData.forEach((item) => {
+                popular.forEach((item) => {
                     makeCard(item);
                 });
 
             } else if (item.textContent === "평점순"){
                 // alert('평점순')
-                const sortedData = movieData.sort((a, b) => b.vote_average - a.vote_average);
+                const average = movieData.sort((a, b) => b.vote_average - a.vote_average);
                 resetCard();
-                console.log(sortedData) //데이터
-                sortedData.forEach((item) => {
+                average.forEach((item) => {
                     makeCard(item);
                 });
             } else if (item.textContent === "최신순"){
                 // alert('최신순')
-                const sortedData = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-                console.log(sortedData)
+                const release = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
                 resetCard();
-                sortedData.forEach((item) => {
+                release.forEach((item) => {
                     makeCard(item);
                 });
 
             } else {
                 // alert('제목순')
-                const sortedData = movieData.sort((a, b) => a.title .localeCompare(b.title)); //.localeCompare
+                const title = movieData.sort((a, b) => a.title .localeCompare(b.title));
                 resetCard();
-                sortedData.forEach((item) => {
+                title.forEach((item) => {
                     makeCard(item);
                 });
             }
