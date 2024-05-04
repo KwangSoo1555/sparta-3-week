@@ -135,7 +135,7 @@ print();
 //드랍다운 하는중
 //메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", function() {
-    var dropdownItems = document.querySelectorAll('.dropdown-item');
+   const dropdownItems = document.querySelectorAll('.dropdown-item');
     dropdownItems.forEach(function(item) {
         item.addEventListener('click', function() {
             
@@ -179,6 +179,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 // 카드 초기화
 function resetCard() {
-    document.querySelector("#moviecard").innerHTML = ""; // 모든 카드 삭제
-    document.querySelector("#searchbar").value = ""; // 검색창 초기화
+    document.querySelector("#moviecard").innerHTML = ""; 
+   
 }
