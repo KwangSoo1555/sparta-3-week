@@ -1,21 +1,6 @@
-// localStorage에서 데이터 가져오기
-let Movie_id = 0;
-let num = 0;
-let reviewArr = [];
-
+// sessionStorage에서 데이터 가져오기
 async function getdata() {
     const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
-
-    Movie_id = await movieData.movie_id
-
-    const ReviewData = await JSON.parse(localStorage.getItem(Movie_id));
-
-    if (ReviewData !== null) {
-        reviewArr = ReviewData;
-        console.log(reviewArr);
-        num = reviewArr.length;
-    }
-
     return movieData;
 }
 
@@ -44,25 +29,9 @@ function createSubPageCard(movieData) {
 const print = async () => {
     const data = await getdata();
     createSubPageCard(data);
-    reviewPrint();
 }
 
-function reviewPrint() {
-    remove_cards();
-    reviewArr.forEach(data => {
-        make_review_card(data);
-    });
-}
-
-class Review {
-    constructor(num, name, star, comment, passward) {
-        this._num = num;
-        this._name = name;
-        this._star = star;
-        this._comment = comment;
-        this._passward = passward;
-    }
-}
+print();
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
 const targetButtonPop = document.getElementById('button-pop');
@@ -154,16 +123,26 @@ function reviewSave() {
         client_review_context: checkReviewContext.value,
         review_password: checkReviewPW.value
     };
-    localStorage.setItem("review_data" + localStorage.length, JSON.stringify(reviewData));
+    const setLocalStorage = localStorage.getItem(sessionStorage.movie_id)
+    console.log(sessionStorage.movie_id)
+    localStorage.setItem(setLocalStorage + localStorage.length, JSON.stringify(reviewData));
     location.reload();
 }
 
-// 2. 작성된 리뷰는 local storage에 저장된 값으로만 수정, 삭제 기능 구현
-const registReview = async () => {
-    for (let i = 0; i < localStorage.length; i++) {
-        const registData = await JSON.parse(localStorage.getItem(`review_data${i}`));
+// class Review {
+//     constructor(num, name, star, comment, passward) {
+//         this._num = num;
+//         this._name = name;
+//         this._star = star;
+//         this._comment = comment;
+//         this._passward = passward;
+//     }
+// }
 
-        const reviewCreateDiv = `
+// 2. 작성된 리뷰는 local storage에 저장된 값으로만 수정, 삭제 기능 구현
+const registReview = async (registData) => {
+
+    const reviewCreateDiv = `
         <div class="card-body">
         <h4 class="card-title">이름: ${registData.client_name}</h4>
         <h6 class="card-subtitle mb-2 text-body-secondary">별점: ${registData.client_review_star}</h6>
@@ -174,25 +153,8 @@ const registReview = async () => {
         </div>
         `;
 
-        document.getElementById("review-regist-section").insertAdjacentHTML('beforeend', reviewCreateDiv);
-    }
+    document.getElementById("review-regist-section").insertAdjacentHTML('beforeend', reviewCreateDiv);
 }
-
-registReview();
-
-
-// function make_review_card(review) {
-//     const review_div = `
-//     <div class="card-body">
-//         <h4 class="card-title">${review._name}</h4>
-//         <h6 class="card-subtitle mb-2 text-body-secondary">${review._star}</h6>
-//         <p class="card-text">${review._comment}</p>
-//         <a href="#" class="card-link">수정</a>
-//         <a href="#" class="card-link">삭제</a>
-//     </div>
-//     `;
-//     document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
-// }
 
 // async function save_btn() {
 
@@ -211,9 +173,8 @@ registReview();
 // }
 
 // function remove_cards() {
-//     const cardlist = document.getElementById('review_card');
+//     const cardlist = document.getElementById('review');
 
 //     cardlist.innerHTML = "";
 // }
 
-// print();
