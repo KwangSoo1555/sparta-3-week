@@ -1,13 +1,27 @@
+let Movie_id = 0;
+let num = 0;
+let reviewArr = [];
+
 async function getdata() {
     // localStorage에서 데이터 가져오기
-    const movieInfo = localStorage.getItem('movie-info');
+    const movieInfo = sessionStorage.getItem('movie-info');
     const movieData = await JSON.parse(movieInfo);
+
+    Movie_id = await movieData.movie_id
+
+    const ReviewInfo = localStorage.getItem(Movie_id);
+    const ReviewData = await JSON.parse(ReviewInfo);
+
+    if (ReviewData !== null) {
+        reviewArr = ReviewData;
+        console.log(reviewArr);
+        num = reviewArr.length;
+    }
 
     return movieData;
 }
-console.log(getdata())
 
-function createSubPageCard(movieData, subPageCard) {
+function createSubPageCard(movieData) {
     // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
@@ -25,55 +39,68 @@ function createSubPageCard(movieData, subPageCard) {
                 </div>
             </div>
             `;
-    subPageCard.insertAdjacentHTML('beforebegin', subPageMovieDiv);
+    document
+        .querySelector("#subpagecard")
+        .insertAdjacentHTML('beforebegin', subPageMovieDiv);
 }
 
 const print = async () => {
     const data = await getdata();
-    const subPageCard = document.querySelector("#subpagecard");
-    const reviewDate = await reviewList ();
-    const reviewCard = document.querySelector("#review_card");
-    createSubPageCard(data, subPageCard);
-    make_review_card(reviewDate,reviewCard);
+
+    createSubPageCard(data);
+    reviewPrint();
 }
 
-print();
+function reviewPrint() {
+    remove_cards();
+    reviewArr.forEach(data => {
+        make_review_card(data);
+    });
 
+}
+class Review {
+    constructor(num, name, star, comment, passward) {
+        this._num = num;
+        this._name = name;
+        this._star = star;
+        this._comment = comment;
+        this._passward = passward;
+    }
+}
 
-
-function make_review_card(reviewDate,reviewCard) {
-    
+function make_review_card(review) {
     const review_div = `
-    <div class="card-body">    
-    <p class="card-title">${reviewDate.name}</p>
-        <p class="card-subtitle mb-2 text-body-secondary">${reviewDate.star}</p>
-        <p class="card-text">${reviewDate.review}</p>       
+    <div class="card-body">
+        <h4 class="card-title">${review._name}</h4>
+        <h6 class="card-subtitle mb-2 text-body-secondary">${review._star}</h6>
+        <p class="card-text">${review._comment}</p>
         <a href="#" class="card-link">수정</a>
         <a href="#" class="card-link">삭제</a>
     </div>
     `;
-    reviewCard.insertAdjacentHTML('beforeend', review_div);
+    document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
 }
 
-function reviewList () {
-    const reviewInfo = localStorage.getItem('reviewData');
-    const reviewDate = JSON.parse(reviewInfo);
-    return reviewDate
-};
-console.log(reviewList())
-function makeReviewData () {
-    // const currentPageURL = window.location.href
-    const reviewCard = JSON.parse(localStorage.getItem('reviewData'));
-    const saveReview = {
-        name : document.getElementById('review_name').value,
-        star : document.getElementById('review_star').value,
-        review: document.getElementById('review_content').value,
-        pw: document.getElementById('review_pw').value,
-    };
-    localStorage.setItem('reviewData',JSON.stringify(saveReview));
-    window.location.reload()
+async function save_btn() {
+
+    const newReview = new Review(num,
+        document.querySelector("#review_name").value,
+        document.querySelector("#review_star").value,
+        document.querySelector("#review_content").value,
+        document.querySelector("#review_pw").value);
+    num++;
+    reviewArr.push(newReview);
+
+    reviewPrint();
+
+    localStorage.removeItem(Movie_id);
+    localStorage.setItem(Movie_id, JSON.stringify(reviewArr));
 }
 
-1
-// console.log(reviewCard);
-  
+function remove_cards() {
+    const cardlist = document.getElementById('review_card');
+
+    cardlist.innerHTML = "";
+}
+
+print();
