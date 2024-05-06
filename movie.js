@@ -56,7 +56,7 @@ function makeCard(item, count) {
     </div>
     `;
 
-    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
+    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
 }
 
 
