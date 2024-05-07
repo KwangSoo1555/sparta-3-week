@@ -121,8 +121,5 @@ function review_adj(num) {
 
 
 
-
-
-
 print();
 

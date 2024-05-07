@@ -11,24 +11,23 @@ const options = {
 const movieData = [];
 
 async function getdata() {
-    // for (let i = 1; i <= 5; i++){
-        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=4`, options);
+    for (let i = 1; i <= 5; i++) {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
         const data = await response.json();
-    // }
 
-    console.log(data);
+        // api key 뽑기
+        for (item of data['results']) {
+            const movie = {};
+            movie['movie_id'] = item['id'];
+            movie['title'] = item['title'];
+            movie['overview'] = item['overview'];
+            movie['poster_path'] = item['poster_path'];
+            movie['vote_average'] = item['vote_average'];
+            movie['original_title'] = item['original_title'];
+            movie['genre_ids'] = item['genre_ids'];
 
-    // api key 뽑기
-    for (item of data['results']) {
-        const movie = {};
-        movie['movie_id'] = item['id'];
-        movie['title'] = item['title'];
-        movie['overview'] = item['overview'];
-        movie['poster_path'] = item['poster_path'];
-        movie['vote_average'] = item['vote_average'];
-        movie['original_title'] = item['original_title'];
-
-        movieData.push(movie);
+            movieData.push(movie);
+        };
     };
     return movieData;
 };
@@ -87,7 +86,6 @@ function movieSearch() {
                 movieCardDiv.setAttribute("style", "display: block;")
                 if (searchedData.length - 1 > num) { num++ };
             } else {
-                console.log(searchedData[num]['title'], movieTitle.innerHTML);
                 movieCardDiv.setAttribute("style", "display: none;")
             }
 
@@ -130,3 +128,21 @@ function subPageOpen(clickMovieId) {
 }
 
 print();
+
+// 장르별 검색
+function genre_sort(value) {
+    for (let count = 0; count < movieData.length; count++) {
+        const movieCardDiv = document.querySelector(`#movieCard${count}`);
+        const movie_genre_ids = movieData[count]['genre_ids'];
+
+        if (value === "장르별 검색") {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else if (movie_genre_ids.includes(Number(value))) {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else {
+            movieCardDiv.setAttribute("style", "display: none;");
+        }
+
+    };
+
+}
