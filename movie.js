@@ -8,9 +8,11 @@ const options = {
 };
 
 const movieData = [];
-
-async function getdata() {
-    const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
+ async function getdata() {
+//페이지수 추가
+for(let i = 1; i <=5; i++){
+    
+    const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
     const data = await response.json();
 
 
@@ -26,8 +28,10 @@ async function getdata() {
         movie['original_title'] = item['original_title'];
         movie['popularity'] = item['popularity']; //인기순.
         movie['release_date'] = item['release_date']; //개봉날짜
-        
+        movie['genre_ids'] = item['genre_ids'];//장르 
+       
         movieData.push(movie);
+}
     };
     return movieData;
 };
@@ -59,6 +63,43 @@ function makeCard(item, count) {
 }
 
 
+// // 검색 구현
+// function movieSearch() {
+//     // 검색한 값
+//     const ex = document.querySelector("#searchbar").value.toLowerCase();
+
+//     // 검색한 값과 영화 제목 비교
+//     const searchedData = movieData.filter((i) => {
+//         if (i['title'].toLowerCase().search(ex) !== -1) {
+//             return i['title'];
+//         }
+//     });
+
+//     // 영화 보이기/안보이기
+//     let num = 0;
+
+//     if (searchedData.length > 0) {
+//         for (let count = 0; count < movieData.length; count++) {
+//             const movieCardDiv = document.querySelector(`#movieCard${count}`);
+//             const movieTitle = document.querySelector(`#movieTitle${count}`);
+
+//             if (searchedData[num]['title'] === movieTitle.innerHTML) {
+//                 movieCardDiv.setAttribute("style", "display: block;")
+//                 if (searchedData.length - 1 > num) { num++ };
+//             } else {
+//                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
+//                 movieCardDiv.setAttribute("style", "display: none;")
+//             }
+
+//         };
+//     } 
+//     else {
+//         alert("해당 영화는 존재하지 않습니다.");
+//     }
+
+// }     본코드
+
+//바꾼코드 검색
 // 검색 구현
 function movieSearch() {
     // 검색한 값
@@ -71,29 +112,27 @@ function movieSearch() {
         }
     });
 
-    // 영화 보이기/안보이기
-    let num = 0;
+    //동영상 숨기기
+    const videoBox = document.querySelector(".main");
+    videoBox.style.display = "none";
 
-    if (searchedData.length > 0) {
-        for (let count = 0; count < movieData.length; count++) {
-            const movieCardDiv = document.querySelector(`#movieCard${count}`);
-            const movieTitle = document.querySelector(`#movieTitle${count}`);
 
-            if (searchedData[num]['title'] === movieTitle.innerHTML) {
-                movieCardDiv.setAttribute("style", "display: block;")
-                if (searchedData.length - 1 > num) { num++ };
-            } else {
-                console.log(searchedData[num]['title'], movieTitle.innerHTML);
-                movieCardDiv.setAttribute("style", "display: none;")
-            }
+    // 카드 초기화
+    toggleCard();
 
-        };
-    } 
-    else {
+    // 카드붙여
+    let count = 0;
+    searchedData.forEach(item => {
+        makeCard(item, count);
+        count++;
+    });
+
+    if (searchedData.length === 0) {
         alert("해당 영화는 존재하지 않습니다.");
+        resetCard();
     }
-
 }
+
 
 
 // 카드 초기화
@@ -135,7 +174,7 @@ print();
 
 // 메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.querySelector('#toggleBtn'); // 추가중 
+    const toggleBtn = document.querySelector('#toggleBtn'); 
     const dropdown = document.querySelectorAll('.dropdown-item');
 
     dropdown.forEach((item) => {
@@ -157,6 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
             Data.forEach((item) => {
                 makeCard(item);
             });
+            // 동영상 숨기기
+            const videoBox = document.querySelector(".main");
+            videoBox.style.display = "none";
         });
     });
 });
@@ -164,3 +206,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function toggleCard() {
     document.querySelector("#moviecard").innerHTML = "";
 }
+
+//동영상 상세정보 클릭
+const mainBtn = document.querySelector('#main_detail')
+mainBtn.addEventListener('click',function(){
+    subPageOpen(278);
+})

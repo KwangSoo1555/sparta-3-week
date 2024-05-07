@@ -135,7 +135,7 @@ body {
 /* 추가중 */
 
 .drop {
-    margin-left: 1200px;
+    margin-left: 1300px;
 }
 
 .dropdown-menu{
@@ -146,3 +146,29 @@ body {
 .dropdown-menu .dropdown-item {
     color: white; 
 }
+
+/* main 글자 */
+.video-text {
+    font-size: 3.5rem;
+    left: 5%;
+    position: absolute;
+    top: 90%;
+    color: white;
+}
+
+.overview {
+    font-size: 1.5rem;
+    left: 5%;
+    position: absolute;
+    top: 100%;
+    color: white;
+}
+
+.mainbtn {
+    font-size: 1.5rem;
+    left: 5%;
+    position: absolute;
+    top: 115%;
+    color: white;
+}
+

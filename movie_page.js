@@ -28,6 +28,12 @@ const createDetailsPageCard = (movieData) => {
 const printClickedMovie = async () => {
     const data = await getdata();
     createDetailsPageCard(data);
+     console.log(data)
+     const movieData = data.movie_id
+
+
+
+
 }
 
 printClickedMovie();
@@ -226,4 +232,3 @@ for (const value of cancelPopUpButton) {
         checkRegisterPW.value = '';
     });
 }
-
