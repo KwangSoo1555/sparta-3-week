@@ -8,29 +8,25 @@ const options = {
 };
 
 const movieData = [];
- async function getdata() {
-//페이지수 추가
-for(let i = 1; i <=5; i++){
-    
-    const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
-    const data = await response.json();
 
-    // api key 뽑기
-    for (item of data['results']) {
+async function getdata() {
+    for (let i = 1; i <= 5; i++) {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
+        const data = await response.json();
 
-        const movie = {};
-        movie['movie_id'] = item['id'];
-        movie['title'] = item['title'];
-        movie['overview'] = item['overview'];
-        movie['poster_path'] = item['poster_path'];
-        movie['vote_average'] = item['vote_average'];
-        movie['original_title'] = item['original_title'];
-        movie['popularity'] = item['popularity']; //인기순.
-        movie['release_date'] = item['release_date']; //개봉날짜
-        movie['genre_ids'] = item['genre_ids'];//장르 
-       
-        movieData.push(movie);
-}
+        // api key 뽑기
+        for (item of data['results']) {
+            const movie = {};
+            movie['movie_id'] = item['id'];
+            movie['title'] = item['title'];
+            movie['overview'] = item['overview'];
+            movie['poster_path'] = item['poster_path'];
+            movie['vote_average'] = item['vote_average'];
+            movie['original_title'] = item['original_title'];
+            movie['genre_ids'] = item['genre_ids'];
+
+            movieData.push(movie);
+        };
     };
     return movieData;
 };
@@ -118,6 +114,12 @@ function movieSearch() {
 
     // 카드 초기화
     toggleCard();
+            if (searchedData[num]['title'] === movieTitle.innerHTML) {
+                movieCardDiv.setAttribute("style", "display: block;")
+                if (searchedData.length - 1 > num) { num++ };
+            } else {
+                movieCardDiv.setAttribute("style", "display: none;")
+            }
 
     // 카드붙여
     let count = 0;
@@ -169,6 +171,24 @@ function subPageOpen(clickMovieId) {
 }
 
 print();
+
+// 장르별 검색
+function genre_sort(value) {
+    for (let count = 0; count < movieData.length; count++) {
+        const movieCardDiv = document.querySelector(`#movieCard${count}`);
+        const movie_genre_ids = movieData[count]['genre_ids'];
+
+        if (value === "장르별 검색") {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else if (movie_genre_ids.includes(Number(value))) {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else {
+            movieCardDiv.setAttribute("style", "display: none;");
+        }
+
+    };
+
+}
 
 
 // 메인페이지 드랍다운 하는중

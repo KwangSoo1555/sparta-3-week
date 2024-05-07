@@ -99,3 +99,76 @@
     width: 35vw;
     height: 35vh;
 }
+
+.content {
+    display: grid;
+    
+    place-items: center;
+    align-items: center;
+    
+    background-color: green;
+    margin: 30px;
+}
+
+.movie_img {
+    height: fit-content;
+    grid-area: 1/1 / 5/1;
+    place-items: center;
+    align-items: center;
+}
+
+.movie_title {
+    grid-area: 1/2 / 1/2;
+    font-size: 70px;
+}
+
+.movie_info {
+    background-color: hotpink;
+    width: 500px;
+    grid-area: 2/2 / 4/2;
+}
+
+.back {
+    grid-area: 5/2 / 5/2;
+    font-size: 20px;
+    color: black;
+}
+
+
+
+
+
+
+
+.review {
+    background-color: purple;
+    height: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
+}
+
+.mb-3 {
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mb-3>label {
+    margin-right: 10px;
+    width: auto;
+}
+
+.review_card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.review_card_body {
+    background-color: aqua;
+    height: 300px;
+}
