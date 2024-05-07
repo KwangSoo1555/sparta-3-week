@@ -17,6 +17,7 @@ async function getdata() {
 
     // api key 뽑기
     for (item of data['results']) {
+
         const movie = {};
         movie['movie_id'] = item['id'];
         movie['title'] = item['title'];
@@ -26,13 +27,14 @@ async function getdata() {
         movie['original_title'] = item['original_title'];
         movie['popularity'] = item['popularity']; //인기순.
         movie['release_date'] = item['release_date']; //개봉날짜
-
-
+        
         movieData.push(movie);
     };
-    
     return movieData;
 };
+
+
+
 
 // 카드 만들기
 function makeCard(item, count) {
@@ -93,14 +95,19 @@ function movieSearch() {
             }
 
         };
-    } else {
+    } 
+    else {
         alert("해당 영화는 존재하지 않습니다.");
     }
 
 }
 
+
 // 카드 초기화
 function resetCard() {
+    
+    window.location.reload(); //카드정렬후 초기화
+   
     for (let count = 0; count < movieData.length; count++) {
         document.querySelector(`#movieCard${count}`).setAttribute("style", "display: block;");
         document.querySelector("#searchbar").value = "";
@@ -133,49 +140,34 @@ function subPageOpen(clickMovieId) {
 print();
 
 
-//메인페이지 드랍다운 하는중
-document.addEventListener("DOMContentLoaded", ()=> {
-   const dropdown = document.querySelectorAll('.dropdown-item');
+// 메인페이지 드랍다운 하는중
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.querySelector('#toggleBtn'); // 추가중 
+    const dropdown = document.querySelectorAll('.dropdown-item');
+
     dropdown.forEach((item) => {
         item.addEventListener('click', () => {
+            toggleBtn.textContent = item.textContent;
 
+            let Data = [];
             if (item.textContent === "인기순") {
-                // 인기순으로 카드가 붙어야함. data에서 popularity 이게 높은순
-                // alert('인기순')
-                const popular = movieData.sort((a, b) => b.popularity - a.popularity);
-                resetCard();
-                popular.forEach((item) => {
-                    makeCard(item);
-                });
-
-            } else if (item.textContent === "평점순"){
-                // alert('평점순')
-                const average = movieData.sort((a, b) => b.vote_average - a.vote_average);
-                resetCard();
-                average.forEach((item) => {
-                    makeCard(item);
-                });
-            } else if (item.textContent === "최신순"){
-                // alert('최신순')
-                const release = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-                resetCard();
-                release.forEach((item) => {
-                    makeCard(item);
-                });
-
+                Data = movieData.sort((a, b) => b.popularity - a.popularity);
+            } else if (item.textContent === "평점순") {
+                Data = movieData.sort((a, b) => b.vote_average - a.vote_average);
+            } else if (item.textContent === "최신순") {
+                Data = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
             } else {
-                // alert('제목순')
-                const title = movieData.sort((a, b) => a.title .localeCompare(b.title));
-                resetCard();
-                title.forEach((item) => {
-                    makeCard(item);
-                });
+                Data = movieData.sort((a, b) => a.title.localeCompare(b.title));
             }
+
+            toggleCard();
+            Data.forEach((item) => {
+                makeCard(item);
+            });
         });
     });
 });
-// 카드 초기화
-function resetCard() {
-    document.querySelector("#moviecard").innerHTML = ""; 
-   
+// 카드정렬 초기화
+function toggleCard() {
+    document.querySelector("#moviecard").innerHTML = "";
 }

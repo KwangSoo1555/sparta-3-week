@@ -71,12 +71,12 @@ class Review {
 
 function make_review_card(review) {
     const review_div = `
-    <div class="card-body">
+    <div id="${review._num}" class="card-body">
         <h4 class="card-title">${review._name}</h4>
         <h6 class="card-subtitle mb-2 text-body-secondary">${review._star}</h6>
         <p class="card-text">${review._comment}</p>
         <a href="#" class="card-link">수정</a>
-        <a href="#" class="card-link">삭제</a>
+        <a href="#" class="card-link removeLink">삭제</a>.  
     </div>
     `;
     document.querySelector("#review_card").insertAdjacentHTML('beforeend', review_div);
