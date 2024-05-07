@@ -14,13 +14,50 @@ padding: 3px;
 border-radius: 10px;
 font-size: small;
 margin-left: 1600px;
+}/* review create popup modal */
+.review-create-pop {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
 }
 
-.content {
-    display: grid;
-    background-color: green;
-    margin: 30px;
+.pop-info-1 {
+    display: flex;
+    width: 50vw;
+    height: 50vh;
 }
+
+.pop-info-2 {
+    width: 40vw;
+    height: 40vh;
+}
+
+.go-to-toggle {
+    cursor: pointer;
+}
+
+.modal-cancel-button {
+    cursor: pointer;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 1vw;
+    right: 1vw;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+}
+/* review create popup modal */
 
 .movie_img {
     width: 500px;
@@ -80,48 +117,33 @@ margin-left: 1600px;
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.mb-3>label {
-    margin-right: 10px;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background-color: purple;
 }
 
 .review_card {
     background-color: aqua;
+}
 
-        width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
 
+/* review modify popup modal */
+.registed-modify-button {
+    cursor: pointer;
 }
-.ptimg {
-    width: 500px;
-    height: 715px;
-    margin-left: 80px;
-}
-.reviewtitle{
-    width: 200px;
-    height: 200px;
-}
-.card-text {
-    align-items: center;
-    margin-top: 30px;
-    width: 400px;
-}
-.card-body {
-    
-    width: 600px;
 
+.review-modify-pop {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
 }
-.cardbox {
-    margin: 20px auto 20px auto;
-}
-.card-title {
-    margin-top: 80px;
-    font-size: larger;
-}
-.card-footer {
-    margin-top: 20px
+
+.pop-info-3 {
+    width: 35vw;
+    height: 35vh;
 }

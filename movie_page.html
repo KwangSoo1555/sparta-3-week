@@ -13,47 +13,220 @@
 </head>
 
 <body>
-    <div class="head">
-        <!-- <a href="./index.html">돌아가기</a> --><button onclick="history.back();" class = "backbtn">뒤로가기</button>
-    </div>   
+    <div class="details-page-wrapper" id="details-page-wrapper">
+        <div class="head">
+            <button class="go-to-main" onclick="window.location.href = './index.html'">돌아가기</button>
+        </div>
 
-    <div class="subpagecard" id="subpagecard">
+        <button id="review-create-button-pop">리뷰작성</button>
 
-        <button onclick="open_review()">리뷰 보기</button>
+        <div class="popup-wrapper" id="popup-wrapper">
 
-        <div class="review">
-            <div class = inner1>리뷰한잔해&#127864;</div>
-            <div class = inner2>
-                <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">이름</label>
-                <input type="text" class="form-control" id="review_name" placeholder="이름을 적어주세요">
-                </div><br>
-                <div class="mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">별점</label>
-                <select class="form-select" id="review_star">
-                    <option selected>별점을 골라주세요</option>
-                    <option value="⭐">⭐</option>
-                    <option value="⭐⭐">⭐⭐</option>
-                    <option value="⭐⭐⭐">⭐⭐⭐</option>
-                    <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
-                    <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
-                </select>
-                </div><br>
-                <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">리뷰 내용</label>
-                <textarea class="form-control" id="review_content" rows="3"></textarea>
-              </div><br>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">비밀번호</label>
-                <input type="text" class="form-control" id="review_pw">
+            <!-- pop up for write review -->
+            <div class="review-create-wrapper">
+                <div class="review-create-pop pop-info-1" id="review-create-pop-info-1" style="display: none;"
+                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="review-create-modal-content">
+
+                        <div class="modal-header">
+                            <p class="modal-title">리뷰를 작성하려면 빈칸에 정보를 입력해주세요.</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="modal-review-name-wrapper">
+                                <label class="form-label">
+                                    <p>이름</p>
+                                    <input type="text" class="form-control" id="review-create-name">
+                                </label>
+                            </div>
+                            <div class="modal-review-score-wrapper">
+                                <label class="input-group-text">
+                                    <p>별점</p>
+                                    <select class="form-select" id="review-create-score">
+                                        <option selected value="">별점을 골라주세요</option>
+                                        <option value="1">★</option>
+                                        <option value="2">★★</option>
+                                        <option value="3">★★★</option>
+                                        <option value="4">★★★★</option>
+                                        <option value="5">★★★★★</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="modal-review-context-wrapper">
+                                <label class="form-label">
+                                    <p>리뷰 내용</p>
+                                    <textarea class="form-control" id="review-create-context" rows="3"></textarea>
+                                </label>
+                            </div>
+                            <div class="modal-review-pw-wrapper">
+                                <label class="form-label">
+                                    <p>비밀번호</p>
+                                    <input type="text" class="form-control" id="review-create-pw">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="go-to-toggle" id="review-create-go-second-pop"
+                                data-bs-target="#review-create-pop-info-2" data-bs-toggle="modal" aria-label="Close">
+                                <p>저장하기</p>
+                            </button>
+                            <button class="modal-cancel-button" id="popup-cancel">
+                                <p>취소</p>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="review-create-pop pop-info-2" id="review-create-pop-info-2" style="display: none;"
+                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-create-modal-content">
+
+                        <div class="modal-header">
+                            <p class="modal-title">입력한 값이 유효하지 않습니다. (not vaild)</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>입련된 정보가 다음과 같으면 정보가 비정상적으로 저장되어 리뷰를 작성할 수 없습니다.</p>
+                            <p>1. 이름을 빈칸 또는 2글자 이하로 작성한 경우.</p>
+                            <p>2. 리뷰 작성란에 4글자 이하로 작성한 경우.</p>
+                            <p>3. 비밀번호를 3글자 이하 또는 </p>
+                        </div>
+
+                        <div class="modal-footer" id="modal-footer">
+                            <button class="go-to-toggle" id="review-create-go-first-pop"
+                                data-bs-target="#review-create-pop-info-1" data-bs-toggle="modal" aria-label="Close">
+                                <p>돌아가기</p>
+                            </button>
+                            <button class="modal-cancel-button" id="popup-cancel">
+                                <p>취소</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button onclick="save_btn()">저장하기</button>
+            <!-- pop up end point -->
+
+            <!-- pop up for registed review modify and delete -->
+            <div class="review-modify-wrapper" id="review-modify-wrapper">
+                <div class="review-modify-pop pop-info-1" id="review-modify-pop-info-1" style="display: none;"
+                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="review-modify-modal-content">
+
+                        <div class="modal-header">
+                            <p class="modal-title">리뷰를 수정 및 삭제하려면 빈칸에 정보를 입력해주세요.</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="modal-review-name-wrapper">
+                                <label class="form-label">
+                                    <p>이름</p>
+                                    <input type="text" class="form-control" id="review-modify-name">
+                                </label>
+                            </div>
+                            <div class="modal-review-pw-wrapper">
+                                <label class="form-label">
+                                    <p>비밀번호</p>
+                                    <input type="text" class="form-control" id="review-modify-pw">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="go-to-toggle" id="review-modify-go-second-pop"
+                                data-bs-target="#review-pop-info-2" data-bs-toggle="modal">
+                                <p>입력하기</p>
+                            </button>
+                            <button class="modal-cancel-button" id="popup-cancel">
+                                <p>취소</p>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="review-modify-pop pop-info-2" id="review-modify-pop-info-2" style="display: none;"
+                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-modify-modal-content">
+
+                        <div class="modal-header">
+                            <p class="modal-title">입력한 사용자 정보가 유효하지 않습니다. (not vaild)</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>입련된 정보가 다음과 같으면 정보가 비정상적으로 탐색되어 리뷰를 수정, 삭제할 수 없습니다.</p>
+                            <p>1. 리뷰를 작성했을 때의 이름을 정확히 입력하세요.</p>
+                            <p>2. 리뷰를 작성했을 때의 비밀번호를 정확히 입력하세요.</p>
+                        </div>
+
+                        <div class="modal-footer" id="modal-footer">
+                            <button class="go-to-toggle" id="review-modify-go-first-pop"
+                                data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
+                                <p>돌아가기</p>
+                            </button>
+                            <button class="modal-cancel-button" id="popup-cancel">
+                                <p>취소</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-modify-pop pop-info-3" id="review-modify-pop-info-3" style="display: none;"
+                    aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+                    <div class="modal-modify-modal-content">
+
+                        <div class="modal-header">
+                            <p class="modal-title">삭제 혹은 수정할 작업을 선택하세요.</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="modal-review-score-wrapper">
+                                <label class="input-group-text">
+                                    <p>수정할 별점</p>
+                                    <select class="form-select" id="review-create-score">
+                                        <option selected value="">별점을 골라주세요</option>
+                                        <option value="1">★</option>
+                                        <option value="2">★★</option>
+                                        <option value="3">★★★</option>
+                                        <option value="4">★★★★</option>
+                                        <option value="5">★★★★★</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="modal-review-context-wrapper">
+                                <label class="form-label">
+                                    <p>리뷰 내용</p>
+                                    <textarea class="form-control" id="review-create-context" rows="3"></textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer" id="modal-footer">
+                            <button class="go-to-toggle" id="review-modify-checking-button"
+                                data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
+                                <p>수정하기</p>
+                            </button>
+                            <button class="go-to-toggle" id="review-delete-checking-button"
+                                data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
+                                <p>삭제하기</p>
+                            </button>
+                            <button class="modal-cancel-button" id="popup-cancel">
+                                <p>취소</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- pop up end point -->
+
         </div>
-        <div class="review_card" style="width: 18rem;" id="review_card">
-            
-        </div>
-        <script src="./movie_page.js" defer></script>
+
     </div>
+
+
+
+    <script src="movie_page.js" defer></script>
 </body>
 
 </html>
