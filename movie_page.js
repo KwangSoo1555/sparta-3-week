@@ -25,8 +25,8 @@ function createSubPageCard(movieData) {
     // 서브 페이지 카드 만들기
     const subPageMovieDiv = `
             <div class="col" id="movieCard">
-                <div class="card h-100">
-                    <div class = ptimg>
+                <div class="cardbox">
+                <div class = ptimg>
                         <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
                     </div>
                     <div class="card-body">
@@ -36,6 +36,8 @@ function createSubPageCard(movieData) {
                     <div class="card-footer">
                         <small class="text-body-secondary">★ ${movieData.vote_average}</small>
                     </div>
+                    
+                    
                 </div>
             </div>
             `;
@@ -66,6 +68,47 @@ class Review {
         this._comment = comment;
         this._passward = passward;
     }
+    // get num () {
+    //     return this._num;
+    // }
+    // set num (value) {      
+    //     this._num = value;
+    // }
+    // get name () {
+    //     return this._name;
+    // }
+    // set name (value) {
+    //     if (value.length <= 0){
+    //         console.log("이름을 적어주세요!")
+    //         return;
+    //     }
+    //     this._name = value;
+    // }
+    // get star () {
+    //     return this._star;
+    // }
+    // set star (value) {
+    //     this._star = value;
+    // }
+    // get comment () {
+    //     return this._comment;
+    // }
+    // set comment (value) {
+    //     this._comment = value;
+    // }
+    // get passward () {
+    //     return this._passward;
+    // }
+    // set passward (value) {
+    //     if (value.length < 4){
+    //         console.log("비밀번호는 4자리 이상으로 입력해주세요!")
+    //         return;
+    //     } else if (value.length > 9){
+    //         console.log ("비밀번호는 8자리 이내로 입력해주세요!")
+    //         return;
+    //     }
+    //     this._passward = value;
+    // }
 }
 
 function make_review_card(review) {
