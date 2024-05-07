@@ -13,7 +13,6 @@ async function getdata() {
     const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
     const data = await response.json();
 
-
     // api key 뽑기
     for (item of data['results']) {
         const movie = {};
@@ -59,9 +58,9 @@ function movieSearch() {
     const ex = document.querySelector("#searchbar").value.toLowerCase();
 
     // 검색한 값과 영화 제목 비교
-    const searchedData = movieData.filter((i) => {
-        if (i['title'].toLowerCase().search(ex) !== -1) {
-            return i['title'];
+    const searchedData = movieData.filter((el) => {
+        if (el['title'].toLowerCase().search(ex) !== -1) {
+            return el['title'];
         }
     });
 

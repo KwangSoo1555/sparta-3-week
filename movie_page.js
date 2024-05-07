@@ -54,7 +54,7 @@ const openRegisterFirstPopUp = (event) => {
 const openRegisterSecondPopUp = (event) => {
     event.stopPropagation();
 
-    if (checkRegisterName.value.length < 3 ||
+    if (checkRegisterName.value.length < 2 ||
         checkRegisterName.value.split('').includes(' ') ||
         checkRegisterStar.value.length === 0 ||
         checkRegisterContext.value.length < 5 ||
@@ -111,19 +111,21 @@ const registerReview = async (registerData) => {
             <p class="card-score">별점: ${registerData.reviewerStar}</p>
             <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
 
-        <button class="registed-modify-button" id="registed-modify-button">수정</button>
-        <button class="registed-delete-button" id="registed-delete-button">삭제</button>
+        <button class="registed-modify-button" data-review-id="${getValueIndexStorage()}">수정 및 삭제</button>
         </div>
         `;
 
     document.getElementById("review-modify-wrapper").insertAdjacentHTML('beforeend', reviewCreateDiv);
 }
 
-const printReview = async () => {
+const getLocalStoragedDatas = async () => {
     const reviewerDatas = await reviewSave();
-    const storagedReviews = JSON.parse(localStorage.getItem(reviewerDatas.movieId)) || [];
+    return JSON.parse(localStorage.getItem(reviewerDatas.movieId)) || [];
+}
 
-    storagedReviews.forEach(registerReview);
+const printReview = async () => {
+    const storagedReviewers = await getLocalStoragedDatas();
+    storagedReviewers.forEach(registerReview);
 }
 
 // 2-2. 작성된 리뷰에서 작성자의 이름과 비밀번호가 일치할 때만 수정 또는 삭제로 변경
@@ -135,22 +137,25 @@ const thirdModifyPop = document.getElementById('review-modify-pop-info-3');
 
 const toggleToFirstModify = document.getElementById('review-modify-go-first-pop');
 const toggleToSecondModify = document.getElementById('review-modify-go-second-pop');
-const toggleThirdModifyButton = document.getElementById('review-modify-checking-button');
-const toggleThirdDeleteButton = document.getElementById('review-delete-checking-button')
 
-const checkModifyName = document.getElementById('review-modify-name')
-const checkModifyPW = document.getElementById('review-modify-pw')
+const toggleThirdModifyButton = document.getElementById('review-modify-checking-button');
+const toggleThirdDeleteButton = document.getElementById('review-delete-checking-button');
+
+const checkModifyName = document.getElementById('review-modify-name');
+const checkModifyPW = document.getElementById('review-modify-pw');
+const executeModifyScore = document.getElementById('review-modify-score');
+const executeModifyContext = document.getElementById('review-modify-context');
 
 // 2-2. localStorage에 저장된 reviewer 정보와 수정, 삭제 하려는 사용자의 정보 일치 유효성 검사
 const contrastInputStoraged = async () => {
-    const reviewerDatas = await reviewSave();
-    const storagedReviewer = JSON.parse(localStorage.getItem(reviewerDatas.movieId));
+    const storagedReviewers = await getLocalStoragedDatas();
 
     let isContrast = false;
 
-    storagedReviewer.forEach(el => {
+    storagedReviewers.forEach(el => {
         const isContrastName = el.reviewerName !== checkModifyName.value ? false : true;
         const isContrastPW = el.reviewerPassword !== checkModifyPW.value ? false : true;
+
         return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
     })
     return isContrast
@@ -181,24 +186,65 @@ const openModifySecondPopUp = async (event) => {
     }
 }
 
-const openModifyThirdPopUp = (event) => {
+// 2-3. 수정 삭제
+let currentReviewId = null;
+
+const getValueIndexStorage = async (index) => {
+    const storagedReviewers = await getLocalStoragedDatas();
+    return storagedReviewers[index];
+}
+
+const executeModify = async (event) => {
     event.stopPropagation();
 
+    if (currentReviewId) {
+        const currentReview = await getValueIndexStorage(currentReviewId);
+console.log(currentReviewId)
+        if (currentReview) {
+            const modifyConfirm = confirm('수정 하시겠습니까?')
+            modifyConfirm === true ? alert('수정이 완료되었습니다.') : false;
 
+            printReview();
+            location.reload();
+        }
+    }
+}
+
+const executeDelete = async (event) => {
+    event.stopPropagation();
+
+    if (currentReviewId) {
+        const storagedReviewers = await getLocalStoragedDatas();
+        const currentReviewIndex = storagedReviewers.findIndex(el => el.movieId === currentReviewId);
+
+        if (currentReviewIndex !== -1) {
+            storagedReviewers.splice(currentReviewIndex, 1);
+            localStorage.setItem(currentReviewId, JSON.stringify(storagedReviewers));
+
+            confirm('삭제 하시겠습니까?') ? alert('삭제가 완료되었습니다.') : false;
+
+            printReview();
+            location.reload();
+        }
+    }
 }
 
 (async () => {
     await printReview();
 
     for (const value of startReviewModifyButton) {
-        value.addEventListener('click', openModifyFirstPopUp);
+        value.addEventListener('click', (event) => {
+            currentReviewId = value.dataset.reviewId;
+            openModifyFirstPopUp(event);
+        })
     }
-}) ();
+})();
 
 toggleToSecondModify.addEventListener('click', openModifySecondPopUp);
 toggleToFirstModify.addEventListener('click', openModifyFirstPopUp);
 
-
+toggleThirdModifyButton.addEventListener('click', executeModify);
+toggleThirdDeleteButton.addEventListener('click', executeDelete);
 
 // 팝업 취소 관련
 const cancelPopUpButton = document.getElementsByClassName('modal-cancel-button');
