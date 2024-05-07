@@ -1,4 +1,3 @@
-
 // api 가져오기
 const options = {
     method: 'GET',
@@ -38,12 +37,6 @@ async function getdata() {
 
 // 카드 만들기
 function makeCard(item, count) {
-    // 오리지널 타이틀을 넣으려 했던 흔적 (실패함)
-    // function checkOriginalTitle() {
-    //     if (item.title !== item.original_title) {
-    //         return "(" + item.original_title + ")";
-    //     };
-    // }
 
     const movieDiv = `
     <div class="col" id="movieCard${count}" onclick="subPageOpen(${item.movie_id})">
@@ -62,7 +55,7 @@ function makeCard(item, count) {
     </div>
     `;
 
-    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
+    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
 }
 
 
