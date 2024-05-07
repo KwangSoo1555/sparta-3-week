@@ -1,5 +1,5 @@
-/* review popup modal */
-.review-pop {
+/* review create popup modal */
+.review-create-pop {
     display: flex;
     position: fixed;
     top: 50%;
@@ -11,21 +11,20 @@
 
 .pop-info-1 {
     display: flex;
-    flex-direction: column;
     width: 50vw;
     height: 50vh;
 }
 
 .pop-info-2 {
-    width: 30vw;
-    height: 30vh;
+    width: 40vw;
+    height: 40vh;
 }
 
 .go-to-toggle {
     cursor: pointer;
 }
 
-.modal-cancel {
+.modal-cancel-button {
     cursor: pointer;
 }
 
@@ -35,13 +34,14 @@
     right: 1vw;
 }
 
-.pop
-
-.content {
-    display: grid;
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: green;
-    margin: 30px;
 }
+/* review create popup modal */
 
 .movie_img {
     width: 500px;
@@ -75,19 +75,27 @@
     background-color: purple;
 }
 
-/* .mb-3 {
-    scale: 150%;
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.mb-3>label {
-    margin-right: 10px;
-} */
-
 .review_card {
     background-color: aqua;
+}
+
+
+/* review modify popup modal */
+.registed-modify-button {
+    cursor: pointer;
+}
+
+.review-modify-pop {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
+}
+
+.pop-info-3 {
+    width: 35vw;
+    height: 35vh;
 }

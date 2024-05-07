@@ -1,180 +1,229 @@
 // sessionStorage에서 데이터 가져오기
-async function getdata() {
+const getdata = async () => {
     const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
     return movieData;
 }
-
 // 서브 페이지 카드 만들기
-function createSubPageCard(movieData) {
-    const subPageMovieDiv = `
-            <div class="col" id="movieCard">
-                <div class="card h-100">
-                    <div>
-                        <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title" id="movieTitle">${movieData.title}</h5>
-                        <p class="card-text">${movieData.overview}</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary">★ ${movieData.vote_average}</small>
-                    </div>
-                </div>
+const createDetailsPageCard = (movieData) => {
+    const detailsPageMovieDiv = `
+        <div class="card-wrapper">
+            <div class="card-image-wrapper">
+                <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
             </div>
-            `;
+            <div class="card-body">
+                <p class="card-title" id="movieTitle">${movieData.title}</p>
+                <p class="card-text">${movieData.overview}</p>
+            </div>
+            <div class="card-footer">
+                <p>★ ${movieData.vote_average}</p>
+            </div>
+        </div>
+        `;
 
-    document.querySelector("#subpagecard").insertAdjacentHTML('beforebegin', subPageMovieDiv);
+    document.getElementById("details-page-wrapper").insertAdjacentHTML('beforebegin', detailsPageMovieDiv);
 }
 
-const print = async () => {
+// sessionStorage에서 가져온 데이터와 카드 만들기 함수를 매개변수로 연결
+const printClickedMovie = async () => {
     const data = await getdata();
-    createSubPageCard(data);
+    createDetailsPageCard(data);
 }
 
-print();
+printClickedMovie();
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
-const targetButtonPop = document.getElementById('button-pop');
-const targetButtonPopClose = document.getElementById('close-pop');
-const firstReviewPop = document.getElementById('review-pop-info-1');
-const secondReviewPop = document.getElementById('review-pop-info-2');
-const toggleToFirstButton = document.getElementById('go-to-first-pop');
-const toggleToSecondButton = document.getElementById('go-to-second-pop');
+const startReviewRegisterButton = document.getElementById('review-create-button-pop');
+const firstRegisterPop = document.getElementById('review-create-pop-info-1');
+const secondRegisterPop = document.getElementById('review-create-pop-info-2');
+const toggleToFirstRegister = document.getElementById('review-create-go-first-pop');
+const toggleToSecondRegister = document.getElementById('review-create-go-second-pop');
 
-const checkReviewName = document.getElementById('review-name');
-const checkReviewStar = document.getElementById('review-score');
-const checkReviewContext = document.getElementById('review-context');
-const checkReviewPW = document.getElementById('review-pw');
+const checkRegisterName = document.getElementById('review-create-name');
+const checkRegisterStar = document.getElementById('review-create-score');
+const checkRegisterContext = document.getElementById('review-create-context');
+const checkRegisterPW = document.getElementById('review-create-pw');
 
 // 1-1. 팝업 핸들링 및 유효성 검사
-let isPopUpOpen = false;
-let isSaveClientInfo = false;
-
-function openFirstPopUp(event) {
+const openRegisterFirstPopUp = (event) => {
     event.stopPropagation();
-    firstReviewPop.style.display = 'block';
-    secondReviewPop.style.display = 'none';
 
-    isPopUpOpen = true;
+    firstRegisterPop.style.display = 'block';
+    secondRegisterPop.style.display = 'none';
 }
 
-function openSecondPopUp(event) {
+const openRegisterSecondPopUp = (event) => {
     event.stopPropagation();
 
-    if (checkReviewName.value.length < 3 ||
-        checkReviewName.value.split('').includes(' ') ||
-        checkReviewStar.value.length === 0 ||
-        checkReviewContext.value.length < 5 ||
-        checkReviewPW.value.length < 4) {
+    if (checkRegisterName.value.length < 3 ||
+        checkRegisterName.value.split('').includes(' ') ||
+        checkRegisterStar.value.length === 0 ||
+        checkRegisterContext.value.length < 5 ||
+        checkRegisterPW.value.length < 4) {
         // 리뷰 작성 유효성 추가 검사 필요 시 조건 추가 가능
 
-        secondReviewPop.style.display = 'block';
-        firstReviewPop.style.display = 'none';
+        firstRegisterPop.style.display = 'none';
+        secondRegisterPop.style.display = 'block';
 
     } else {
         alert('정보가 저장되었습니다.');
 
         reviewSave();
-
-        firstReviewPop.style.display = 'none';
-        secondReviewPop.style.display = 'none';
+        closeRegisterPopUp();
     }
-    isPopUpOpen = true;
 }
 
-function closePopUp() {
-    firstReviewPop.style.display = 'none';
-    secondReviewPop.style.display = 'none';
-    isPopUpOpen = false;
-}
+startReviewRegisterButton.addEventListener('click', openRegisterFirstPopUp);
 
-toggleToSecondButton.addEventListener('click', openSecondPopUp);
-toggleToFirstButton.addEventListener('click', openFirstPopUp);
+toggleToSecondRegister.addEventListener('click', openRegisterSecondPopUp);
+toggleToFirstRegister.addEventListener('click', openRegisterFirstPopUp);
 
-targetButtonPop.addEventListener('click', openFirstPopUp);
-targetButtonPopClose.addEventListener('click', closePopUp);
+// sub page로 넘어온 movie id에 대해서만 local storage를 저장할 수 있게
 
-document.addEventListener('click', function (event) {
-    if (!firstReviewPop.contains(event.target) &&
-        !targetButtonPop.contains(event.target) &&
-        !secondReviewPop.contains(event.target)) {
-        closePopUp();
-    }
-});
+// 1-3. 유효성 검사가 통과된 각 value들을 local storage에 순차로 저장
+const reviewSave = async () => {
+    const data = await getdata();
 
-// 1-3. 팝업 취소 버튼
-const cancelPopUpButton = document.getElementsByClassName('modal-cancel-button');
-
-for (const button of cancelPopUpButton) {
-    button.addEventListener('click', () => {
-        closePopUp();
-        checkReviewName.value = '';
-        checkReviewStar.value = '';
-        checkReviewContext.value = '';
-        checkReviewPW.value = '';
-    });
-}
-
-// 1-4. 유효성 검사가 통과된 각 value들을 local storage에 순차로 저장
-function reviewSave() {
     const reviewData = {
-        client_name: checkReviewName.value,
-        client_review_star: checkReviewStar.value,
-        client_review_context: checkReviewContext.value,
-        review_password: checkReviewPW.value
+        movieId: data.movie_id,
+        reviewerName: checkRegisterName.value,
+        reviewerStar: checkRegisterStar.value,
+        reviewerContext: checkRegisterContext.value,
+        reviewerPassword: checkRegisterPW.value
     };
-    const setLocalStorage = localStorage.getItem(sessionStorage.movie_id)
-    console.log(sessionStorage.movie_id)
-    localStorage.setItem(setLocalStorage + localStorage.length, JSON.stringify(reviewData));
-    location.reload();
-}
 
-// class Review {
-//     constructor(num, name, star, comment, passward) {
-//         this._num = num;
-//         this._name = name;
-//         this._star = star;
-//         this._comment = comment;
-//         this._passward = passward;
-//     }
-// }
+    if (Object.values(reviewData).every(el => el !== '' && el !== false)) {
+        let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
+        storageReviews.push(reviewData);
+        localStorage.setItem(data.movie_id, JSON.stringify(storageReviews));
+
+        location.reload();
+    }
+    return reviewData;
+}
 
 // 2. 작성된 리뷰는 local storage에 저장된 값으로만 수정, 삭제 기능 구현
-const registReview = async (registData) => {
 
+// 2-1. 1-3에서 저장된 reviewData를 html 리뷰 작성 칸에 출력
+const registerReview = async (registerData) => {
     const reviewCreateDiv = `
         <div class="card-body">
-        <h4 class="card-title">이름: ${registData.client_name}</h4>
-        <h6 class="card-subtitle mb-2 text-body-secondary">별점: ${registData.client_review_star}</h6>
-        <p class="card-text">리뷰 내용: ${registData.client_review_context}</p>
+            <p class="card-title">이름: ${registerData.reviewerName}</p>
+            <p class="card-score">별점: ${registerData.reviewerStar}</p>
+            <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
 
-        <button class="regist-modify-button" id="regist-modify-button">수정</button>
-        <button class="regist-delete-button" id="regist-delete-button">삭제</button>
+        <button class="registed-modify-button" id="registed-modify-button">수정</button>
+        <button class="registed-delete-button" id="registed-delete-button">삭제</button>
         </div>
         `;
 
-    document.getElementById("review-regist-section").insertAdjacentHTML('beforeend', reviewCreateDiv);
+    document.getElementById("review-modify-wrapper").insertAdjacentHTML('beforeend', reviewCreateDiv);
 }
 
-// async function save_btn() {
+const printReview = async () => {
+    const reviewerDatas = await reviewSave();
+    const storagedReviews = JSON.parse(localStorage.getItem(reviewerDatas.movieId)) || [];
 
-//     const newReview = new Review(num,
-//         document.querySelector("#review_name").value,
-//         document.querySelector("#review_star").value,
-//         document.querySelector("#review_content").value,
-//         document.querySelector("#review_pw").value);
-//     num++;
-//     reviewArr.push(newReview);
+    storagedReviews.forEach(registerReview);
+}
 
-//     reviewPrint();
+// 2-2. 작성된 리뷰에서 작성자의 이름과 비밀번호가 일치할 때만 수정 또는 삭제로 변경
+const startReviewModifyButton = document.getElementsByClassName('registed-modify-button');
 
-//     localStorage.removeItem(Movie_id);
-//     localStorage.setItem(Movie_id, JSON.stringify(reviewArr));
-// }
+const firstModifyPop = document.getElementById('review-modify-pop-info-1');
+const secondModifyPop = document.getElementById('review-modify-pop-info-2');
+const thirdModifyPop = document.getElementById('review-modify-pop-info-3');
 
-// function remove_cards() {
-//     const cardlist = document.getElementById('review');
+const toggleToFirstModify = document.getElementById('review-modify-go-first-pop');
+const toggleToSecondModify = document.getElementById('review-modify-go-second-pop');
+const toggleThirdModifyButton = document.getElementById('review-modify-checking-button');
+const toggleThirdDeleteButton = document.getElementById('review-delete-checking-button')
 
-//     cardlist.innerHTML = "";
-// }
+const checkModifyName = document.getElementById('review-modify-name')
+const checkModifyPW = document.getElementById('review-modify-pw')
+
+// 2-2. localStorage에 저장된 reviewer 정보와 수정, 삭제 하려는 사용자의 정보 일치 유효성 검사
+const contrastInputStoraged = async () => {
+    const reviewerDatas = await reviewSave();
+    const storagedReviewer = JSON.parse(localStorage.getItem(reviewerDatas.movieId));
+
+    let isContrast = false;
+
+    storagedReviewer.forEach(el => {
+        const isContrastName = el.reviewerName !== checkModifyName.value ? false : true;
+        const isContrastPW = el.reviewerPassword !== checkModifyPW.value ? false : true;
+        return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
+    })
+    return isContrast
+}
+
+const openModifyFirstPopUp = (event) => {
+    event.stopPropagation();
+
+    firstModifyPop.style.display = 'block';
+    secondModifyPop.style.display = 'none';
+    thirdModifyPop.style.display = 'none';
+}
+
+const openModifySecondPopUp = async (event) => {
+    event.stopPropagation();
+
+    if (!(await contrastInputStoraged())) {
+        firstModifyPop.style.display = 'none';
+        secondModifyPop.style.display = 'block';
+        thirdModifyPop.style.display = 'none';
+
+    } else {
+        alert('입력된 사용자 정보의 일치 여부가 확인되었습니다.');
+
+        firstModifyPop.style.display = 'none';
+        secondModifyPop.style.display = 'none';
+        thirdModifyPop.style.display = 'block';
+    }
+}
+
+const openModifyThirdPopUp = (event) => {
+    event.stopPropagation();
+
+
+}
+
+(async () => {
+    await printReview();
+
+    for (const value of startReviewModifyButton) {
+        value.addEventListener('click', openModifyFirstPopUp);
+    }
+}) ();
+
+toggleToSecondModify.addEventListener('click', openModifySecondPopUp);
+toggleToFirstModify.addEventListener('click', openModifyFirstPopUp);
+
+
+
+// 팝업 취소 관련
+const cancelPopUpButton = document.getElementsByClassName('modal-cancel-button');
+
+const closeRegisterPopUp = () => {
+    firstRegisterPop.style.display = 'none';
+    secondRegisterPop.style.display = 'none';
+}
+
+const closeModifyPopUp = () => {
+    firstModifyPop.style.display = 'none';
+    secondModifyPop.style.display = 'none';
+    thirdModifyPop.style.display = 'none';
+}
+
+for (const value of cancelPopUpButton) {
+    value.addEventListener('click', () => {
+        closeRegisterPopUp();
+        closeModifyPopUp();
+
+        checkRegisterName.value = '';
+        checkRegisterStar.value = '';
+        checkRegisterContext.value = '';
+        checkRegisterPW.value = '';
+    });
+}
+
 
