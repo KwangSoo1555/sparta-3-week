@@ -1,16 +1,16 @@
 
-.col {
-    scale: 50%;
-}
-
 .content {
     display: grid;
+    
+    place-items: center;
+    align-items: center;
+    
     background-color: green;
     margin: 30px;
 }
 
 .movie_img {
-    width: 500px;
+    height: fit-content;
     grid-area: 1/1 / 5/1;
     place-items: center;
     align-items: center;
@@ -18,17 +18,25 @@
 
 .movie_title {
     grid-area: 1/2 / 1/2;
+    font-size: 70px;
 }
 
 .movie_info {
-    background-color: blue;
+    background-color: hotpink;
     width: 500px;
     grid-area: 2/2 / 4/2;
 }
 
-.movie_actor {
+.back {
     grid-area: 5/2 / 5/2;
+    font-size: 20px;
+    color: black;
 }
+
+
+
+
+
 
 
 .review {

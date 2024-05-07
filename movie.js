@@ -11,9 +11,12 @@ const options = {
 const movieData = [];
 
 async function getdata() {
-    const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=1', options);
-    const data = await response.json();
+    // for (let i = 1; i <= 5; i++){
+        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=4`, options);
+        const data = await response.json();
+    // }
 
+    console.log(data);
 
     // api key 뽑기
     for (item of data['results']) {
@@ -56,7 +59,7 @@ function makeCard(item, count) {
     </div>
     `;
 
-    document.querySelector("#moviecard")?.insertAdjacentHTML('beforeend', movieDiv);
+    document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
 }
 
 
