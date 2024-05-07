@@ -1,3 +1,4 @@
+
 // sessionStorage에서 데이터 가져오기
 const getdata = async () => {
     const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
@@ -27,6 +28,12 @@ const createDetailsPageCard = (movieData) => {
 const printClickedMovie = async () => {
     const data = await getdata();
     createDetailsPageCard(data);
+     console.log(data)
+     const movieData = data.movie_id
+
+
+
+
 }
 
 printClickedMovie();
@@ -271,5 +278,3 @@ for (const value of cancelPopUpButton) {
         checkRegisterPW.value = '';
     });
 }
-
-
