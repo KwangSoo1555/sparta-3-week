@@ -139,7 +139,7 @@ function reviewSave() {
 function editReviewNum(clickId) {
     clickedNum = clickId / 1;
 
-    const pw = prompt("Message");
+    const pw = prompt("비밀번호를 입력해주세요.");
 
     pwCheckArr = reviewArr.find((data) => data._num === clickedNum);
 
@@ -155,7 +155,7 @@ function editReviewNum(clickId) {
 function deleteReview(clickId) {
     const clickReviewNum = (- clickId) / 1;
 
-    const pw = prompt("Message");
+    const pw = prompt("비밀번호를 입력해주세요.");
 
     pwCheckArr = reviewArr.find((data) => data._num === clickReviewNum);
 
