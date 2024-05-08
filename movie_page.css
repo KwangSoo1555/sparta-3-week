@@ -6,13 +6,114 @@
 }
 
 body {
-    background-color: black;
+    background-color: green;
     font-family: 'KCC-Hanbit';
     color: white;
 }
 
 .none {
     height: 50px;
+}
+/* review create popup modal */
+.review-create-pop {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
+}
+
+.pop-info-1 {
+    display: flex;
+    width: 50vw;
+    height: 50vh;
+}
+
+.pop-info-2 {
+    width: 40vw;
+    height: 40vh;
+}
+
+.go-to-toggle {
+    cursor: pointer;
+}
+
+.modal-cancel-button {
+    cursor: pointer;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 1vw;
+    right: 1vw;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+}
+/* review create popup modal */
+
+.movie_img {
+    width: 500px;
+    grid-area: 1/1 / 5/1;
+    place-items: center;
+    align-items: center;
+}
+
+.movie_title {
+    grid-area: 1/2 / 1/2;
+}
+
+.movie_info {
+    background-color: blue;
+    width: 500px;
+    grid-area: 2/2 / 4/2;
+}
+
+.movie_actor {
+    grid-area: 5/2 / 5/2;
+}
+
+
+.review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background-color: purple;
+}
+
+.review_card {
+    background-color: aqua;
+}
+
+
+/* review modify popup modal */
+.registed-modify-button {
+    cursor: pointer;
+}
+
+.review-modify-pop {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: rgb(255, 134, 178);
+}
+
+.pop-info-3 {
+    width: 35vw;
+    height: 35vh;
 }
 
 .content {

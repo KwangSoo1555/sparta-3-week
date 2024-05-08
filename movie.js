@@ -88,12 +88,6 @@ async function getdata() {
 
 // 카드 만들기
 function makeCard(item, count) {
-    // 오리지널 타이틀을 넣으려 했던 흔적 (실패함)
-    // function checkOriginalTitle() {
-    //     if (item.title !== item.original_title) {
-    //         return "(" + item.original_title + ")";
-    //     };
-    // }
 
     const movieDiv = `
     <div class="col" id="movieCard${count}" onclick="subPageOpen(${item.movie_id})">
@@ -116,42 +110,87 @@ function makeCard(item, count) {
 }
 
 
+// // 검색 구현
+// function movieSearch() {
+//     // 검색한 값
+//     const ex = document.querySelector("#searchbar").value.toLowerCase();
+
+//     // 검색한 값과 영화 제목 비교
+//     const searchedData = movieData.filter((i) => {
+//         if (i['title'].toLowerCase().search(ex) !== -1) {
+//             return i['title'];
+//         }
+//     });
+
+//     // 영화 보이기/안보이기
+//     let num = 0;
+
+//     if (searchedData.length > 0) {
+//         for (let count = 0; count < movieData.length; count++) {
+//             const movieCardDiv = document.querySelector(`#movieCard${count}`);
+//             const movieTitle = document.querySelector(`#movieTitle${count}`);
+
+//             if (searchedData[num]['title'] === movieTitle.innerHTML) {
+//                 movieCardDiv.setAttribute("style", "display: block;")
+//                 if (searchedData.length - 1 > num) { num++ };
+//             } else {
+//                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
+//                 movieCardDiv.setAttribute("style", "display: none;")
+//             }
+
+//         };
+//     } 
+//     else {
+//         alert("해당 영화는 존재하지 않습니다.");
+//     }
+
+// }     본코드
+
+//바꾼코드 검색
 // 검색 구현
 function movieSearch() {
     // 검색한 값
     const ex = document.querySelector("#searchbar").value.toLowerCase();
 
     // 검색한 값과 영화 제목 비교
-    const searchedData = movieData.filter((i) => {
-        if (i['title'].toLowerCase().search(ex) !== -1) {
-            return i['title'];
+    const searchedData = movieData.filter((el) => {
+        if (el['title'].toLowerCase().search(ex) !== -1) {
+            return el['title'];
         }
     });
 
-    // 영화 보이기/안보이기
-    let num = 0;
+    //동영상 숨기기
+    const videoBox = document.querySelector(".main");
+    videoBox.style.display = "none";
 
-    if (searchedData.length > 0) {
-        for (let count = 0; count < movieData.length; count++) {
-            const movieCardDiv = document.querySelector(`#movieCard${count}`);
-            const movieTitle = document.querySelector(`#movieTitle${count}`);
 
-            if (searchedData[num]['title'] === movieTitle.innerHTML) {
-                movieCardDiv.setAttribute("style", "display: block;")
-                if (searchedData.length - 1 > num) { num++ };
-            } else {
-                movieCardDiv.setAttribute("style", "display: none;")
-            }
-
-        };
+    // 카드 초기화
+    toggleCard();
+    if (searchedData[num]['title'] === movieTitle.innerHTML) {
+        movieCardDiv.setAttribute("style", "display: block;")
+        if (searchedData.length - 1 > num) { num++ };
     } else {
-        alert("해당 영화는 존재하지 않습니다.");
+        movieCardDiv.setAttribute("style", "display: none;")
     }
 
+    // 카드붙여
+    let count = 0;
+    searchedData.forEach(item => {
+        makeCard(item, count);
+        count++;
+    });
+
+    if (searchedData.length === 0) {
+        alert("해당 영화는 존재하지 않습니다.");
+        resetCard();
+    }
 }
 
 // 카드 초기화
 function resetCard() {
+
+    window.location.reload(); //카드정렬후 초기화
+
     for (let count = 0; count < movieData.length; count++) {
         document.querySelector(`#movieCard${count}`).setAttribute("style", "display: block;");
         document.querySelector("#searchbar").value = "";
@@ -201,3 +240,45 @@ function genre_sort(value) {
     };
 
 }
+
+// 메인페이지 드랍다운 하는중
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.querySelector('#toggleBtn');
+    const dropdown = document.querySelectorAll('.dropdown-item');
+
+    dropdown.forEach((item) => {
+        item.addEventListener('click', () => {
+            toggleBtn.textContent = item.textContent;
+
+            let Data = [];
+            if (item.textContent === "인기순") {
+                Data = movieData.sort((a, b) => b.popularity - a.popularity);
+            } else if (item.textContent === "평점순") {
+                Data = movieData.sort((a, b) => b.vote_average - a.vote_average);
+            } else if (item.textContent === "최신순") {
+                Data = movieData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+            } else {
+                Data = movieData.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            toggleCard();
+            Data.forEach((item) => {
+                makeCard(item);
+            });
+            // 동영상 숨기기
+            const videoBox = document.querySelector(".main");
+            videoBox.style.display = "none";
+        });
+    });
+});
+
+// 카드정렬 초기화
+function toggleCard() {
+    document.querySelector("#moviecard").innerHTML = "";
+}
+
+//동영상 상세정보 클릭
+const mainBtn = document.querySelector('#main_detail')
+mainBtn.addEventListener('click', function () {
+    subPageOpen(278);
+})
