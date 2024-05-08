@@ -1,3 +1,4 @@
+
 // api 가져오기
 // tmdb api 가져오기
 const options = {
@@ -7,6 +8,8 @@ const options = {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NWI5NGFhM2NlYmVlNTE3MDA1OGZkNTE4YmYyMzdmOSIsInN1YiI6IjY2MjhlMTQwZTI5NWI0MDE0YTlhM2EyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.92T_Xg7sAwljnOVmTCWxLkYMWTXdvllzp8EVPjlWVv0'
     }
 };
+
+//탑10
 
 const kofic_movieData = [];
 
@@ -22,7 +25,7 @@ async function kofic_getdata() {
 
     const kofic_response = await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=${today}`);
     const kofic_data = await kofic_response.json();
-
+    
     for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
         const movie = {};
         movie['title'] = i['movieNm'];
@@ -48,36 +51,53 @@ function kofic_makeCard(i) {
 
 async function kofic_print() {
     await kofic_getdata();
-    kofic_movieData.forEach(i => {
+    const top3Movies = kofic_movieData.slice(0, 3); // 상위 3위 데이터만 가져오기
+    top3Movies.forEach(i => {
         kofic_makeCard(i);
+        //10위까지 불러오기 
+    // kofic_movieData.forEach(i => {
+    //     kofic_makeCard(i);
     });
 }
 
 kofic_print();
 
+//탑10끝
+
+
+
+
 const movieData = [];
+ async function getdata() {
+//페이지수 추가
+for(let i = 1; i <=5; i++){
+    
+    const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
+    const data = await response.json();
 
-async function getdata() {
-    for (let i = 1; i <= 5; i++) {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
-        const data = await response.json();
 
-        // api key 뽑기
-        for (item of data['results']) {
-            const movie = {};
-            movie['movie_id'] = item['id'];
-            movie['title'] = item['title'];
-            movie['overview'] = item['overview'];
-            movie['poster_path'] = item['poster_path'];
-            movie['vote_average'] = item['vote_average'];
-            movie['original_title'] = item['original_title'];
-            movie['genre_ids'] = item['genre_ids'];
+    // api key 뽑기
+    for (item of data['results']) {
 
-            movieData.push(movie);
-        };
+        const movie = {};
+        movie['movie_id'] = item['id'];
+        movie['title'] = item['title'];
+        movie['overview'] = item['overview'];
+        movie['poster_path'] = item['poster_path'];
+        movie['vote_average'] = item['vote_average'];
+        movie['original_title'] = item['original_title'];
+        movie['popularity'] = item['popularity']; //인기순.
+        movie['release_date'] = item['release_date']; //개봉날짜
+        movie['genre_ids'] = item['genre_ids'];//장르 
+       
+        movieData.push(movie);
+}
     };
     return movieData;
 };
+
+
+
 
 // 카드 만들기
 function makeCard(item, count) {
@@ -109,61 +129,19 @@ function makeCard(item, count) {
      const ex = document.querySelector("#searchbar").value.toLowerCase();
 
     // 검색한 값과 영화 제목 비교
-     const searchedData = movieData.filter((i) => {
-         if (i['title'].toLowerCase().search(ex) !== -1) {
-             return i['title'];
-         }
-     });
-
-     // 영화 보이기/안보이기
-          let num = 0;
-
-     if (searchedData.length > 0) {
-        for (let count = 0; count < movieData.length; count++) {
-             const movieCardDiv = document.querySelector(`#movieCard${count}`);
-             const movieTitle = document.querySelector(`#movieTitle${count}`);
-
-             if (searchedData[num]['title'] === movieTitle.innerHTML) {
-                 movieCardDiv.setAttribute("style", "display: block;")
-                if (searchedData.length - 1 > num) { num++ };
-            } else {
-                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
-                 movieCardDiv.setAttribute("style", "display: none;")
-             }
-         };
-     } 
-     else {
-         alert("해당 영화는 존재하지 않습니다.");
-     }
-
- }     //본코드
-
-//바꾼코드 검색
-// 검색 구현
-//function movieSearch() {
-    // 검색한 값
-  //  const ex = document.querySelector("#searchbar").value.toLowerCase();
-
-    // 검색한 값과 영화 제목 비교
-   // const searchedData = movieData.filter((el) => {
-   //     if (el['title'].toLowerCase().search(ex) !== -1) {
-    //        return el['title'];
-   //     }
-  //  });
+    const searchedData = movieData.filter((i) => {
+        if (i['title'].toLowerCase().search(ex) !== -1) {
+            return i['title'];
+        }
+    });
 
     //동영상 숨기기
-   // const videoBox = document.querySelector(".main");
-   // videoBox.style.display = "none";
+    const videoBox = document.querySelector(".main");
+    videoBox.style.display = "none";
 
 
     // 카드 초기화
- //   toggleCard();
- //   if (searchedData[num]['title'] === movieTitle.innerHTML) {
- //       movieCardDiv.setAttribute("style", "display: block;")
- //       if (searchedData.length - 1 > num) { num++ };
- //   } else {
-  //      movieCardDiv.setAttribute("style", "display: none;")
- //   }
+    toggleCard();
 
     // 카드붙여
  //   let count = 0;
@@ -172,17 +150,19 @@ function makeCard(item, count) {
  //       count++;
 //    });
 
-//    if (searchedData.length === 0) {
- //       alert("해당 영화는 존재하지 않습니다.");
-  //      resetCard();
- //   }
-//}
+    if (searchedData.length === 0) {
+        alert("해당 영화는 존재하지 않습니다.");
+        resetCard();
+    }
+}
+
+
 
 // 카드 초기화
 function resetCard() {
-
+    
     window.location.reload(); //카드정렬후 초기화
-
+   
     for (let count = 0; count < movieData.length; count++) {
         document.querySelector(`#movieCard${count}`).setAttribute("style", "display: block;");
         document.querySelector("#searchbar").value = "";
@@ -213,9 +193,15 @@ function subPageOpen(clickMovieId) {
     window.location.href = `movie_page.html?id=${clickMovieId}`;
 }
 
-print();
+//나린님 드랍다운 onclick에서 변경
 
-// 장르별 검색
+document.getElementById("genre_select").addEventListener("change", function() {
+    const selectValue = this.value; // 선택된 값 가져오기
+    genre_sort(selectValue); 
+});
+
+
+//나린님 드랍다운
 function genre_sort(value) {
     for (let count = 0; count < movieData.length; count++) {
         const movieCardDiv = document.querySelector(`#movieCard${count}`);
@@ -229,13 +215,19 @@ function genre_sort(value) {
             movieCardDiv.setAttribute("style", "display: none;");
         }
 
+        const videoBox = document.querySelector(".main");
+        videoBox.style.display = "none"; //추가
+        
     };
-
 }
+
+
+print();
+
 
 // 메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.querySelector('#toggleBtn');
+    const toggleBtn = document.querySelector('#toggleBtn'); 
     const dropdown = document.querySelectorAll('.dropdown-item');
 
     dropdown.forEach((item) => {
@@ -263,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
 // 카드정렬 초기화
 function toggleCard() {
     document.querySelector("#moviecard").innerHTML = "";
@@ -271,6 +262,6 @@ function toggleCard() {
 
 //동영상 상세정보 클릭
 const mainBtn = document.querySelector('#main_detail')
-mainBtn.addEventListener('click', function () {
+mainBtn.addEventListener('click',()=>{
     subPageOpen(278);
 })

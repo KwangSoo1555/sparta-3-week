@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: 'Cafe24ClassicType-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
@@ -76,16 +75,12 @@ body {
     border-radius: 10px;
 }
 
-.genre_select {
-    width: 200px;
-    height: 50px;
-}
 
 .moviecard {
     width: 85%;
 
     display:grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3,1fr);
     place-items: center;
     align-items: center;
 
@@ -151,12 +146,12 @@ body {
     color: white; 
 }
 
-/* main 글자 */
+/* main 동영상 글자 */
 .video-text {
     font-size: 3.5rem;
     left: 5%;
     position: absolute;
-    top: 90%;
+    top: 120%;
     color: white;
 }
 
@@ -164,7 +159,7 @@ body {
     font-size: 1.5rem;
     left: 5%;
     position: absolute;
-    top: 100%;
+    top: 130%;
     color: white;
 }
 
@@ -172,7 +167,17 @@ body {
     font-size: 1.5rem;
     left: 5%;
     position: absolute;
-    top: 115%;
+    top: 145%;
     color: white;
 }
 
+
+/* 박스오피스 */
+.kofic_rank{
+  color: white;
+}
+
+.genre_select {
+    width: 200px;
+    height: 50px;
+}
