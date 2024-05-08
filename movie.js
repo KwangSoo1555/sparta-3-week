@@ -1,4 +1,5 @@
 // api 가져오기
+// tmdb api 가져오기
 const options = {
     method: 'GET',
     headers: {
@@ -6,6 +7,53 @@ const options = {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NWI5NGFhM2NlYmVlNTE3MDA1OGZkNTE4YmYyMzdmOSIsInN1YiI6IjY2MjhlMTQwZTI5NWI0MDE0YTlhM2EyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.92T_Xg7sAwljnOVmTCWxLkYMWTXdvllzp8EVPjlWVv0'
     }
 };
+
+const kofic_movieData = [];
+
+async function kofic_getdata() {
+    const now = new Date('2024-05-01');
+    const year = now.getFullYear();
+    let month;
+    if (now.getMonth() < 10) {month = '0' + (now.getMonth() + 1)} else {month = now.getMonth() + 1};
+    let date;
+    if (now.getDate() < 10) {date = '0' + (now.getDate()-1)} else {date = now.getDate()-1};
+    const today = String(year).concat(month, date);
+    console.log(today);
+
+    const kofic_response = await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=${today}`);
+    const kofic_data = await kofic_response.json();
+
+    for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
+        const movie = {};
+        movie['title'] = i['movieNm'];
+        movie['rank'] = i['rank'];
+
+        kofic_movieData.push(movie);
+    }
+    return kofic_movieData;
+}
+
+function kofic_makeCard(i) {
+    let new_rank = ""
+    if (i.rankOldAndNew === "NEW") {
+        new_rank = "NEW!!!"
+    };
+
+    const rankDiv = `
+    <p>${i.rank}위: ${i.title}</p>
+    `;
+
+    document.querySelector("#kofic_rank").insertAdjacentHTML('beforeend', rankDiv);
+}
+
+async function kofic_print() {
+    await kofic_getdata();
+    kofic_movieData.forEach(i => {
+        kofic_makeCard(i);
+    });
+}
+
+kofic_print();
 
 const movieData = [];
 
@@ -56,80 +104,79 @@ function makeCard(item, count) {
 
 
 // // 검색 구현
-// function movieSearch() {
-//     // 검색한 값
-//     const ex = document.querySelector("#searchbar").value.toLowerCase();
+ function movieSearch() {
+     // 검색한 값
+     const ex = document.querySelector("#searchbar").value.toLowerCase();
 
-//     // 검색한 값과 영화 제목 비교
-//     const searchedData = movieData.filter((i) => {
-//         if (i['title'].toLowerCase().search(ex) !== -1) {
-//             return i['title'];
-//         }
-//     });
+    // 검색한 값과 영화 제목 비교
+     const searchedData = movieData.filter((i) => {
+         if (i['title'].toLowerCase().search(ex) !== -1) {
+             return i['title'];
+         }
+     });
 
-//     // 영화 보이기/안보이기
-//     let num = 0;
+     // 영화 보이기/안보이기
+          let num = 0;
 
-//     if (searchedData.length > 0) {
-//         for (let count = 0; count < movieData.length; count++) {
-//             const movieCardDiv = document.querySelector(`#movieCard${count}`);
-//             const movieTitle = document.querySelector(`#movieTitle${count}`);
+     if (searchedData.length > 0) {
+        for (let count = 0; count < movieData.length; count++) {
+             const movieCardDiv = document.querySelector(`#movieCard${count}`);
+             const movieTitle = document.querySelector(`#movieTitle${count}`);
 
-//             if (searchedData[num]['title'] === movieTitle.innerHTML) {
-//                 movieCardDiv.setAttribute("style", "display: block;")
-//                 if (searchedData.length - 1 > num) { num++ };
-//             } else {
-//                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
-//                 movieCardDiv.setAttribute("style", "display: none;")
-//             }
+             if (searchedData[num]['title'] === movieTitle.innerHTML) {
+                 movieCardDiv.setAttribute("style", "display: block;")
+                if (searchedData.length - 1 > num) { num++ };
+            } else {
+                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
+                 movieCardDiv.setAttribute("style", "display: none;")
+             }
+         };
+     } 
+     else {
+         alert("해당 영화는 존재하지 않습니다.");
+     }
 
-//         };
-//     } 
-//     else {
-//         alert("해당 영화는 존재하지 않습니다.");
-//     }
-
-// }     본코드
+ }     //본코드
 
 //바꾼코드 검색
 // 검색 구현
-function movieSearch() {
+//function movieSearch() {
     // 검색한 값
-    const ex = document.querySelector("#searchbar").value.toLowerCase();
+  //  const ex = document.querySelector("#searchbar").value.toLowerCase();
 
     // 검색한 값과 영화 제목 비교
-    const searchedData = movieData.filter((el) => {
-        if (el['title'].toLowerCase().search(ex) !== -1) {
-            return el['title'];
-        }
-    });
+   // const searchedData = movieData.filter((el) => {
+   //     if (el['title'].toLowerCase().search(ex) !== -1) {
+    //        return el['title'];
+   //     }
+  //  });
 
     //동영상 숨기기
-    const videoBox = document.querySelector(".main");
-    videoBox.style.display = "none";
+   // const videoBox = document.querySelector(".main");
+   // videoBox.style.display = "none";
 
 
     // 카드 초기화
-    toggleCard();
-    if (searchedData[num]['title'] === movieTitle.innerHTML) {
-        movieCardDiv.setAttribute("style", "display: block;")
-        if (searchedData.length - 1 > num) { num++ };
-    } else {
-        movieCardDiv.setAttribute("style", "display: none;")
-    }
+ //   toggleCard();
+ //   if (searchedData[num]['title'] === movieTitle.innerHTML) {
+ //       movieCardDiv.setAttribute("style", "display: block;")
+ //       if (searchedData.length - 1 > num) { num++ };
+ //   } else {
+  //      movieCardDiv.setAttribute("style", "display: none;")
+ //   }
 
     // 카드붙여
-    let count = 0;
-    searchedData.forEach(item => {
-        makeCard(item, count);
-        count++;
-    });
+ //   let count = 0;
+ //   searchedData.forEach(item => {
+//makeCard(item, count);
+ //       count++;
+//    });
 
-    if (searchedData.length === 0) {
-        alert("해당 영화는 존재하지 않습니다.");
-        resetCard();
-    }
-}
+//    if (searchedData.length === 0) {
+ //       alert("해당 영화는 존재하지 않습니다.");
+  //      resetCard();
+ //   }
+//}
 
 // 카드 초기화
 function resetCard() {
@@ -145,6 +192,7 @@ function resetCard() {
 // 출력
 const print = async () => {
     const data = await getdata();
+    await kofic_getdata();
     let count = 0;
     data.forEach(item => {
         makeCard(item, count);

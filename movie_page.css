@@ -79,7 +79,9 @@ margin-left: 1600px;
 .movie_actor {
     grid-area: 5/2 / 5/2;
 }
-
+.kofic_rank {
+    background-color: white;
+}
 
 .review {
     background-color: rgb(243, 241, 241);
