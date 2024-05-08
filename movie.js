@@ -264,17 +264,17 @@ mainBtn.addEventListener('click',()=>{
  window.location.href = "https://namu.wiki/w/%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C4";
 })
 
-document.getElementById("trailer").addEventListener("click", function() {
+document.getElementById("trailer").addEventListener("click", ()=>{
     window.location.href = "https://www.youtube.com/watch?v=OqfiM8zEzQA&t=1s";
   });
 
 //시리즈클릭
- document.getElementById('series').addEventListener("click",function(){
+ document.getElementById('series').addEventListener("click",()=>{
     window.open("https://serieson.naver.com/v3/movie?", "_blank");
  })
 
 //무료영화
-document.getElementById('freemovie').addEventListener("click",function(){
+document.getElementById('freemovie').addEventListener("click",()=>{
     window.open("https://serieson.naver.com/v3/movie/free", "_blank");
 })
 
