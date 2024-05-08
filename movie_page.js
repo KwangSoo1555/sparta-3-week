@@ -156,12 +156,14 @@ const contrastInputStoraged = async () => {
 
     let isContrast = false;
 
-    storagedReviewers.forEach(el => {
-        const isContrastName = el.reviewerName !== checkModifyName.value ? false : true;
-        const isContrastPW = el.reviewerPassword !== checkModifyPW.value ? false : true;
+    for (const el of storagedReviewers) {
+        if (currentReviewIndex === el.reviewIndex) {
+            const isContrastName = el.reviewerName === checkModifyName.value;
+            const isContrastPW = el.reviewerPassword === checkModifyPW.value;
 
-        return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
-    })
+            return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
+        }
+    }
     return isContrast
 }
 
@@ -196,19 +198,26 @@ let currentReviewIndex = null;
 const executeModify = async (event) => {
     event.stopPropagation();
 
-    const storagedReviewers = await getLocalStoragedDatas();
+    if (currentReviewIndex !== null) {
+        const storagedReviewers = await getLocalStoragedDatas();
+        const getStorageKey = await reviewSave();
+        const modifyEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
-    if (currentReviewIndex) {
-        const currentReview = await getValueIndexStorage(currentReviewIndex);
-        if (currentReviewIndex) {
-            confirm('수정 하시겠습니까?') ? alert('수정이 완료되었습니다.') : false;
+        if (modifyEqaulIndex !== -1) {
+            if (executeModifyScore.value === 0 ||
+                executeModifyContext.value === 0 ||
+                executeModifyContext.value < 5) {
+                alert('수정할 내용을 정확히 입력해주세요.');
+            } else {
+                confirm('수정 하시겠습니까?') ? alert('수정이 완료되었습니다.') : false;
 
-            storagedReviewers.reviewerStar = executeModifyScore.value
-            console.log(storagedReviewers.reviewerStar)
-            executeModifyScore.value
+                storagedReviewers[modifyEqaulIndex].reviewerStar = executeModifyScore.value;
+                storagedReviewers[modifyEqaulIndex].reviewerContext = executeModifyContext.value;
 
-            printReview();
-            location.reload();
+                localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
+
+                location.reload();
+            }
         }
     }
 }
@@ -216,15 +225,16 @@ const executeModify = async (event) => {
 const executeDelete = async (event) => {
     event.stopPropagation();
 
-    if (currentReviewIndex) {
+    if (currentReviewIndex !== null) {
         const storagedReviewers = await getLocalStoragedDatas();
-        const deleteEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex)
+        const getStorageKey = await reviewSave();
+        const deleteEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
         if (deleteEqaulIndex !== -1) {
             confirm('삭제 하시겠습니까?') ? alert('삭제가 완료되었습니다.') : false;
 
             storagedReviewers.splice(deleteEqaulIndex, 1);
-            localStorage.setItem(storagedReviewers[0].movieId, JSON.stringify(storagedReviewers));
+            localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
 
             location.reload();
         }
