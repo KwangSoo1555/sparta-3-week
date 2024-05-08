@@ -300,3 +300,13 @@ const mainBtn = document.querySelector('#main_detail')
 mainBtn.addEventListener('click',()=>{
     subPageOpen(278);
 })
+
+//안될거같지만 해봄
+document.addEventListener("DOMContentLoaded", function() {
+    var boxOfficeLink = document.querySelector('.nav-link.text-white[href="#"]');
+    var boxOfficeDropdown = document.querySelector('#kofic_rank');
+
+    boxOfficeLink.addEventListener('click', function() {
+      boxOfficeDropdown.classList.toggle('show');
+    });
+  });

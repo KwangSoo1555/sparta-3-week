@@ -13,18 +13,71 @@
 </head>
 
 <body>
-  <h1 class="title">당신이 좋아하는 영화는?</h1>
-  <!-- 박스오피스 순위 -->
-  <div class="kofic_rank" id="kofic_rank">
-    <p>현재 박스오피스 영화 순위</p>
+<!-- 헤더 -->
+<header class="p-3 text-bg-dark">
+  <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                  <use xlink:href="#bootstrap"></use>
+              </svg>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="#" class="nav-link px-2 text-danger">DOUBLEJO</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">홈</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">시리즈</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">영화</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link px-2 text-white">박스오피스 순위</a></li>
+             <!-- 모달모달 위에랑 같이 추가중 -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">2024 박스오피스</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body"> 
+                    <div class="kofic_rank" id="kofic_rank">
+                      <p>현재 박스오피스 영화 순위</p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ul>
+       <!-- 모달창하는중 -->
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+              <input type="search" id="searchbar" class="form-control form-control-dark text-bg-dark" placeholder="영화제목 검색"
+                  aria-label="Search">
+          </form>
+          
+          <div class="text-end" id="search">
+              <button type="button" id="searchbtn" class="btn btn-outline-light me-2">검색</button>
+              <button type="button" id="reset" onclick="resetCard()" class="btn btn-danger">초기화</button>
+          </div>
+         
+      </div>
   </div>
+</header>
+
+
+
+  <!-- <h1 class="title">당신이 좋아하는 영화는?</h1> -->
+  <!-- 박스오피스 순위 -->
+  <!-- <div class="kofic_rank" id="kofic_rank">
+    <p>현재 박스오피스 영화 순위</p>
+  </div> -->
   <!-- 박스오피스끝 -->
 
-  <div class="search" id="search">
+  <!-- <div class="search" id="search">
     <input type="text" class="searchbar" id="searchbar" autofocus placeholder="영화 제목을 입력해주세요">
     <button type="button" class="btn btn-outline-light" id="searchbtn">검색</button>
     <button type="button" class="btn btn-outline-light" id="reset" onclick="resetCard()">초기화</button>
-  </div>
+  </div> -->
   <!-- 나린님 드랍다운 -->
   <!-- <select class="genre_select" id="genre_select" onclick="genre_sort(value)"> -->
 
