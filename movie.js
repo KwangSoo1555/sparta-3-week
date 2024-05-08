@@ -13,33 +13,46 @@ const options = {
 const kofic_movieData = [];
 
 async function kofic_getdata() {
-    const kofic_response = await fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=20240501');
+    const now = new Date('2024-05-01');
+    const year = now.getFullYear();
+    let month;
+    if (now.getMonth() < 10) {month = '0' + (now.getMonth() + 1)} else {month = now.getMonth() + 1};
+    let date;
+    if (now.getDate() < 10) {date = '0' + (now.getDate()-1)} else {date = now.getDate()-1};
+    const today = String(year).concat(month, date);
+    console.log(today);
+
+    const kofic_response = await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=${today}`);
     const kofic_data = await kofic_response.json();
     
     for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
         const movie = {};
         movie['title'] = i['movieNm'];
         movie['rank'] = i['rank'];
-        movie['audiAcc'] = i['audiAcc'];
-        movie['rankOldAndNew'] = i['rankOldAndNew'];
 
         kofic_movieData.push(movie);
     }
     return kofic_movieData;
 }
 
-console.log(kofic_movieData);
+function kofic_makeCard(i) {
+    let new_rank = ""
+    if (i.rankOldAndNew === "NEW") {
+        new_rank = "NEW!!!"
+    };
 
-function kofic_makeCard() {
-    console.log(i);
     const rankDiv = `
-    <p>위: 어쩌구 저쩌구 (누적 관객수: 몇 만명)</p>
+    <p>${i.rank}위: ${i.title}</p>
     `;
+
+    document.querySelector("#kofic_rank").insertAdjacentHTML('beforeend', rankDiv);
 }
 
 async function kofic_print() {
     await kofic_getdata();
-    kofic_movieData.forEach(i => kofic_makeCard(i));
+    kofic_movieData.forEach(i => {
+        kofic_makeCard(i);
+    });
 }
 
 kofic_print();
