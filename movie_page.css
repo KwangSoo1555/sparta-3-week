@@ -1,4 +1,20 @@
-/* review create popup modal */
+.cardbox {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: right;
+    width: 1400px;
+    height: 715px;
+    margin-left: 200px;
+}
+.backbtn {
+background-color: white;
+border: 2px solid gray;
+padding: 3px;
+border-radius: 10px;
+font-size: small;
+margin-left: 1600px;
+}/* review create popup modal */
 .review-create-pop {
     display: flex;
     position: fixed;
@@ -63,11 +79,45 @@
 .movie_actor {
     grid-area: 5/2 / 5/2;
 }
-
+.kofic_rank {
+    background-color: white;
+}
 
 .review {
+    background-color: rgb(243, 241, 241);
+    height: 260px;
+    width: 70%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+
+    flex-direction: row;
+    align-items: right;
+    /* justify-content: right; */
+    max-width: 50%;   
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #c4ccc3;
+    border-radius: 10px;
+    border-style: double;
+    
+}
+.inner1{
+    height: 260px;
+    margin: 90px;
+    font-size: 150%;
+}
+.inner2 {
+    height: 260px;
+    margin-right: 100px;
+    margin-top: 15px;
+}
+
+.mb-3 {
+    scale: 130%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: auto;

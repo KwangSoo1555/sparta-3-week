@@ -57,7 +57,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    margin-top: -40px;
+    margin-top: px;
     margin-bottom: 100px;
 }
 
@@ -109,13 +109,16 @@ body {
 /* 상단으로 스크롤 버튼 */
 .upscroll {
     background-color: transparent;
-    box-shadow: 0px 0px 20px 3px rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 0px 10px 3px rgba(255, 255, 255, 0.7);
+
     border-radius: 200px;
-    height: 90px;
-    width: 90px;
-    position: fixed;
+    height: 80px;
+    width: 80px;
+
+    position:fixed;
     bottom: 50px;
-    right: 40px;
+    left: 30px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,8 +132,13 @@ body {
     font-size: large;
 }
 
-/* 드롭다운 메뉴 */
-.dropdown-menu {
+/* 추가중 */
+
+.drop {
+    margin-left: 0px;
+}
+
+.dropdown-menu{
     background-color: black;
 }
 
@@ -138,7 +146,38 @@ body {
     color: white;
 }
 
-/* 장르 선택 */
+/* main 동영상 글자 */
+.video-text {
+    font-size: 3.5rem;
+    left: 20%;
+    position: absolute;
+    top: 75%;
+    color: white;
+}
+
+.overview {
+    font-size: 1.8rem;
+    left: 35%;
+    position: absolute;
+    top: 85%;
+    color: white;
+}
+
+.mainbtn {
+    font-size: 1.5rem;
+    left: 21%;
+    position: absolute;
+    top: 85%;
+    color: white;
+}
+
+
+/* 박스오피스 */
+.kofic_rank{
+  color: white;
+  font-size: 1.3rem;
+}
+
 .genre_select {
     appearance: none;
     outline: none; /* 포커스 효과 제거 */
@@ -151,8 +190,7 @@ body {
     color: white;
     text-align: center;
 }
-
-/* 드롭다운 정렬 */
+/* 로고, 장르별, 순위별 grid로 합쳤습니다 */
 .dropdowns {
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
@@ -190,10 +228,6 @@ body {
 /* 박스 오피스 */
 .kofic_rank {
     color: white;
-}
-
-.genreDiv, .drop {
-    margin-right: 15px; /* 요소들 사이의 간격 조절 */
 }
 
 .logo {
