@@ -45,17 +45,18 @@ function kofic_makeCard(i) {
     <p>${i.rank}위: ${i.title}</p>
     `;
 
-    document.querySelector("#kofic_rank").insertAdjacentHTML('beforeend', rankDiv);
+    // document.querySelector("#kofic_rank").insertAdjacentHTML('beforeend', rankDiv);
+    document.querySelector("#exampleModal .modal-body").insertAdjacentHTML('beforeend', rankDiv);
 }
 
 async function kofic_print() {
     await kofic_getdata();
-    const top3Movies = kofic_movieData.slice(0, 3); // 상위 3위 데이터만 가져오기
-    top3Movies.forEach(i => {
-        kofic_makeCard(i);
-        //10위까지 불러오기 
-    // kofic_movieData.forEach(i => {
+    // const top3Movies = kofic_movieData.slice(0, 3); // 상위 3위 데이터만 가져오기
+    // top3Movies.forEach(i => {
     //     kofic_makeCard(i);
+        // 10위까지 불러오기 
+    kofic_movieData.forEach(i => {
+        kofic_makeCard(i);
     });
 }
 
@@ -121,44 +122,6 @@ function makeCard(item, count) {
     document.querySelector("#moviecard").insertAdjacentHTML('beforeend', movieDiv);
 }
 
-
-// // 검색 구현
-// function movieSearch() {
-//     // 검색한 값
-//     const ex = document.querySelector("#searchbar").value.toLowerCase();
-
-//     // 검색한 값과 영화 제목 비교
-//     const searchedData = movieData.filter((i) => {
-//         if (i['title'].toLowerCase().search(ex) !== -1) {
-//             return i['title'];
-//         }
-//     });
-
-//     // 영화 보이기/안보이기
-//     let num = 0;
-
-//     if (searchedData.length > 0) {
-//         for (let count = 0; count < movieData.length; count++) {
-//             const movieCardDiv = document.querySelector(`#movieCard${count}`);
-//             const movieTitle = document.querySelector(`#movieTitle${count}`);
-
-//             if (searchedData[num]['title'] === movieTitle.innerHTML) {
-//                 movieCardDiv.setAttribute("style", "display: block;")
-//                 if (searchedData.length - 1 > num) { num++ };
-//             } else {
-//                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
-//                 movieCardDiv.setAttribute("style", "display: none;")
-//             }
-
-//         };
-//     } 
-//     else {
-//         alert("해당 영화는 존재하지 않습니다.");
-//     }
-
-// }     본코드
-
-//바꾼코드 검색
 // 검색 구현
 function movieSearch() {
     // 검색한 값
@@ -298,15 +261,28 @@ function toggleCard() {
 //동영상 상세정보 클릭
 const mainBtn = document.querySelector('#main_detail')
 mainBtn.addEventListener('click',()=>{
-    subPageOpen(278);
+ window.location.href = "https://namu.wiki/w/%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C4";
 })
 
-//안될거같지만 해봄
-document.addEventListener("DOMContentLoaded", function() {
-    var boxOfficeLink = document.querySelector('.nav-link.text-white[href="#"]');
-    var boxOfficeDropdown = document.querySelector('#kofic_rank');
-
-    boxOfficeLink.addEventListener('click', function() {
-      boxOfficeDropdown.classList.toggle('show');
-    });
+document.getElementById("trailer").addEventListener("click", function() {
+    window.location.href = "https://www.youtube.com/watch?v=OqfiM8zEzQA&t=1s";
   });
+
+//시리즈클릭
+ document.getElementById('series').addEventListener("click",function(){
+    window.open("https://serieson.naver.com/v3/movie?", "_blank");
+ })
+
+//무료영화
+document.getElementById('freemovie').addEventListener("click",function(){
+    window.open("https://serieson.naver.com/v3/movie/free", "_blank");
+})
+
+
+  // 56초뒤 사라진다.
+setTimeout(hideMainup, 56000);
+
+function hideMainup(){
+  const mainup = document.querySelector(".mainup");
+  mainup.style.display = "none"; // mainup을 숨김
+}
