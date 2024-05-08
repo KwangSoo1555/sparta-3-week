@@ -15,17 +15,23 @@ const kofic_movieData = [];
 async function kofic_getdata() {
     const now = new Date('2024-05-01');
     const year = now.getFullYear();
+
     let month;
-    if (now.getMonth() < 10) {month = '0' + (now.getMonth() + 1)} else {month = now.getMonth() + 1};
+
+    if (now.getMonth() < 10) { month = '0' + (now.getMonth() + 1) }
+    else { month = now.getMonth() + 1 };
+
     let date;
-    if (now.getDate() < 10) {date = '0' + (now.getDate()-1)} else {date = now.getDate()-1};
+
+    if (now.getDate() < 10) { date = '0' + (now.getDate() - 1) }
+    else { date = now.getDate() - 1 };
+
     const today = String(year).concat(month, date);
-    console.log(today);
 
     const kofic_response = await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=${today}`);
     const kofic_data = await kofic_response.json();
-    
-    for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
+
+    for (i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
         const movie = {};
         movie['title'] = i['movieNm'];
         movie['rank'] = i['rank'];
@@ -54,7 +60,7 @@ async function kofic_print() {
     // const top3Movies = kofic_movieData.slice(0, 3); // 상위 3위 데이터만 가져오기
     // top3Movies.forEach(i => {
     //     kofic_makeCard(i);
-        // 10위까지 불러오기 
+    // 10위까지 불러오기 
     kofic_movieData.forEach(i => {
         kofic_makeCard(i);
     });
@@ -68,36 +74,32 @@ kofic_print();
 
 
 const movieData = [];
- async function getdata() {
-//페이지수 추가
-for(let i = 1; i <=5; i++){
-    
-    const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
-    const data = await response.json();
+async function getdata() {
+    //페이지수 추가
+    for (let i = 1; i <= 5; i++) {
 
+        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko-US&page=${i}`, options);
+        const data = await response.json();
 
-    // api key 뽑기
-    for (item of data['results']) {
+        // api key 뽑기
+        for (item of data['results']) {
 
-        const movie = {};
-        movie['movie_id'] = item['id'];
-        movie['title'] = item['title'];
-        movie['overview'] = item['overview'];
-        movie['poster_path'] = item['poster_path'];
-        movie['vote_average'] = item['vote_average'];
-        movie['original_title'] = item['original_title'];
-        movie['popularity'] = item['popularity']; //인기순.
-        movie['release_date'] = item['release_date']; //개봉날짜
-        movie['genre_ids'] = item['genre_ids'];//장르 
-       
-        movieData.push(movie);
-}
+            const movie = {};
+            movie['movie_id'] = item['id'];
+            movie['title'] = item['title'];
+            movie['overview'] = item['overview'];
+            movie['poster_path'] = item['poster_path'];
+            movie['vote_average'] = item['vote_average'];
+            movie['original_title'] = item['original_title'];
+            movie['popularity'] = item['popularity']; //인기순.
+            movie['release_date'] = item['release_date']; //개봉날짜
+            movie['genre_ids'] = item['genre_ids'];//장르 
+
+            movieData.push(movie);
+        }
     };
     return movieData;
 };
-
-
-
 
 // 카드 만들기
 function makeCard(item, count) {
@@ -159,9 +161,9 @@ function movieSearch() {
 
 // 카드 초기화
 function resetCard() {
-    
+
     window.location.reload(); //카드정렬후 초기화
-   
+
     for (let count = 0; count < movieData.length; count++) {
         document.querySelector(`#movieCard${count}`).setAttribute("style", "display: block;");
         document.querySelector("#searchbar").value = "";
@@ -193,11 +195,10 @@ function subPageOpen(clickMovieId) {
 
 //나린님 드랍다운 onclick에서 변경
 
-document.getElementById("genre_select").addEventListener("change", function() {
+document.getElementById("genre_select").addEventListener("change", function () {
     const selectValue = this.value; // 선택된 값 가져오기
-    genre_sort(selectValue); 
+    genre_sort(selectValue);
 });
-
 
 //나린님 드랍다운
 function genre_sort(value) {
@@ -215,17 +216,15 @@ function genre_sort(value) {
 
         const videoBox = document.querySelector(".main");
         videoBox.style.display = "none"; //추가
-        
+
     };
 }
 
-
 print();
-
 
 // 메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.querySelector('#toggleBtn'); 
+    const toggleBtn = document.querySelector('#toggleBtn');
     const dropdown = document.querySelectorAll('.dropdown-item');
 
     dropdown.forEach((item) => {
@@ -260,29 +259,28 @@ function toggleCard() {
 
 //동영상 상세정보 클릭
 const mainBtn = document.querySelector('#main_detail')
-mainBtn.addEventListener('click',()=>{
- window.location.href = "https://namu.wiki/w/%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C4";
+mainBtn.addEventListener('click', () => {
+    window.location.href = "https://namu.wiki/w/%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C4";
 })
 
-document.getElementById("trailer").addEventListener("click", ()=>{
+document.getElementById("trailer").addEventListener("click", () => {
     window.location.href = "https://www.youtube.com/watch?v=OqfiM8zEzQA&t=1s";
-  });
+});
 
 //시리즈클릭
- document.getElementById('series').addEventListener("click",()=>{
+document.getElementById('series').addEventListener("click", () => {
     window.open("https://serieson.naver.com/v3/movie?", "_blank");
- })
+})
 
 //무료영화
-document.getElementById('freemovie').addEventListener("click",()=>{
+document.getElementById('freemovie').addEventListener("click", () => {
     window.open("https://serieson.naver.com/v3/movie/free", "_blank");
 })
 
-
-  // 56초뒤 사라진다.
+// 56초뒤 사라진다.
 setTimeout(hideMainup, 56000);
 
-function hideMainup(){
-  const mainup = document.querySelector(".mainup");
-  mainup.style.display = "none"; // mainup을 숨김
+function hideMainup() {
+    const mainup = document.querySelector(".mainup");
+    mainup.style.display = "none"; // mainup을 숨김
 }

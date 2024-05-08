@@ -61,7 +61,7 @@ body {
     margin-bottom: 100px;
 }
 
-.search>button {
+.search > button {
     width: 80px;
     height: 45px;
     border-radius: 10px;
@@ -163,15 +163,6 @@ body {
     color: white;
 }
 
-.mainbtn {
-    font-size: 1.5rem;
-    left: 21%;
-    position: absolute;
-    top: 85%;
-    color: white;
-}
-
-
 /* 박스오피스 */
 .kofic_rank{
   color: white;
@@ -185,17 +176,35 @@ body {
     border-radius: 5px;
     font-size: 16px;
     background-color: black;
-    width: 125px;
-    height: 40px;
+    width: 8vw;
+    height: 4vh;
     color: white;
     text-align: center;
+    cursor: pointer;
+    margin-right: 1vw;
 }
+
 /* 로고, 장르별, 순위별 grid로 합쳤습니다 */
 .dropdowns {
     display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-    margin-right: 20px; /* 오른쪽 여백 */
+    align-items: center;
+    height: 12vh;
 }
+
+.dropdowns-search-section {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    
+}
+
+.dropdowns-genre-section {
+    display: flex;
+    position: absolute;
+    right: 5vw;
+}
+
 /* main 동영상 텍스트 */
 .video-text {
     font-size: 3.5rem;
