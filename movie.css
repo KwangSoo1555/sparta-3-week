@@ -80,7 +80,7 @@ body {
     width: 85%;
 
     display:grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     place-items: center;
     align-items: center;
 
@@ -133,10 +133,6 @@ body {
 
 /* 추가중 */
 
-.drop {
-    margin-left: 1300px;
-}
-
 .dropdown-menu{
     background-color: black;
   
@@ -149,25 +145,25 @@ body {
 /* main 동영상 글자 */
 .video-text {
     font-size: 3.5rem;
-    left: 5%;
+    left: 10%;
     position: absolute;
-    top: 120%;
+    top: 105%;
     color: white;
 }
 
 .overview {
     font-size: 1.5rem;
-    left: 5%;
+    left: 10%;
     position: absolute;
-    top: 130%;
+    top: 115%;
     color: white;
 }
 
 .mainbtn {
     font-size: 1.5rem;
-    left: 5%;
+    left: 10%;
     position: absolute;
-    top: 145%;
+    top: 130%;
     color: white;
 }
 
@@ -177,7 +173,34 @@ body {
   color: white;
 }
 
-.genre_select {
+/* .genre_select {
     width: 200px;
     height: 50px;
+} */
+
+/* 장르별검색 css */
+.genre_select {
+    appearance: none; 
+    outline: none; /* 포커스 효과 제거 */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    background-color: black; 
+    width: 125px; 
+    height: 40px; 
+    color: white;
+    text-align: center;
+    margin-left: 1150px;
 }
+
+/* 드롭다운 정렬 */
+.dropdowns {
+    display: flex;
+    align-items: center;
+    margin-left: 400px;
+}
+
+.genreDiv, .drop {
+    margin-right: 15px; /* 요소들 사이의 간격 조절 */
+}
+
