@@ -140,7 +140,6 @@ function movieSearch() {
     const videoBox = document.querySelector(".main");
     videoBox.style.display = "none";
 
-
     // 카드 초기화
     toggleCard();
 
