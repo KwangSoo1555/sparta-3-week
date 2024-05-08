@@ -48,7 +48,18 @@ body {
     text-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
 }
 
-/* 검색 */
+.card-title {
+    font-family: 'TmonMonsori';
+}
+
+.kofic_rank {
+    background-color: white;
+}
+
+
+
+
+
 .search {
     height: 50px;
 

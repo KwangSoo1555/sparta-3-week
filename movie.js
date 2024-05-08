@@ -1,4 +1,4 @@
-// api 가져오기
+
 // tmdb api 가져오기
 const options = {
     method: 'GET',
@@ -6,6 +6,7 @@ const options = {
         accept: 'application/json',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NWI5NGFhM2NlYmVlNTE3MDA1OGZkNTE4YmYyMzdmOSIsInN1YiI6IjY2MjhlMTQwZTI5NWI0MDE0YTlhM2EyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.92T_Xg7sAwljnOVmTCWxLkYMWTXdvllzp8EVPjlWVv0'
     }
+
 };
 
 //탑10
@@ -172,6 +173,7 @@ function resetCard() {
 // 출력
 const print = async () => {
     const data = await getdata();
+    await kofic_getdata();
     let count = 0;
     data.forEach(item => {
         makeCard(item, count);

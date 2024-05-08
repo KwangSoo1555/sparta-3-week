@@ -8,16 +8,11 @@ const getdata = async () => {
 const createDetailsPageCard = (movieData) => {
     const detailsPageMovieDiv = `
         <div class="card-wrapper">
-            <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
-            </div>
-            <div class="card-body">
-                <p class="card-title" id="movieTitle">${movieData.title}</p>
-                <p class="card-text">${movieData.overview}</p>
-            </div>
-            <div class="card-footer">
-                <p>★ ${movieData.vote_average}</p>
-            </div>
+            <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="movie_img" alt="이미지 준비중">
+            <p class="movie_title" id="movieTitle">${movieData.title}</p>
+            <p class="movie_info">${movieData.overview}</p>
+            <p class="movie_star">★ ${movieData.vote_average}</p>
+            <button class="back" onclick="window.location.href = './index.html'">돌아가기</button>
         </div>
         `;
 
@@ -114,7 +109,7 @@ const reviewSave = async () => {
 // 2-1. 1-3에서 저장된 reviewData를 html 리뷰 작성 칸에 출력
 const registerReview = async (registerData) => {
     const reviewCreateDiv = `
-        <div class="card-body">
+        <div class="review">
             <p class="card-title">이름: ${registerData.reviewerName}</p>
             <p class="card-score">별점: ${registerData.reviewerStar}</p>
             <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
@@ -123,7 +118,7 @@ const registerReview = async (registerData) => {
         </div>
         `;
 
-    document.getElementById("review-modify-wrapper").insertAdjacentHTML('beforeend', reviewCreateDiv);
+    document.getElementById("review_wrapper").insertAdjacentHTML('beforeend', reviewCreateDiv);
 }
 
 const getLocalStoragedDatas = async () => {
