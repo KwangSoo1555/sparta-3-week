@@ -1,6 +1,4 @@
-
 // api 가져오기
-// tmdb api 가져오기
 const options = {
     method: 'GET',
     headers: {
@@ -124,9 +122,46 @@ function makeCard(item, count) {
 
 
 // // 검색 구현
- function movieSearch() {
-     // 검색한 값
-     const ex = document.querySelector("#searchbar").value.toLowerCase();
+// function movieSearch() {
+//     // 검색한 값
+//     const ex = document.querySelector("#searchbar").value.toLowerCase();
+
+//     // 검색한 값과 영화 제목 비교
+//     const searchedData = movieData.filter((i) => {
+//         if (i['title'].toLowerCase().search(ex) !== -1) {
+//             return i['title'];
+//         }
+//     });
+
+//     // 영화 보이기/안보이기
+//     let num = 0;
+
+//     if (searchedData.length > 0) {
+//         for (let count = 0; count < movieData.length; count++) {
+//             const movieCardDiv = document.querySelector(`#movieCard${count}`);
+//             const movieTitle = document.querySelector(`#movieTitle${count}`);
+
+//             if (searchedData[num]['title'] === movieTitle.innerHTML) {
+//                 movieCardDiv.setAttribute("style", "display: block;")
+//                 if (searchedData.length - 1 > num) { num++ };
+//             } else {
+//                 console.log(searchedData[num]['title'], movieTitle.innerHTML);
+//                 movieCardDiv.setAttribute("style", "display: none;")
+//             }
+
+//         };
+//     } 
+//     else {
+//         alert("해당 영화는 존재하지 않습니다.");
+//     }
+
+// }     본코드
+
+//바꾼코드 검색
+// 검색 구현
+function movieSearch() {
+    // 검색한 값
+    const ex = document.querySelector("#searchbar").value.toLowerCase();
 
     // 검색한 값과 영화 제목 비교
     const searchedData = movieData.filter((i) => {
@@ -144,11 +179,11 @@ function makeCard(item, count) {
     toggleCard();
 
     // 카드붙여
- //   let count = 0;
- //   searchedData.forEach(item => {
-//makeCard(item, count);
- //       count++;
-//    });
+    let count = 0;
+    searchedData.forEach(item => {
+        makeCard(item, count);
+        count++;
+    });
 
     if (searchedData.length === 0) {
         alert("해당 영화는 존재하지 않습니다.");
@@ -172,7 +207,6 @@ function resetCard() {
 // 출력
 const print = async () => {
     const data = await getdata();
-    await kofic_getdata();
     let count = 0;
     data.forEach(item => {
         makeCard(item, count);

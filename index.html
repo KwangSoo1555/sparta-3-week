@@ -14,17 +14,34 @@
 </head>
 
 <body>
+    
+<!-- 박스오피스끝 -->
+<div class="mainContainer"> 
     <h1 id="logo">
-        <a href="#"><img width="260px" height="150px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBaxrN%2FbtsHe0daRzs%2FcXrPRjn05CwWvOB4ChDlC1%2Fimg.png"/></a>
+        <a href="#"><img width="220px" height="120px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBaxrN%2FbtsHe0daRzs%2FcXrPRjn05CwWvOB4ChDlC1%2Fimg.png"/></a>
     </h1>
     <h1 class="title">당신이 좋아하는 영화는?</h1>
+    <!-- 동영상 시작 -->   
+      <div class="main">
+        <iframe width="1500" height="800" src="https://www.youtube.com/embed/pMAPj6WVsT4?autoplay=1&mute=1&controls=0&loop=1&playlist=pMAPj6WVsT4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-text">
+          <div>범죄도시4</div>
+        </div>
+        <div class="overview">
+         <p>"나쁜 놈 잡는데 국경도 영역도 제한 없다!<br>
+          업그레이드 소탕 작전! 거침없이 싹 쓸어버린다!"</p>
+        </div>
+        <div class="mainbtn">
+          <button type="button" class="btn btn-outline-light">▶︎ 예고편</button>
+          <button type="button" id="main_detail" class="btn btn-outline-light">상세정보</button>
+        </div>
+  </div>
+  <!-- 동영상 끝 -->
 <!-- 박스오피스 순위 -->
 <div class="kofic_rank" id="kofic_rank">
-    <p>현재 박스오피스 영화 순위</p>
+    <p>현재 박스오피스<br>영화 순위</p>
 </div>
-<!-- 박스오피스끝 -->
-
-    <div class="search" id="search">
+    <div class="search" id="search" >
         <input type="text" class="searchbar" id="searchbar" autofocus placeholder="영화 제목을 입력해주세요">
         <button type="button" class="btn btn-outline-light" id="searchbtn">검색</button>
         <button type="button" class="btn btn-outline-light" id="reset" onclick="resetCard()">초기화</button>
@@ -58,23 +75,9 @@
           </div> 
     </div>
      <!-- 드랍다운 끝-->
-     <!-- 동영상 시작 -->
-    
-      <div class="main">
-        <iframe width="1500" height="800" src="https://www.youtube.com/embed/pMAPj6WVsT4?autoplay=1&mute=1&controls=0&loop=1&playlist=pMAPj6WVsT4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <div class="video-text">
-          <div>범죄도시4</div>
-        </div>
-        <div class="overview">
-         <p>"나쁜 놈 잡는데 국경도 영역도 제한 없다!<br>
-          업그레이드 소탕 작전! 거침없이 싹 쓸어버린다!"</p>
-        </div>
-        <div class="mainbtn">
-          <button type="button" class="btn btn-outline-light">▶︎ 예고편</button>
-          <button type="button" id="main_detail" class="btn btn-outline-light">상세정보</button>
-        </div>
-  </div>
-  <!-- 동영상 끝 -->
+     
+</div>
+
      
     <a href="#" class="upscroll">▲ TOP</a>
     <div class="moviecard" id="moviecard">
