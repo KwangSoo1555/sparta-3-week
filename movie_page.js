@@ -83,10 +83,12 @@ const reviewSave = async () => {
     const data = await getdata();
 
     let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
-    let reviewIndex = storageReviews.length;
+    // 만약 storageReviews에서 불러오는 값이 정확한 데이터가 아닐 경우 유효성 검사
+    let reviewIndex = 0;
+    storageReviews.length > 0 ? reviewIndex = storageReviews[storageReviews.length - 1].reviewIndex + 1 : 0;
 
     const reviewData = {
-        reviewIndex: reviewIndex,
+        reviewIndex,
         movieId: data.movie_id,
         reviewerName: checkRegisterName.value,
         reviewerStar: checkRegisterStar.value,
@@ -94,7 +96,9 @@ const reviewSave = async () => {
         reviewerPassword: checkRegisterPW.value
     };
 
-    if (Object.values(reviewData).every(el => el !== '' && el !== false)) {
+    const isFilled = Object.values(reviewData).every(el => el !== '' && el !== false)
+
+    if (isFilled) {
         storageReviews.push(reviewData);
         localStorage.setItem(data.movie_id, JSON.stringify(storageReviews));
 
@@ -204,12 +208,15 @@ const executeModify = async (event) => {
         const modifyEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
         if (modifyEqaulIndex !== -1) {
-            if (executeModifyScore.value === 0 ||
-                executeModifyContext.value === 0 ||
-                executeModifyContext.value < 5) {
-                alert('수정할 내용을 정확히 입력해주세요.');
-            } else {
-                confirm('수정 하시겠습니까?') ? alert('수정이 완료되었습니다.') : false;
+            if (executeModifyScore.value.length === 0 ||
+                executeModifyContext.value === 0) {
+                alert('수정할 내용을 빈칸 없이 입력해 주세요.');
+            }
+            else if (executeModifyContext.value.length < 5) {
+                alert('수정할 리뷰 내용을 5자 이상 입력해 주세요.');
+            }
+            else if (confirm('수정 하시겠습니까?')) {
+                alert('수정이 완료되었습니다.')
 
                 storagedReviewers[modifyEqaulIndex].reviewerStar = executeModifyScore.value;
                 storagedReviewers[modifyEqaulIndex].reviewerContext = executeModifyContext.value;
@@ -231,12 +238,14 @@ const executeDelete = async (event) => {
         const deleteEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
         if (deleteEqaulIndex !== -1) {
-            confirm('삭제 하시겠습니까?') ? alert('삭제가 완료되었습니다.') : false;
+            if (confirm('삭제 하시겠습니까?')) {
+                alert('삭제가 완료되었습니다.')
+                
+                storagedReviewers.splice(deleteEqaulIndex, 1);
+                localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
 
-            storagedReviewers.splice(deleteEqaulIndex, 1);
-            localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
-
-            location.reload();
+                location.reload();
+            }
         }
     }
 }
@@ -248,6 +257,7 @@ const executeDelete = async (event) => {
         value.addEventListener('click', (event) => {
             currentReviewIndex = Number(event.target.dataset.modifyReviewIndex);
             openModifyFirstPopUp(event);
+            console.log(currentReviewIndex)
         })
     }
 })();
