@@ -1,4 +1,5 @@
 // api 가져오기
+// tmdb api 가져오기
 const options = {
     method: 'GET',
     headers: {

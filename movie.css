@@ -153,10 +153,13 @@ margin-top: 130px;
 
 /* 추가중 */
 
+<<<<<<< HEAD
 .drop {
     margin-left: 0px;
 }
 
+=======
+>>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
 .dropdown-menu{
     background-color: black;
   
@@ -169,25 +172,44 @@ margin-top: 130px;
 /* main 동영상 글자 */
 .video-text {
     font-size: 3.5rem;
+<<<<<<< HEAD
     left: 20%;
     position: absolute;
     top: 75%;
+=======
+    left: 10%;
+    position: absolute;
+    top: 80%;
+>>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
     color: white;
 }
 
 .overview {
+<<<<<<< HEAD
     font-size: 1.8rem;
     left: 35%;
     position: absolute;
     top: 80%;
+=======
+    font-size: 1.5rem;
+    left: 10%;
+    position: absolute;
+    top: 90%;
+>>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
     color: white;
 }
 
 .mainbtn {
     font-size: 1.5rem;
+<<<<<<< HEAD
     left: 21%;
     position: absolute;
     top: 85%;
+=======
+    left: 10%;
+    position: absolute;
+    top: 105%;
+>>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
     color: white;
 }
 
@@ -198,7 +220,34 @@ margin-top: 130px;
   font-size: 1.3rem;
 }
 
-.genre_select {
+/* .genre_select {
     width: 200px;
     height: 50px;
+} */
+
+/* 장르별검색 css */
+.genre_select {
+    appearance: none; 
+    outline: none; /* 포커스 효과 제거 */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    background-color: black; 
+    width: 125px; 
+    height: 40px; 
+    color: white;
+    text-align: center;
+    margin-left: 1150px;
 }
+
+/* 드롭다운 정렬 */
+.dropdowns {
+    display: flex;
+    align-items: center;
+    margin-left: 400px;
+}
+
+.genreDiv, .drop {
+    margin-right: 15px; /* 요소들 사이의 간격 조절 */
+}
+
