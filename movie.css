@@ -1,3 +1,5 @@
+
+
 @font-face {
     font-family: 'Cafe24ClassicType-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
@@ -74,12 +76,16 @@ body {
     border-radius: 10px;
 }
 
+.genre_select {
+    width: 200px;
+    height: 50px;
+}
 
 .moviecard {
     width: 85%;
 
     display:grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     place-items: center;
     align-items: center;
 
@@ -129,3 +135,44 @@ body {
     color: white;
     font-size: large;
 }
+
+/* 추가중 */
+
+.drop {
+    margin-left: 1300px;
+}
+
+.dropdown-menu{
+    background-color: black;
+  
+}
+
+.dropdown-menu .dropdown-item {
+    color: white; 
+}
+
+/* main 글자 */
+.video-text {
+    font-size: 3.5rem;
+    left: 5%;
+    position: absolute;
+    top: 90%;
+    color: white;
+}
+
+.overview {
+    font-size: 1.5rem;
+    left: 5%;
+    position: absolute;
+    top: 100%;
+    color: white;
+}
+
+.mainbtn {
+    font-size: 1.5rem;
+    left: 5%;
+    position: absolute;
+    top: 115%;
+    color: white;
+}
+
