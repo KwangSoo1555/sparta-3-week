@@ -31,9 +31,6 @@ async function getdata() {
     return movieData;
 };
 
-
-
-
 // 카드 만들기
 function makeCard(item, count) {
 
@@ -114,12 +111,12 @@ function movieSearch() {
 
     // 카드 초기화
     toggleCard();
-            if (searchedData[num]['title'] === movieTitle.innerHTML) {
-                movieCardDiv.setAttribute("style", "display: block;")
-                if (searchedData.length - 1 > num) { num++ };
-            } else {
-                movieCardDiv.setAttribute("style", "display: none;")
-            }
+    if (searchedData[num]['title'] === movieTitle.innerHTML) {
+        movieCardDiv.setAttribute("style", "display: block;")
+        if (searchedData.length - 1 > num) { num++ };
+    } else {
+        movieCardDiv.setAttribute("style", "display: none;")
+    }
 
     // 카드붙여
     let count = 0;
@@ -134,13 +131,11 @@ function movieSearch() {
     }
 }
 
-
-
 // 카드 초기화
 function resetCard() {
-    
+
     window.location.reload(); //카드정렬후 초기화
-   
+
     for (let count = 0; count < movieData.length; count++) {
         document.querySelector(`#movieCard${count}`).setAttribute("style", "display: block;");
         document.querySelector("#searchbar").value = "";
@@ -190,10 +185,9 @@ function genre_sort(value) {
 
 }
 
-
 // 메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.querySelector('#toggleBtn'); 
+    const toggleBtn = document.querySelector('#toggleBtn');
     const dropdown = document.querySelectorAll('.dropdown-item');
 
     dropdown.forEach((item) => {
@@ -221,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
 // 카드정렬 초기화
 function toggleCard() {
     document.querySelector("#moviecard").innerHTML = "";
@@ -228,6 +223,6 @@ function toggleCard() {
 
 //동영상 상세정보 클릭
 const mainBtn = document.querySelector('#main_detail')
-mainBtn.addEventListener('click',function(){
+mainBtn.addEventListener('click', function () {
     subPageOpen(278);
 })
