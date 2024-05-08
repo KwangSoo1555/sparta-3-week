@@ -1,3 +1,4 @@
+
 // api 가져오기
 const options = {
     method: 'GET',
@@ -6,6 +7,64 @@ const options = {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NWI5NGFhM2NlYmVlNTE3MDA1OGZkNTE4YmYyMzdmOSIsInN1YiI6IjY2MjhlMTQwZTI5NWI0MDE0YTlhM2EyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.92T_Xg7sAwljnOVmTCWxLkYMWTXdvllzp8EVPjlWVv0'
     }
 };
+
+//탑10
+
+const kofic_movieData = [];
+
+async function kofic_getdata() {
+    const now = new Date('2024-05-01');
+    const year = now.getFullYear();
+    let month;
+    if (now.getMonth() < 10) {month = '0' + (now.getMonth() + 1)} else {month = now.getMonth() + 1};
+    let date;
+    if (now.getDate() < 10) {date = '0' + (now.getDate()-1)} else {date = now.getDate()-1};
+    const today = String(year).concat(month, date);
+    console.log(today);
+
+    const kofic_response = await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=${today}`);
+    const kofic_data = await kofic_response.json();
+    
+    for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
+        const movie = {};
+        movie['title'] = i['movieNm'];
+        movie['rank'] = i['rank'];
+
+        kofic_movieData.push(movie);
+    }
+    return kofic_movieData;
+}
+
+function kofic_makeCard(i) {
+    let new_rank = ""
+    if (i.rankOldAndNew === "NEW") {
+        new_rank = "NEW!!!"
+    };
+
+    const rankDiv = `
+    <p>${i.rank}위: ${i.title}</p>
+    `;
+
+    document.querySelector("#kofic_rank").insertAdjacentHTML('beforeend', rankDiv);
+}
+
+async function kofic_print() {
+    await kofic_getdata();
+    const top3Movies = kofic_movieData.slice(0, 3); // 상위 3위 데이터만 가져오기
+    top3Movies.forEach(i => {
+        kofic_makeCard(i);
+        //10위까지 불러오기 
+    // kofic_movieData.forEach(i => {
+    //     kofic_makeCard(i);
+    });
+}
+
+kofic_print();
+
+//탑10끝
+
+
+
 
 const movieData = [];
  async function getdata() {
@@ -168,6 +227,35 @@ function subPageOpen(clickMovieId) {
     sessionStorage.setItem("movie-info", JSON.stringify(clickedData));
     window.location.href = `movie_page.html?id=${clickMovieId}`;
 }
+
+//나린님 드랍다운 onclick에서 변경
+
+document.getElementById("genre_select").addEventListener("change", function() {
+    const selectValue = this.value; // 선택된 값 가져오기
+    genre_sort(selectValue); 
+});
+
+
+//나린님 드랍다운
+function genre_sort(value) {
+    for (let count = 0; count < movieData.length; count++) {
+        const movieCardDiv = document.querySelector(`#movieCard${count}`);
+        const movie_genre_ids = movieData[count]['genre_ids'];
+
+        if (value === "장르별 검색") {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else if (movie_genre_ids.includes(Number(value))) {
+            movieCardDiv.setAttribute("style", "display: block;");
+        } else {
+            movieCardDiv.setAttribute("style", "display: none;");
+        }
+
+        const videoBox = document.querySelector(".main");
+        videoBox.style.display = "none"; //추가
+        
+    };
+}
+
 
 print();
 

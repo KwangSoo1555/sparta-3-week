@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,11 +15,31 @@
 
 <body>
     <h1 class="title">당신이 좋아하는 영화는?</h1>
+<!-- 박스오피스 순위 -->
+<div class="kofic_rank" id="kofic_rank">
+    <p>현재 박스오피스 영화 순위</p>
+</div>
+<!-- 박스오피스끝 -->
+
     <div class="search" id="search">
         <input type="text" class="searchbar" id="searchbar" autofocus placeholder="영화 제목을 입력해주세요">
         <button type="button" class="btn btn-outline-light" id="searchbtn">검색</button>
         <button type="button" class="btn btn-outline-light" id="reset" onclick="resetCard()">초기화</button>
     </div>
+    <!-- 나린님 드랍다운 -->
+    <!-- <select class="genre_select" id="genre_select" onclick="genre_sort(value)"> -->
+    <select class="genre_select" id="genre_select">
+        <option selected>장르별 검색</option>
+        <option value="16">애니메이션</option>
+        <option value="27">공포</option>
+        <option value="28">액션</option>
+        <option value="10749">로맨스</option>
+        <option value="878">SF</option>
+        <option value="35">코미디</option>
+        <option value="14">판타지</option>
+        <option value="53">스릴러</option>
+    </select>
+    <!-- 나린님 드랍다운 -->
      <!-- 드랍다운-->
      <div class="drop">
         <div class="btn-group">
@@ -64,3 +85,5 @@
 </body>
 
 </html>
+
+
