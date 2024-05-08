@@ -7,15 +7,13 @@ const getdata = async () => {
 // 서브 페이지 카드 만들기
 const createDetailsPageCard = (movieData) => {
     const detailsPageMovieDiv = `
-        <div class="card-wrapper">
-            <div class="card-image-wrapper">
+        <div class="subPage">
+            <div class="movieImg">
                 <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="card-img-top" alt="이미지 준비중">
-            </div>
-            <div class="card-body">
-                <p class="card-title" id="movieTitle">${movieData.title}</p>
-                <p class="card-text">${movieData.overview}</p>
-            </div>
-            <div class="card-footer">
+            </div>          
+                <div class="movieTitle" id="movieTitle">${movieData.title}</div>
+                <div class="movieOverview">${movieData.overview}</div>
+            <div class="movieRate">
                 <p>★ ${movieData.vote_average}</p>
             </div>
         </div>
@@ -118,7 +116,7 @@ const registerReview = async (registerData) => {
             <p class="card-score">별점: ${registerData.reviewerStar}</p>
             <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
 
-        <button class="registed-modify-button" data-review-id="${getValueIndexStorage()}">수정 및 삭제</button>
+        <button class="registed-modify-button btn btn-secondary" data-review-id="${getValueIndexStorage()}">수정 및 삭제</button>
         </div>
         `;
 

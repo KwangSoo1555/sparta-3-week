@@ -1,4 +1,30 @@
-/* review create popup modal */
+
+@font-face {
+    font-family: 'Cafe24ClassicType-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TmonMonsori';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.vsc-initialized {
+    background-color: rgb(0, 0, 0);
+    font-family: 'KCC-Hanbit';
+}
+
 .review-create-pop {
     display: flex;
     position: fixed;
@@ -41,6 +67,7 @@
     align-items: center;
     background-color: green;
 }
+
 /* review create popup modal */
 
 .movie_img {
@@ -51,6 +78,7 @@
 }
 
 .movie_title {
+    font-family: 'TmonMonsori';
     grid-area: 1/2 / 1/2;
 }
 
@@ -102,10 +130,10 @@
 
 .content {
     display: grid;
-    
+
     place-items: center;
     align-items: center;
-    
+
     background-color: green;
     margin: 30px;
 }
@@ -133,12 +161,6 @@
     font-size: 20px;
     color: black;
 }
-
-
-
-
-
-
 
 .review {
     background-color: purple;
@@ -171,4 +193,81 @@
 .review_card_body {
     background-color: aqua;
     height: 300px;
+}
+
+
+.subPage {
+    display: grid;
+    margin: 2% 10% 2% 10%;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 40px 3px rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+}
+
+.movieImg {
+    grid-column: 1;
+    grid-row: 1 / 6;
+}
+
+.movieTitle {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.movieOverview {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.movieRate {
+    grid-column: 2;
+    grid-row: 5;
+}
+
+.review-create {
+    margin: auto;
+    display: block;
+}
+
+.go-to-main {
+    margin: 3% auto 3% auto;
+    display: block;
+}
+
+.card-body {
+    display: grid;
+    margin-top: 3%;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 40px 3px rgba(255, 255, 255, 0.7);
+    transition-duration: 0.3s;
+    border-radius: 10px;
+}
+
+.card-title {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.card-score {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+}
+
+.card-text {
+    grid-column: 1 / 2;
+    grid-row: 2;
+}
+
+.registed-modify-button {
+    width: 30%;
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: end;
+}
+
+.review-modify-wrapper{
+    margin: 3% 10% 3% 10%;
 }
