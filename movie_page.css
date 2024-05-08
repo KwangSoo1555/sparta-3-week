@@ -1,3 +1,39 @@
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: black;
+    font-family: 'KCC-Hanbit';
+    color: white;
+}
+
+.none {
+    height: 50px;
+}
+
+.cardbox {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: right;
+    width: 1400px;
+    height: 715px;
+    margin-left: 200px;
+}
+
+.backbtn {
+background-color: white;
+border: 2px solid gray;
+padding: 3px;
+border-radius: 10px;
+font-size: small;
+margin-left: 1600px;
+}
+
 /* review create popup modal */
 .review-create-pop {
     display: flex;
@@ -6,7 +42,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(255, 134, 178);
+    background-color: rgb(148, 148, 148);
+    border-radius: 30px;
+    padding: 30px;
+    color: black;
 }
 
 .pop-info-1 {
@@ -30,18 +69,33 @@
 
 .modal-footer {
     position: fixed;
-    bottom: 1vw;
-    right: 1vw;
+    bottom: 2vw;
+    right: 3vw;
 }
 
 .modal-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -40%);
+    scale: 150%;
 }
+
 /* review create popup modal */
+.card-wrapper {
+    display: grid;
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas:
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
+    place-items: center;
+    align-items: center;
+}
 
 .movie_img {
     width: 500px;
@@ -55,33 +109,112 @@
 }
 
 .movie_info {
-    background-color: blue;
     width: 500px;
     grid-area: 2/2 / 4/2;
 }
 
-.movie_actor {
-    grid-area: 5/2 / 5/2;
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+}
+
+.back {
+    grid-area: b;
+    font-size: 20px;
+    color: white;
+    text-decoration-line: none;
+}
+
+.review_create_btn {
+    color: white;
+}
+
+.review_head_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 80px auto 30px auto;
+}
+
+.review_head {
+    background-color: rgb(214, 30, 30);
+    border-radius: 15px;
+    height: 10vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    transition-duration: 0.3s;
+}
+.kofic_rank {
+    background-color: white;
+}
+
+.review_head:hover {
+    scale: 105%;
 }
 
 
-.review {
+.review_head>img {
+    width: 60px;
+}
+
+.review_wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+}
+
+.review {
+    background-color: rgb(243, 241, 241);
+    height: 260px;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: right;
+    max-width: 50%;   
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #c4ccc3;
+    border-radius: 10px;
+    border-style: double;
+    
+}
+
+.inner1{
+    height: 260px;
+    margin: 90px;
+    font-size: 150%;
+}
+
+.inner2 {
+    height: 260px;
+    margin-right: 100px;
+    margin-top: 15px;
+}
+
+.mb-3 {
+    scale: 130%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: auto;
     height: auto;
-    background-color: purple;
+    background-color: rgb(214, 30, 30);
+    width: 60%;
 }
-
-.review_card {
-    background-color: aqua;
-}
-
 
 /* review modify popup modal */
 .registed-modify-button {
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
 
@@ -92,7 +225,18 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(255, 134, 178);
+    background-color: rgb(148, 148, 148);
+    border-radius: 30px;
+    padding: 20px;
+    color: black;
+}
+
+.review-modify-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
 }
 
 .pop-info-3 {
@@ -102,73 +246,87 @@
 
 .content {
     display: grid;
-    
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas:
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
+
     place-items: center;
     align-items: center;
-    
-    background-color: green;
-    margin: 30px;
+
 }
 
 .movie_img {
-    height: fit-content;
-    grid-area: 1/1 / 5/1;
-    place-items: center;
-    align-items: center;
+    grid-area: i;
+
+    box-shadow: 0px 0px 30px 5px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
 }
 
 .movie_title {
-    grid-area: 1/2 / 1/2;
-    font-size: 70px;
+    grid-area: t;
+    font-size: 80px;
 }
 
 .movie_info {
-    background-color: hotpink;
-    width: 500px;
-    grid-area: 2/2 / 4/2;
+    grid-area: info;
+    font-size: 20px
+}
+
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+
 }
 
 .back {
-    grid-area: 5/2 / 5/2;
+    background-color: rgb(214, 30, 30);
+    width: 5vw;
+    height: 4.3vh;
+    border-radius: 5px;
+
+    grid-area: b;
     font-size: 20px;
-    color: black;
+    color: white;
+    text-decoration-line: none;
 }
 
-
-
-
-
-
-
-.review {
-    background-color: purple;
-    height: 500px;
-
+.subpagecard {
     display: flex;
     flex-direction: column;
-    align-items: right;
-    justify-content: right;
-}
-
-.mb-3 {
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 
-.mb-3>label {
-    margin-right: 10px;
-    width: auto;
+
+.review_modal {
+    background-color: rgb(168, 94, 94);
+    display: flex;
+    margin: 15px;
+    width: 1300px;
+    height: 100px;
 }
 
 .review_card {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    width: 70%;
+    height: auto;
 }
 
-.review_card_body {
-    background-color: aqua;
-    height: 300px;
+.review {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
+    place-items: center;
+    align-items: center;
+    word-wrap: break-all;
+    justify-items: start;
 }
