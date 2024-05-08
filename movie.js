@@ -209,6 +209,6 @@ function toggleCard() {
 
 //동영상 상세정보 클릭
 const mainBtn = document.querySelector('#main_detail')
-mainBtn.addEventListener('click',function(){
+mainBtn.addEventListener('click',()=>{
     subPageOpen(278);
 })
