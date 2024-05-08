@@ -1,12 +1,53 @@
 
-// api 가져오기
+// tmdb api 가져오기
 const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NWI5NGFhM2NlYmVlNTE3MDA1OGZkNTE4YmYyMzdmOSIsInN1YiI6IjY2MjhlMTQwZTI5NWI0MDE0YTlhM2EyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.92T_Xg7sAwljnOVmTCWxLkYMWTXdvllzp8EVPjlWVv0'
     }
+
 };
+
+
+const kofic_movieData = [];
+
+async function kofic_getdata() {
+    const kofic_response = await fetch('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=a81bd7ef54b23cba78542e2c105ad5b1&targetDt=20240501');
+    const kofic_data = await kofic_response.json();
+    
+    for(i of kofic_data.boxOfficeResult.dailyBoxOfficeList) {
+        const movie = {};
+        movie['title'] = i['movieNm'];
+        movie['rank'] = i['rank'];
+        movie['audiAcc'] = i['audiAcc'];
+        movie['rankOldAndNew'] = i['rankOldAndNew'];
+
+        kofic_movieData.push(movie);
+    }
+    return kofic_movieData;
+}
+
+console.log(kofic_movieData);
+
+function kofic_makeCard() {
+    console.log(i);
+    const rankDiv = `
+    <p>위: 어쩌구 저쩌구 (누적 관객수: 몇 만명)</p>
+    `;
+}
+
+async function kofic_print() {
+    await kofic_getdata();
+    kofic_movieData.forEach(i => kofic_makeCard(i));
+}
+
+kofic_print();
+
+
+
+
+
 
 const movieData = [];
 
@@ -107,6 +148,7 @@ function resetCard() {
 // 출력
 const print = async () => {
     const data = await getdata();
+    await kofic_getdata();
     let count = 0;
     data.forEach(item => {
         makeCard(item, count);
