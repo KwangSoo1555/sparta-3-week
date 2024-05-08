@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: green;
+    background-color: black;
     font-family: 'KCC-Hanbit';
     color: white;
 }
@@ -22,7 +22,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(255, 134, 178);
+    background-color: rgb(148, 148, 148);
+    border-radius: 30px;
+
+    padding: 30px;
 }
 
 .pop-info-1 {
@@ -46,18 +49,39 @@ body {
 
 .modal-footer {
     position: fixed;
-    bottom: 1vw;
-    right: 1vw;
+    bottom: 2vw;
+    right: 3vw;
 }
+
+
 
 .modal-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -40%);
+
+    scale: 150%;
 }
 /* review create popup modal */
+
+.card-wrapper {
+    display: grid;
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas:
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
+    
+    place-items: center;
+    align-items: center;
+
+}
 
 .movie_img {
     width: 500px;
@@ -71,33 +95,86 @@ body {
 }
 
 .movie_info {
-    background-color: blue;
     width: 500px;
     grid-area: 2/2 / 4/2;
 }
 
-.movie_actor {
-    grid-area: 5/2 / 5/2;
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+    
+
 }
 
+.back {
+    grid-area: b;
+    font-size: 20px;
+    color: white;
+    text-decoration-line: none;
+}
+
+.review_create_btn {
+    color: white;
+}
+
+.review_head_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin: 80px auto 30px auto;
+}
+
+.review_head {
+    background-color: rgb(214, 30, 30);
+    border-radius: 15px;
+    height: 10vh;
+    width: 20vw;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 60px;
+
+    transition-duration: 0.3s;
+}
+
+.review_head:hover {
+    scale: 105%;
+}
+
+
+.review_head>img {
+    width: 60px;
+}
+
+.review_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
 
 .review {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     width: auto;
     height: auto;
-    background-color: purple;
-}
 
-.review_card {
-    background-color: aqua;
+    background-color: rgb(214, 30, 30);
+    width: 60%;
 }
-
 
 /* review modify popup modal */
 .registed-modify-button {
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
 
@@ -108,7 +185,17 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(255, 134, 178);
+    background-color: white;
+    color: black;
+}
+
+.review-modify-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px;
 }
 
 .pop-info-3 {
@@ -133,6 +220,9 @@ body {
 
 .movie_img {
     grid-area: i;
+
+    box-shadow: 0px 0px 30px 5px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
 }
 
 .movie_title {
@@ -152,6 +242,11 @@ body {
 }
 
 .back {
+    background-color: rgb(214, 30, 30);
+    width: 5vw;
+    height: 4.3vh;
+    border-radius: 5px;
+
     grid-area: b;
     font-size: 20px;
     color: white;
@@ -167,7 +262,7 @@ body {
 
 
 .review_modal {
-    background-color: aqua;
+    background-color: rgb(168, 94, 94);
     display: flex;
     margin: 15px;
     width: 1300px;
@@ -180,15 +275,20 @@ body {
 }
 
 .review {
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
     color: black;
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
     
     margin: 15px;
-    padding: 10px;
+    padding: 20px;
     height: 100px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
     place-items: center;
     align-items: center;
+    word-wrap: break-all;
+
+    justify-items: start;
 }
