@@ -24,41 +24,6 @@ body {
     background-color: rgb(0, 0, 0);
     font-family: 'KCC-Hanbit';
 }
-.mainContainer {
-    display: grid;
-    grid-template-areas:
-		"header header header"
-		"   a    main    b   "
-		"   .     .      .   "
-		"footer1 footer2 footer3";
-    grid-template-columns: 200px auto 200px;
-    
-}
-h1{grid-area: header;}
-.main {grid-area: main;}
-.overview  {grid-area: main;}
-.mainbtn {grid-area: main;}
-.search {grid-area: footer2;}
-.genre_select {grid-area: footer3;}
-.drop {grid-area: footer2;}
-.kofic_rank{grid-area: b;
-margin-top: 130px;
-}
-
-.title {
-    width: auto;
-    height: 200px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 50pt;
-    color: white;
-    font-family: 'Cafe24ClassicType-Regular';
-    text-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
-}
 
 .card-title {
     font-family: 'TmonMonsori';
@@ -103,6 +68,7 @@ margin-top: 130px;
     grid-template-columns: repeat(4,1fr);
     place-items: center;
     align-items: center;
+    column-gap: 30px;
 
 
     margin: 30px auto 30px auto;
@@ -153,13 +119,10 @@ margin-top: 130px;
 
 /* 추가중 */
 
-<<<<<<< HEAD
 .drop {
     margin-left: 0px;
 }
 
-=======
->>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
 .dropdown-menu{
     background-color: black;
   
@@ -172,44 +135,25 @@ margin-top: 130px;
 /* main 동영상 글자 */
 .video-text {
     font-size: 3.5rem;
-<<<<<<< HEAD
     left: 20%;
     position: absolute;
     top: 75%;
-=======
-    left: 10%;
-    position: absolute;
-    top: 80%;
->>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
     color: white;
 }
 
 .overview {
-<<<<<<< HEAD
     font-size: 1.8rem;
     left: 35%;
     position: absolute;
-    top: 80%;
-=======
-    font-size: 1.5rem;
-    left: 10%;
-    position: absolute;
-    top: 90%;
->>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
+    top: 85%;
     color: white;
 }
 
 .mainbtn {
     font-size: 1.5rem;
-<<<<<<< HEAD
     left: 21%;
     position: absolute;
     top: 85%;
-=======
-    left: 10%;
-    position: absolute;
-    top: 105%;
->>>>>>> b4f1fac40a8a5599465449e399c04d0ad6468609
     color: white;
 }
 
@@ -220,34 +164,21 @@ margin-top: 130px;
   font-size: 1.3rem;
 }
 
-/* .genre_select {
-    width: 200px;
-    height: 50px;
-} */
-
-/* 장르별검색 css */
 .genre_select {
-    appearance: none; 
-    outline: none; /* 포커스 효과 제거 */
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    font-size: 16px; 
-    background-color: black; 
-    width: 125px; 
-    height: 40px; 
-    color: white;
-    text-align: center;
-    margin-left: 1150px;
+    width: 105px;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 80px;
+    margin-left: 25px;
 }
-
-/* 드롭다운 정렬 */
 .dropdowns {
-    display: flex;
-    align-items: center;
-    margin-left: 400px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 5fr 0.5fr 0.5fr;
+    grid-column: 2 / span 2;
 }
-
-.genreDiv, .drop {
-    margin-right: 15px; /* 요소들 사이의 간격 조절 */
+.logo {
+    text-align: right;
+    margin-right: 450px;
+    size: auto;
 }
-
