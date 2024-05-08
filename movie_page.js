@@ -28,7 +28,7 @@ function createSubPageCard(movieData) {
             <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" class="movie_img" alt="이미지 준비중">
             <h5 class="movie_title">${movieData.title}</h5>
             <p class="movie_info">${movieData.overview}</p>
-            <p>★ ${movieData.vote_average}</p>
+            <p class="movie_star">★ ${movieData.vote_average}</p>
             <a href="./index.html" class="back">돌아가기</a>
         </div>
         `;

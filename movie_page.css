@@ -1,36 +1,55 @@
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'KCC-Hanbit';
+}
 
 .content {
     display: grid;
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas: 
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
     
     place-items: center;
     align-items: center;
     
     background-color: green;
-    margin: 30px;
 }
 
 .movie_img {
-    height: fit-content;
-    grid-area: 1/1 / 5/1;
-    place-items: center;
-    align-items: center;
+    grid-area: i;
 }
 
 .movie_title {
-    grid-area: 1/2 / 1/2;
-    font-size: 70px;
+    grid-area: t;
+    font-size: 80px; 
 }
 
 .movie_info {
     background-color: hotpink;
-    width: 500px;
-    grid-area: 2/2 / 4/2;
+    grid-area: info;
+    font-size: 20px
+}
+
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+    
 }
 
 .back {
-    grid-area: 5/2 / 5/2;
-    font-size: 20px;
+    grid-area: b;
     color: black;
+    font-size: 20px;
 }
 
 
@@ -43,24 +62,33 @@
     background-color: purple;
     height: 500px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    justify-content: right;
-}
+    display: grid;
+    grid-template: repeat(3, 1fr) / 0.3fr 0.3fr 0.4fr;
+    grid-template-areas: 
+        "h n s"
+        "h r r"
+        "h p p"
+    ;
 
-.mb-3 {
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
     align-items: center;
 }
-
-.mb-3>label {
-    margin-right: 10px;
-    width: auto;
+.review_name {
+    grid-area: n;
 }
+
+.review_star {
+    grid-area: s;
+}
+
+.review_content {
+    grid-area: r;
+}
+
+.review_pw {
+    grid-area: p;
+}
+
+
 
 .review_card {
     display: grid;
