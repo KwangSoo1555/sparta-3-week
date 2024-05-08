@@ -25,18 +25,10 @@ const createDetailsPageCard = (movieData) => {
 }
 
 // sessionStorage에서 가져온 데이터와 카드 만들기 함수를 매개변수로 연결
-const printClickedMovie = async () => {
+(async () => {
     const data = await getdata();
     createDetailsPageCard(data);
-     console.log(data)
-     const movieData = data.movie_id
-
-
-
-
-}
-
-printClickedMovie();
+})();
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
 const startReviewRegisterButton = document.getElementById('review-create-button-pop');
@@ -90,7 +82,11 @@ toggleToFirstRegister.addEventListener('click', openRegisterFirstPopUp);
 const reviewSave = async () => {
     const data = await getdata();
 
+    let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
+    let reviewIndex = storageReviews.length;
+
     const reviewData = {
+        reviewIndex: reviewIndex,
         movieId: data.movie_id,
         reviewerName: checkRegisterName.value,
         reviewerStar: checkRegisterStar.value,
@@ -99,9 +95,10 @@ const reviewSave = async () => {
     };
 
     if (Object.values(reviewData).every(el => el !== '' && el !== false)) {
-        let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
         storageReviews.push(reviewData);
         localStorage.setItem(data.movie_id, JSON.stringify(storageReviews));
+
+        reviewIndex = storageReviews.length;
 
         location.reload();
     }
@@ -118,7 +115,7 @@ const registerReview = async (registerData) => {
             <p class="card-score">별점: ${registerData.reviewerStar}</p>
             <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
 
-        <button class="registed-modify-button" data-review-id="${getValueIndexStorage()}">수정 및 삭제</button>
+        <button class="registed-modify-button" data-modify-review-index="${registerData.reviewIndex}">수정 및 삭제</button>
         </div>
         `;
 
@@ -194,22 +191,21 @@ const openModifySecondPopUp = async (event) => {
 }
 
 // 2-3. 수정 삭제
-let currentReviewId = null;
-
-const getValueIndexStorage = async (index) => {
-    const storagedReviewers = await getLocalStoragedDatas();
-    return storagedReviewers[index];
-}
+let currentReviewIndex = null;
 
 const executeModify = async (event) => {
     event.stopPropagation();
 
-    if (currentReviewId) {
-        const currentReview = await getValueIndexStorage(currentReviewId);
-console.log(currentReviewId)
-        if (currentReview) {
-            const modifyConfirm = confirm('수정 하시겠습니까?')
-            modifyConfirm === true ? alert('수정이 완료되었습니다.') : false;
+    const storagedReviewers = await getLocalStoragedDatas();
+
+    if (currentReviewIndex) {
+        const currentReview = await getValueIndexStorage(currentReviewIndex);
+        if (currentReviewIndex) {
+            confirm('수정 하시겠습니까?') ? alert('수정이 완료되었습니다.') : false;
+
+            storagedReviewers.reviewerStar = executeModifyScore.value
+            console.log(storagedReviewers.reviewerStar)
+            executeModifyScore.value
 
             printReview();
             location.reload();
@@ -220,17 +216,16 @@ console.log(currentReviewId)
 const executeDelete = async (event) => {
     event.stopPropagation();
 
-    if (currentReviewId) {
+    if (currentReviewIndex) {
         const storagedReviewers = await getLocalStoragedDatas();
-        const currentReviewIndex = storagedReviewers.findIndex(el => el.movieId === currentReviewId);
+        const deleteEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex)
 
-        if (currentReviewIndex !== -1) {
-            storagedReviewers.splice(currentReviewIndex, 1);
-            localStorage.setItem(currentReviewId, JSON.stringify(storagedReviewers));
-
+        if (deleteEqaulIndex !== -1) {
             confirm('삭제 하시겠습니까?') ? alert('삭제가 완료되었습니다.') : false;
 
-            printReview();
+            storagedReviewers.splice(deleteEqaulIndex, 1);
+            localStorage.setItem(storagedReviewers[0].movieId, JSON.stringify(storagedReviewers));
+
             location.reload();
         }
     }
@@ -241,7 +236,7 @@ const executeDelete = async (event) => {
 
     for (const value of startReviewModifyButton) {
         value.addEventListener('click', (event) => {
-            currentReviewId = value.dataset.reviewId;
+            currentReviewIndex = Number(event.target.dataset.modifyReviewIndex);
             openModifyFirstPopUp(event);
         })
     }
@@ -276,5 +271,10 @@ for (const value of cancelPopUpButton) {
         checkRegisterStar.value = '';
         checkRegisterContext.value = '';
         checkRegisterPW.value = '';
+
+        checkModifyName.value = '';
+        checkModifyPW.value = '';
+        executeModifyScore.value = '';
+        executeModifyContext.value = '';
     });
 }
