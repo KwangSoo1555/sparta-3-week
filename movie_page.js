@@ -1,4 +1,3 @@
-
 // sessionStorage에서 데이터 가져오기
 const getdata = async () => {
     const movieData = await JSON.parse(sessionStorage.getItem('movie-info'));
@@ -23,18 +22,10 @@ const createDetailsPageCard = (movieData) => {
 }
 
 // sessionStorage에서 가져온 데이터와 카드 만들기 함수를 매개변수로 연결
-const printClickedMovie = async () => {
+(async () => {
     const data = await getdata();
     createDetailsPageCard(data);
-     console.log(data)
-     const movieData = data.movie_id
-
-
-
-
-}
-
-printClickedMovie();
+})();
 
 // 1. 리뷰 작성, 사용자 확인, local storage에 정보 저장
 const startReviewRegisterButton = document.getElementById('review-create-button-pop');
@@ -88,7 +79,14 @@ toggleToFirstRegister.addEventListener('click', openRegisterFirstPopUp);
 const reviewSave = async () => {
     const data = await getdata();
 
+    let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
+    let reviewIndex = 0;
+    if (storageReviews.length > 0) {
+        reviewIndex = storageReviews[storageReviews.length - 1].reviewIndex + 1;
+    }
+    
     const reviewData = {
+        reviewIndex: reviewIndex,
         movieId: data.movie_id,
         reviewerName: checkRegisterName.value,
         reviewerStar: checkRegisterStar.value,
@@ -97,7 +95,6 @@ const reviewSave = async () => {
     };
 
     if (Object.values(reviewData).every(el => el !== '' && el !== false)) {
-        let storageReviews = JSON.parse(localStorage.getItem(data.movie_id)) || [];
         storageReviews.push(reviewData);
         localStorage.setItem(data.movie_id, JSON.stringify(storageReviews));
 
@@ -116,7 +113,7 @@ const registerReview = async (registerData) => {
             <p class="card-score">별점: ${registerData.reviewerStar}</p>
             <p class="card-text">리뷰 내용: ${registerData.reviewerContext}</p>
 
-        <button class="registed-modify-button btn btn-secondary" data-review-id="${getValueIndexStorage()}">수정 및 삭제</button>
+        <button class="registed-modify-button btn btn-secondary" data-modify-review-index="${registerData.reviewIndex}">수정 및 삭제</button>
         </div>
         `;
 
@@ -157,12 +154,14 @@ const contrastInputStoraged = async () => {
 
     let isContrast = false;
 
-    storagedReviewers.forEach(el => {
-        const isContrastName = el.reviewerName !== checkModifyName.value ? false : true;
-        const isContrastPW = el.reviewerPassword !== checkModifyPW.value ? false : true;
+    for (const el of storagedReviewers) {
+        if (currentReviewIndex === el.reviewIndex) {
+            const isContrastName = el.reviewerName === checkModifyName.value;
+            const isContrastPW = el.reviewerPassword === checkModifyPW.value;
 
-        return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
-    })
+            return isContrastName && isContrastPW ? isContrast = true : isContrast = false;
+        }
+    }
     return isContrast
 }
 
@@ -192,25 +191,31 @@ const openModifySecondPopUp = async (event) => {
 }
 
 // 2-3. 수정 삭제
-let currentReviewId = null;
-
-const getValueIndexStorage = async (index) => {
-    const storagedReviewers = await getLocalStoragedDatas();
-    return storagedReviewers[index];
-}
+let currentReviewIndex = null;
 
 const executeModify = async (event) => {
     event.stopPropagation();
 
-    if (currentReviewId) {
-        const currentReview = await getValueIndexStorage(currentReviewId);
-console.log(currentReviewId)
-        if (currentReview) {
-            const modifyConfirm = confirm('수정 하시겠습니까?')
-            modifyConfirm === true ? alert('수정이 완료되었습니다.') : false;
+    if (currentReviewIndex !== null) {
+        const storagedReviewers = await getLocalStoragedDatas();
+        const getStorageKey = await reviewSave();
+        const modifyEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
-            printReview();
-            location.reload();
+        if (modifyEqaulIndex !== -1) {
+            if (executeModifyScore.value === 0 ||
+                executeModifyContext.value === 0 ||
+                executeModifyContext.value < 5) {
+                alert('수정할 내용을 정확히 입력해주세요.');
+            } else {
+                confirm('수정 하시겠습니까?') ? alert('수정이 완료되었습니다.') : false;
+
+                storagedReviewers[modifyEqaulIndex].reviewerStar = executeModifyScore.value;
+                storagedReviewers[modifyEqaulIndex].reviewerContext = executeModifyContext.value;
+
+                localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
+
+                location.reload();
+            }
         }
     }
 }
@@ -218,17 +223,17 @@ console.log(currentReviewId)
 const executeDelete = async (event) => {
     event.stopPropagation();
 
-    if (currentReviewId) {
+    if (currentReviewIndex !== null) {
         const storagedReviewers = await getLocalStoragedDatas();
-        const currentReviewIndex = storagedReviewers.findIndex(el => el.movieId === currentReviewId);
+        const getStorageKey = await reviewSave();
+        const deleteEqaulIndex = storagedReviewers.findIndex(el => el.reviewIndex === currentReviewIndex);
 
-        if (currentReviewIndex !== -1) {
-            storagedReviewers.splice(currentReviewIndex, 1);
-            localStorage.setItem(currentReviewId, JSON.stringify(storagedReviewers));
-
+        if (deleteEqaulIndex !== -1) {
             confirm('삭제 하시겠습니까?') ? alert('삭제가 완료되었습니다.') : false;
 
-            printReview();
+            storagedReviewers.splice(deleteEqaulIndex, 1);
+            localStorage.setItem(getStorageKey.movieId, JSON.stringify(storagedReviewers));
+
             location.reload();
         }
     }
@@ -239,7 +244,7 @@ const executeDelete = async (event) => {
 
     for (const value of startReviewModifyButton) {
         value.addEventListener('click', (event) => {
-            currentReviewId = value.dataset.reviewId;
+            currentReviewIndex = Number(event.target.dataset.modifyReviewIndex);
             openModifyFirstPopUp(event);
         })
     }
@@ -274,5 +279,10 @@ for (const value of cancelPopUpButton) {
         checkRegisterStar.value = '';
         checkRegisterContext.value = '';
         checkRegisterPW.value = '';
+
+        checkModifyName.value = '';
+        checkModifyPW.value = '';
+        executeModifyScore.value = '';
+        executeModifyContext.value = '';
     });
 }
