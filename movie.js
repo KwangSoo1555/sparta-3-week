@@ -180,9 +180,9 @@ const print = async () => {
         count++;
     });
 
+    document.getElementById("searchbar").focus();
     document.getElementById("searchbtn").addEventListener("click", movieSearch);
-    document.getElementById("search").focus();
-    document.getElementById("search").addEventListener('keydown', event => {
+    document.getElementById("searchbar").addEventListener('keydown', event => {
         if (event.key == 'Enter') { movieSearch() };
     });
 }
