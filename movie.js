@@ -183,9 +183,14 @@ const print = async () => {
     document.getElementById("searchbar").focus();
     document.getElementById("searchbtn").addEventListener("click", movieSearch);
     document.getElementById("searchbar").addEventListener('keydown', event => {
-        if (event.key == 'Enter') { movieSearch() };
+        if (event.key == 'Enter') {
+            event.preventDefault();
+            movieSearch()
+        };
     });
 }
+
+print();
 
 // 서브 페이지 열기
 function subPageOpen(clickMovieId) {
@@ -220,8 +225,6 @@ function genre_sort(value) {
 
     };
 }
-
-print();
 
 // 메인페이지 드랍다운 하는중
 document.addEventListener("DOMContentLoaded", () => {
