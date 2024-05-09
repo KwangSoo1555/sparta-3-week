@@ -1,30 +1,40 @@
 @font-face {
-    font-family: 'Cafe24ClassicType-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'KCC-Hanbit';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'TmonMonsori';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.vsc-initialized {
-    background-color: rgb(0, 0, 0);
+body {
+    background-color: black;
     font-family: 'KCC-Hanbit';
-    
+    color: white;
 }
 
+.none {
+    height: 50px;
+}
+
+.cardbox {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: right;
+    width: 1400px;
+    height: 715px;
+    margin-left: 200px;
+}
+
+.backbtn {
+background-color: white;
+border: 2px solid gray;
+padding: 3px;
+border-radius: 10px;
+font-size: small;
+margin-left: 1600px;
+}
+
+/* review create popup modal */
 .review-create-pop {
     display: flex;
     position: fixed;
@@ -32,20 +42,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(152, 152, 152);
+    background-color: rgb(148, 148, 148);
+    border-radius: 30px;
+    padding: 30px;
+    color: black;
 }
 
 .pop-info-1 {
     display: flex;
     width: 50vw;
     height: 50vh;
-    border-radius: 10px;
 }
 
 .pop-info-2 {
     width: 40vw;
     height: 40vh;
-    border-radius: 10px;
 }
 
 .go-to-toggle {
@@ -58,19 +69,33 @@
 
 .modal-footer {
     position: fixed;
-    bottom: 1vw;
-    right: 1vw;
+    bottom: 2vw;
+    right: 3vw;
 }
 
 .modal-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -40%);
+    scale: 150%;
 }
 
 /* review create popup modal */
+.card-wrapper {
+    display: grid;
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas:
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
+    place-items: center;
+    align-items: center;
+}
 
 .movie_img {
     width: 500px;
@@ -80,38 +105,116 @@
 }
 
 .movie_title {
-    font-family: 'TmonMonsori';
     grid-area: 1/2 / 1/2;
 }
 
 .movie_info {
-    background-color: rgb(156, 156, 156);
     width: 500px;
     grid-area: 2/2 / 4/2;
 }
 
-.movie_actor {
-    grid-area: 5/2 / 5/2;
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+}
+
+.back {
+    grid-area: b;
+    font-size: 20px;
+    color: white;
+    text-decoration-line: none;
+}
+
+.review_create_btn {
+    color: white;
+}
+
+.review_head_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 80px auto 30px auto;
+}
+
+.review_head {
+    background-color: rgb(214, 30, 30);
+    border-radius: 15px;
+    height: 10vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    transition-duration: 0.3s;
+}
+.kofic_rank {
+    background-color: white;
+}
+
+.review_head:hover {
+    scale: 105%;
 }
 
 
-.review {
+.review_head>img {
+    width: 60px;
+}
+
+.review_wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+}
+
+.review {
+    background-color: rgb(243, 241, 241);
+    height: 260px;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: right;
+    max-width: 50%;   
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #c4ccc3;
+    border-radius: 10px;
+    border-style: double;
+    
+}
+
+.inner1{
+    height: 260px;
+    margin: 90px;
+    font-size: 150%;
+}
+
+.inner2 {
+    height: 260px;
+    margin-right: 100px;
+    margin-top: 15px;
+}
+
+.mb-3 {
+    scale: 130%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: auto;
     height: auto;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(214, 30, 30);
+    width: 60%;
 }
-
-.review_card {
-    background-color: aqua;
-}
-
 
 /* review modify popup modal */
 .registed-modify-button {
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
 
@@ -122,178 +225,108 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(148, 148, 148);
+    border-radius: 30px;
+    padding: 20px;
+    color: black;
+}
+
+.review-modify-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
 }
 
 .pop-info-3 {
     width: 35vw;
     height: 35vh;
-    border-radius: 10px;
 }
 
 .content {
     display: grid;
+    grid-template: 0.3fr 0.5fr 0.1fr 0.1fr / 0.5fr 0.3fr 0.2fr;
+    grid-template-areas:
+        "i t"
+        "i info"
+        "i s"
+        "i b"
+    ;
 
     place-items: center;
     align-items: center;
 
-    background-color: rgb(255, 255, 255);
-    margin: 30px;
 }
 
 .movie_img {
-    height: fit-content;
-    grid-area: 1/1 / 5/1;
-    place-items: center;
-    align-items: center;
+    grid-area: i;
+
+    box-shadow: 0px 0px 30px 5px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
 }
 
 .movie_title {
-    grid-area: 1/2 / 1/2;
-    font-size: 70px;
+    grid-area: t;
+    font-size: 80px;
 }
 
 .movie_info {
-    background-color: rgb(143, 143, 143);
-    width: 500px;
-    grid-area: 2/2 / 4/2;
+    grid-area: info;
+    font-size: 20px
+}
+
+.movie_star {
+    grid-area: s;
+    font-size: 20px;
+
 }
 
 .back {
-    grid-area: 5/2 / 5/2;
+    background-color: rgb(214, 30, 30);
+    width: 5vw;
+    height: 4.3vh;
+    border-radius: 5px;
+
+    grid-area: b;
     font-size: 20px;
-    color: black;
+    color: white;
+    text-decoration-line: none;
+}
+
+.subpagecard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.review_modal {
+    background-color: rgb(168, 94, 94);
+    display: flex;
+    margin: 15px;
+    width: 1300px;
+    height: 100px;
+}
+
+.review_card {
+    width: 70%;
+    height: auto;
 }
 
 .review {
     background-color: rgb(255, 255, 255);
-    height: 500px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    justify-content: right;
-}
-
-.mb-3 {
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
+    color: black;
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
+    place-items: center;
     align-items: center;
-}
-
-.mb-3>label {
-    margin-right: 10px;
-    width: auto;
-}
-
-.review_card {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.review_card_body {
-    height: 300px;
-}
-
-
-.subPage {
-    display: grid;
-    margin: 2% 10% 2% 10%;
-    grid-template-columns: repeat(2, 1fr);
-    background-color: rgb(0, 0, 0);
-    border-radius: 10px;
-}
-
-.movieImg {
-    grid-column: 1;
-    grid-row: 1 / 6;
-    background-color: white;
-    border-radius: 10px;
-    margin: 1%;
-}
-
-.movieTitle {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: xx-large;
-    text-align: center;
-    background-color: white;
-    border-radius: 10px;
-    margin: 1%;
-}
-
-.movieOverview {
-    grid-column: 2;
-    grid-row: 3;
-    font-size: x-large;
-    background-color: white;
-    border-radius: 10px;
-    margin: 1%;;
-}
-
-.movieRate {
-    grid-column: 2;
-    grid-row: 5;
-    font-size: x-large;
-    text-align: center;
-    background-color: white;
-    border-radius: 10px;
-    margin: 1%;
-}
-
-.review-create {
-    margin: auto;
-    display: block;
-}
-
-.go-to-main {
-    margin: 3% auto 3% auto;
-    display: block;
-}
-
-.card-body {
-    display: grid;
-    margin-top: 3%;
-    grid-template-columns: repeat(2, 1fr);
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 40px 3px rgba(255, 255, 255, 0.7);
-    transition-duration: 0.3s;
-    border-radius: 10px;
-}
-
-.card-title {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.card-score {
-    grid-column: 2;
-    grid-row: 1;
-    text-align: right;
-}
-
-.card-text {
-    grid-column: 1 / 2;
-    grid-row: 2;
-}
-
-.registed-modify-button {
-    width: 30%;
-    grid-column: 2;
-    grid-row: 3;
-    justify-self: end;
-}
-
-.review-modify-wrapper {
-    margin: 3% 10% 3% 10%;
-}
-
-.modal-body p {
-    color: white;
-}
-
-.input-group-text {
-    background-color: rgb(0, 0, 0);
+    word-wrap: break-all;
+    justify-items: start;
 }

@@ -5,20 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  </head>
     <style>
-        @import "movie_page.css";
         @import "(reset).css";
+        @import "movie_page.css";
     </style>
+    
 </head>
 
 <body>
+    <div class="none"></div>
     <div class="details-page-wrapper" id="details-page-wrapper">
-        <div class="head">
+        <div class="review_head_div">
+            <button class="review_head" id="review-create-button-pop">
+                <h1>리뷰 한잔해</h1>
+                <img src="https://postfiles.pstatic.net/MjAyNDA1MDlfMjA3/MDAxNzE1MTk1MzU3MDc4.G_v7sSq57BI9IhGGhfEsqVvIPPFMUpaK_qBvdyrc_VUg.gZOa0x8reiU_b4NRCcBs9j5sAfHNX98gqMcU3FyBsJkg.PNG/%EB%A6%AC%EB%B7%B0%ED%95%9C%EC%9E%94%ED%95%B4.png?type=w773">
+            </button>
         </div>
-        <button class="btn btn-light go-to-main" onclick="window.location.href = './index.html'">돌아가기</button>
-        <button class="btn btn-light review-create" id="review-create-button-pop">리뷰작성</button>
 
         <div class="popup-wrapper" id="popup-wrapper">
 
@@ -41,7 +43,7 @@
                             </div>
                             <div class="modal-review-score-wrapper">
                                 <label class="input-group-text">
-                                    <p class="starColor">별점</p>
+                                    <p>별점</p>
                                     <select class="form-select" id="review-create-score">
                                         <option selected value="">별점을 골라주세요</option>
                                         <option value="★">★</option>
@@ -67,11 +69,12 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="go-to-toggle btn btn-secondary" id="review-create-go-second-pop"
+                            <button class="go-to-toggle" id="review-create-go-second-pop"
                                 data-bs-target="#review-create-pop-info-2" data-bs-toggle="modal" aria-label="Close">
                                 <p>저장하기</p>
                             </button>
-                            <button class="modal-cancel-button btn btn-secondary" id="popup-cancel">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="modal-cancel-button" id="popup-cancel">
                                 <p>취소</p>
                             </button>
                         </div>
@@ -88,18 +91,20 @@
                         </div>
 
                         <div class="modal-body">
-                            <p>입련된 정보가 다음과 같으면 정보가 비정상적으로 저장되어 리뷰를 작성할 수 없습니다.</p>
+                            <p>입련된 정보가 다음과 같으면 정보가 비정상적으로 저장되어 리뷰를 작성할 수 없습니다.</p><br>
                             <p>1. 이름을 빈칸 또는 2글자 이하로 작성한 경우.</p>
                             <p>2. 리뷰 작성란에 4글자 이하로 작성한 경우.</p>
-                            <p>3. 비밀번호를 3글자 이하 또는 </p>
+                            <p>3. 비밀번호를 3글자 이하로 작성한 경우.</p>
+                            <p>4. 별점을 선택하지 않은 경우.</p>
                         </div>
 
                         <div class="modal-footer" id="modal-footer">
-                            <button class="go-to-toggle btn btn-secondary" id="review-create-go-first-pop"
+                            <button class="go-to-toggle" id="review-create-go-first-pop"
                                 data-bs-target="#review-create-pop-info-1" data-bs-toggle="modal" aria-label="Close">
                                 <p>돌아가기</p>
                             </button>
-                            <button class="modal-cancel-button btn btn-secondary" id="popup-cancel">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="modal-cancel-button" id="popup-cancel">
                                 <p>취소</p>
                             </button>
                         </div>
@@ -123,7 +128,9 @@
                                 <label class="form-label">
                                     <p>이름</p>
                                     <input type="text" class="form-control" id="review-modify-name">
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 </label>
+                            </div><div>
                             </div>
                             <div class="modal-review-pw-wrapper">
                                 <label class="form-label">
@@ -134,11 +141,12 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="go-to-toggle btn btn-secondary" id="review-modify-go-second-pop"
+                            <button class="go-to-toggle" id="review-modify-go-second-pop"
                                 data-bs-target="#review-pop-info-2" data-bs-toggle="modal">
                                 <p>입력하기</p>
                             </button>
-                            <button class="modal-cancel-button btn btn-secondary" id="popup-cancel">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="modal-cancel-button" id="popup-cancel">
                                 <p>취소</p>
                             </button>
                         </div>
@@ -155,17 +163,19 @@
                         </div>
 
                         <div class="modal-body">
-                            <p>입련된 정보가 다음과 같으면 정보가 비정상적으로 탐색되어 리뷰를 수정, 삭제할 수 없습니다.</p>
+                            <p>입력된 정보가 다음과 같으면 정보가 비정상적으로</p>
+                            <p>탐색되어 리뷰를 수정, 삭제할 수 없습니다.</p><br>
                             <p>1. 리뷰를 작성했을 때의 이름을 정확히 입력하세요.</p>
                             <p>2. 리뷰를 작성했을 때의 비밀번호를 정확히 입력하세요.</p>
                         </div>
 
                         <div class="modal-footer" id="modal-footer">
-                            <button class="go-to-toggle btn btn-secondary" id="review-modify-go-first-pop"
+                            <button class="go-to-toggle" id="review-modify-go-first-pop"
                                 data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
                                 <p>돌아가기</p>
                             </button>
-                            <button class="modal-cancel-button btn btn-secondary" id="popup-cancel">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="modal-cancel-button" id="popup-cancel">
                                 <p>취소</p>
                             </button>
                         </div>
@@ -203,15 +213,17 @@
                         </div>
 
                         <div class="modal-footer" id="modal-footer">
-                            <button class="go-to-toggle btn btn-secondary" id="review-modify-checking-button"
+                            <button class="go-to-toggle" id="review-modify-checking-button"
                                 data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
                                 <p>수정하기</p>
                             </button>
-                            <button class="go-to-toggle btn btn-secondary" id="review-delete-checking-button"
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="go-to-toggle" id="review-delete-checking-button"
                                 data-bs-target="#review-pop-info-1" data-bs-toggle="modal" aria-label="Close">
                                 <p>삭제하기</p>
                             </button>
-                            <button class="modal-cancel-button btn btn-secondary" id="popup-cancel">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="modal-cancel-button" id="popup-cancel">
                                 <p>취소</p>
                             </button>
                         </div>
@@ -221,10 +233,13 @@
             <!-- pop up end point -->
 
         </div>
+        <div class="review_wrapper" id="review_wrapper"></div>
 
     </div>
+
+
+
     <script src="movie_page.js" defer></script>
-    <script src="https://fastly.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>
