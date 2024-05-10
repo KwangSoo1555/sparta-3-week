@@ -71,9 +71,6 @@ kofic_print();
 
 //탑10끝
 
-
-
-
 const movieData = [];
 async function getdata() {
     //페이지수 추가
@@ -157,8 +154,6 @@ function movieSearch() {
     }
 }
 
-
-
 // 카드 초기화
 function resetCard() {
 
@@ -179,13 +174,16 @@ const print = async () => {
         makeCard(item, count);
         count++;
     });
-
-    document.getElementById("searchbtn").addEventListener("click", movieSearch);
-    document.getElementById("search").focus();
-    document.getElementById("search").addEventListener('keydown', event => {
-        if (event.key == 'Enter') { movieSearch() };
-    });
 }
+
+document.getElementById("search").focus();
+document.getElementById("searchbtn").addEventListener("click", movieSearch);
+document.getElementById("searchbar").addEventListener('keydown', event => {
+    if (event.key === 'Enter') { 
+        event.preventDefault();
+        movieSearch();
+    };
+});
 
 // 서브 페이지 열기
 function subPageOpen(clickMovieId) {

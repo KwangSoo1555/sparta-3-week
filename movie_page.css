@@ -71,6 +71,7 @@ margin-left: 1600px;
     position: fixed;
     bottom: 2vw;
     right: 3vw;
+    font-size: 1.5vw;
 }
 
 .modal-body {
@@ -329,4 +330,15 @@ margin-left: 1600px;
     align-items: center;
     word-wrap: break-all;
     justify-items: start;
+}
+
+.modal-title {
+    font-size: 1.5vw;
+}
+
+.card-title, 
+.card-score, 
+.card-text, 
+.registed-modify-button {
+    font-size: 1.2vw;
 }
